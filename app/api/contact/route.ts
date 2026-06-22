@@ -2,11 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-<<<<<<< HEAD
 const TO = 'support@omniviqmarketing.ca'
-=======
-const TO = 'support@omniviqdigital.ca'
->>>>>>> b0ffe9eed9868b4ecb6614d762c4f520c5eb409d
 
 export async function POST(req: NextRequest) {
   let body: Record<string, string>
@@ -71,11 +67,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await transporter.sendMail({
-<<<<<<< HEAD
       from: `"Omniviq Marketing Website" <${process.env.SMTP_USER}>`,
-=======
-      from: `"Omniviq Digital Website" <${process.env.SMTP_USER}>`,
->>>>>>> b0ffe9eed9868b4ecb6614d762c4f520c5eb409d
       to: TO,
       replyTo: `"${name}" <${email}>`,
       subject: `Audit Request — ${name} @ ${business} (${service})`,

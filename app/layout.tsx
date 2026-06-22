@@ -10,11 +10,7 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-<<<<<<< HEAD
   title: 'Omniviq Marketing',
-=======
-  title: 'Omniviq Digital',
->>>>>>> b0ffe9eed9868b4ecb6614d762c4f520c5eb409d
   description:
     'Full-service digital marketing for local businesses — websites, ads, and content that actually converts.',
 }
