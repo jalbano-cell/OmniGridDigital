@@ -1,21 +1,20 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ContactForm from './contact-form'
+import { Nav } from '@/components/nav'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
-import { Banknote, CalendarDays, Handshake } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 const Globe = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
 
-gsap.registerPlugin(ScrollTrigger)
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -40,7 +39,6 @@ export default function Home() {
         <Hero />
         <Services />
         <WhyUs />
-        <Work />
         <Team />
         <Pricing />
         <ContactSection />
@@ -64,6 +62,7 @@ function PageBackground() {
   )
 }
 
+<<<<<<< HEAD
 // ─── Nav ──────────────────────────────────────────────────────────────────────
 function Nav() {
   const links = [
@@ -101,6 +100,8 @@ function Nav() {
   )
 }
 
+=======
+>>>>>>> b0ffe9eed9868b4ecb6614d762c4f520c5eb409d
 // ─── Pulsing status dot ───────────────────────────────────────────────────────
 function PulsingDot() {
   return (
@@ -165,15 +166,6 @@ function Hero() {
           >
             Get a Free Audit
           </motion.a>
-          <motion.a
-            href="#work"
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.2, ease }}
-            className={cn(buttonVariants({ variant: 'outline' }), 'border-gold-400/[0.18] text-ink-1 bg-gold-400/[0.04] backdrop-blur-sm hover:border-gold-400/30 hover:bg-gold-400/[0.08] hover:text-ink-0 text-sm font-semibold h-11 px-6')}
-          >
-            See Our Work
-          </motion.a>
         </div>
 
         <div data-h="trust" className="gsap-will-animate border-t border-gold-400/[0.08] pt-8">
@@ -196,9 +188,9 @@ function Hero() {
 
 // ─── Services ─────────────────────────────────────────────────────────────────
 const SERVICES = [
-  { number: '01', title: 'Web Design',       body: 'Custom websites built to convert visitors into customers. Fast, mobile-first, and built to last.' },
-  { number: '02', title: 'Paid Ads',         body: 'Meta and Google ad campaigns managed for maximum ROI. We handle the strategy, creative, and optimization.' },
-  { number: '03', title: 'Video Production', body: 'Professional video content shot and edited for ads, reels, and social media. Real production, real results.' },
+  { number: '01', title: 'Web Design',       slug: 'web-design',       body: 'Custom websites built to convert visitors into customers. Fast, mobile-first, and built to last.' },
+  { number: '02', title: 'Paid Ads',         slug: 'paid-ads',         body: 'Meta and Google ad campaigns managed for maximum ROI. We handle the strategy, creative, and optimization.' },
+  { number: '03', title: 'Video Production', slug: 'video-production', body: 'Professional video content shot and edited for ads, reels, and social media. Real production, real results.' },
 ]
 
 function Services() {
@@ -227,11 +219,13 @@ function Services() {
           variants={staggerContainer(0.13)}
         >
           {SERVICES.map((s) => (
-            <motion.div
+            <motion.a
               key={s.number}
+              href={`/services/${s.slug}`}
               variants={fadeUp}
               transition={{ duration: 0.6, ease }}
               whileHover={{ y: -7, transition: { duration: 0.25, ease } }}
+              className="block"
             >
               <Card className="bg-gold-400/[0.03] backdrop-blur-md border border-gold-400/[0.10] rounded-2xl shadow-none relative overflow-hidden group transition-colors duration-300 hover:bg-gold-400/[0.07] hover:border-gold-400/[0.18] h-full">
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-400/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" aria-hidden="true" />
@@ -239,9 +233,13 @@ function Services() {
                   <span className="text-[11px] font-bold tracking-[0.12em] text-gold-500">{s.number}</span>
                   <h3 className="text-lg font-bold tracking-[-0.02em] text-gold-200 leading-snug">{s.title}</h3>
                   <p className="text-[14.5px] text-ink-1 leading-[1.75]">{s.body}</p>
+                  <span className="mt-auto pt-2 flex items-center gap-1.5 text-[12px] font-semibold text-gold-400 group-hover:text-gold-300 transition-colors">
+                    View Work
+                    <ArrowRight className="w-3 h-3" />
+                  </span>
                 </CardContent>
               </Card>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
 
@@ -321,98 +319,6 @@ function WhyUs() {
   )
 }
 
-// ─── Work ─────────────────────────────────────────────────────────────────────
-const WORK = [
-  { client: 'Maplewood Bistro', type: 'Web Design',       title: 'Local Restaurant Rebrand',  stat: '+40%',  statLabel: 'online reservations',   body: 'Full site redesign with a streamlined booking flow — new site increased online reservations by 40%.' },
-  { client: 'FitForge Gym',     type: 'Paid Ads',         title: 'Gym Meta Ad Campaign',       stat: '3.8×',  statLabel: 'ROAS in first 60 days', body: 'Meta ad strategy built from the ground up — 3.8x return on ad spend in the first 60 days.' },
-  { client: 'Ember & Grain',    type: 'Video Production', title: 'Food Brand Content Shoot',   stat: '200K+', statLabel: 'organic reach',         body: '12 reels produced and edited for social — 200K+ organic reach with zero paid promotion.' },
-]
-
-const scaleUp = {
-  hidden: { opacity: 0, scale: 0.88 },
-  show:   { opacity: 1, scale: 1    },
-}
-
-function Work() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo('.stat-value',
-        { opacity: 0, scale: 0.55, y: 8 },
-        {
-          opacity: 1, scale: 1, y: 0,
-          duration: 0.7,
-          stagger: 0.18,
-          ease: 'back.out(1.8)',
-          clearProps: 'transform',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 68%',
-          },
-        }
-      )
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
-  return (
-    <section ref={sectionRef} className="py-[120px] border-t border-gold-400/[0.07]" id="work">
-      <div className="max-w-[1200px] mx-auto px-8">
-
-        <motion.div
-          className="mb-[72px]"
-          initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}
-          variants={fadeUp} transition={{ duration: 0.65, ease }}
-        >
-          <p className="text-[11.5px] font-semibold tracking-[0.15em] uppercase text-gold-400 mb-5">Portfolio</p>
-          <h2 className="text-[clamp(36px,5vw,56px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-gold-300">
-            Work That<br />
-            <span className="text-gold-200">Speaks for Itself.</span>
-          </h2>
-        </motion.div>
-
-        <motion.div
-          className="grid grid-cols-3 gap-5 max-md:grid-cols-2 max-sm:grid-cols-1"
-          initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
-          variants={staggerContainer(0.11)}
-        >
-          {WORK.map((item) => (
-            <motion.div
-              key={item.client}
-              variants={scaleUp}
-              transition={{ duration: 0.55, ease }}
-              whileHover={{ y: -8, transition: { duration: 0.25, ease } }}
-              className="group relative"
-            >
-              <Card className="bg-gold-400/[0.03] backdrop-blur-md border border-gold-400/[0.10] rounded-2xl overflow-hidden shadow-none transition-colors duration-300 hover:bg-gold-400/[0.07] hover:border-gold-400/[0.18] h-full">
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
-                <CardContent className="p-9 flex flex-col gap-4">
-                  <div className="flex items-center justify-between">
-                    <Badge variant="outline" className="text-[11px] font-bold tracking-[0.12em] uppercase text-gold-500 bg-gold-400/[0.08] border-gold-400/25 rounded-[4px] px-2.5 py-1 h-auto">
-                      {item.type}
-                    </Badge>
-                    <span className="text-[12.5px] text-ink-2 font-medium">{item.client}</span>
-                  </div>
-                  <div className="flex flex-col gap-0.5 py-2">
-                    <span className="stat-value opacity-0 text-[52px] font-extrabold tracking-[-0.04em] leading-none text-gold-300">
-                      {item.stat}
-                    </span>
-                    <span className="text-[12.5px] text-ink-2 font-medium tracking-wide">{item.statLabel}</span>
-                  </div>
-                  <h3 className="text-[19px] font-bold tracking-[-0.02em] text-gold-200 leading-snug">{item.title}</h3>
-                  <p className="text-sm text-ink-1 leading-[1.75]">{item.body}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-
-      </div>
-    </section>
-  )
-}
-
 // ─── Team ─────────────────────────────────────────────────────────────────────
 const TEAM = [
   { name: 'John Albano',     title: 'Founder & Tech Director'              },
@@ -483,90 +389,294 @@ function Team() {
 }
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
-const PRICING = [
+type FeatureType = 'yes' | 'no' | 'addon'
+
+const PACKAGES = [
   {
-    Icon: Banknote,
-    name: 'Foundation',
-    subtitle: 'Traditional Cash Partnership',
-    description: 'For businesses ready to grow, our Foundation model provides a straightforward, cash-based retainer structure. We work alongside you crafting strategies that align with your goals and drive measurable, lasting results.',
-    idealFor: 'Established and growth-focused businesses seeking a reliable, no-surprises partnership for digital marketing.',
+    name:         'Build & Handoff',
+    price:        'One-time',
+    priceSub:     'build fee — you own everything',
+    tagline:      'For clients who want to fully own and edit the site themselves.',
+    popular:      false,
+    annualPrice:  null as string | null,
+    annualSaving: null as string | null,
+    features: [
+      { type: 'no'    as FeatureType, text: 'Hosting & monthly costs — you manage' },
+      { type: 'no'    as FeatureType, text: 'Maintenance — DIY'                    },
+      { type: 'no'    as FeatureType, text: 'Uptime, SSL, security & backups'      },
+      { type: 'addon' as FeatureType, text: 'CMS to edit without code — add-on'   },
+      { type: 'addon' as FeatureType, text: 'Booking app — add-on'                },
+      { type: 'no'    as FeatureType, text: 'New pages / features — quoted'        },
+    ],
   },
   {
-    Icon: CalendarDays,
-    name: 'Catalyst',
-    subtitle: 'Flexible Payment Model',
-    description: 'Access our full suite of services today while spreading payments over a flexible 6–12 month period. A small retainer and manageable surcharge lets us move fast without stretching your budget.',
-    idealFor: 'Ambitious brands seeking immediate results and a structured payment plan that supports long-term growth.',
+    name:         'Build & Care',
+    price:        'From $149',
+    priceSub:     '/ month',
+    tagline:      'For most small businesses that just want it handled.',
+    popular:      true,
+    annualPrice:  '$134',
+    annualSaving: 'Save 10%',
+    features: [
+      { type: 'yes'   as FeatureType, text: 'Hosting & monthly costs — included'       },
+      { type: 'yes'   as FeatureType, text: 'We maintain the site for you'             },
+      { type: 'yes'   as FeatureType, text: 'Uptime, SSL, security & backups'          },
+      { type: 'yes'   as FeatureType, text: 'Up to 4 edits / month, 48-hr turnaround' },
+      { type: 'yes'   as FeatureType, text: 'CMS included — edit without code'         },
+      { type: 'addon' as FeatureType, text: 'Booking app — add-on (+ small monthly)'  },
+    ],
   },
   {
-    Icon: Handshake,
-    name: 'Venture',
-    subtitle: 'Equity-Based Collaboration',
-    description: 'Our Venture model lets you offset up to 50% of costs through an equity-based agreement. Designed for startups and visionary brands with high potential — we share the risk and share the reward.',
-    idealFor: 'Bold startups and purpose-driven businesses looking for a dedicated partner invested in their journey.',
+    name:         'Build & Grow',
+    price:        'From $399',
+    priceSub:     '/ month',
+    tagline:      'For sites that drive leads, bookings, or sales.',
+    popular:      false,
+    annualPrice:  '$349',
+    annualSaving: 'Save 13%',
+    features: [
+      { type: 'yes' as FeatureType, text: 'Everything in Care, plus…'                  },
+      { type: 'yes' as FeatureType, text: 'Larger edit allowance, priority turnaround' },
+      { type: 'yes' as FeatureType, text: 'Monthly analytics & reporting'              },
+      { type: 'yes' as FeatureType, text: 'Ongoing SEO & performance tuning'           },
+      { type: 'yes' as FeatureType, text: 'Periodic new pages / features included'     },
+      { type: 'yes' as FeatureType, text: 'Booking app — included'                     },
+    ],
   },
 ]
 
 function Pricing() {
+  const [annual, setAnnual] = useState(false)
+
   return (
     <section className="py-[120px] border-t border-gold-400/[0.07]" id="pricing">
       <div className="max-w-[1200px] mx-auto px-8">
 
         <motion.div
-          className="mb-[72px]"
+          className="mb-[56px] max-w-[600px]"
           initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}
           variants={fadeUp} transition={{ duration: 0.65, ease }}
         >
           <p className="text-[11.5px] font-semibold tracking-[0.15em] uppercase text-gold-400 mb-5">Pricing</p>
-          <h2 className="text-[clamp(36px,5vw,56px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-gold-300">
-            Our Affordable<br />
-            <span className="text-gold-200">Pricing Options.</span>
+          <h2 className="text-[clamp(36px,5vw,56px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-gold-300 mb-5">
+            Website Packages<br />
+            <span className="text-gold-200">Built Around You.</span>
           </h2>
+          <p className="text-[17px] text-ink-1 leading-[1.75]">
+            Every site starts with a one-time custom build. Pick how hands-on you want us afterward.
+          </p>
+        </motion.div>
+
+        {/* Billing toggle */}
+        <motion.div
+          className="flex items-center gap-4 mb-12"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease, delay: 0.15 }}
+        >
+          <span className={cn(
+            'text-[13.5px] font-semibold transition-colors duration-200',
+            !annual ? 'text-ink-0' : 'text-ink-3'
+          )}>
+            Monthly
+          </span>
+
+          <button
+            role="switch"
+            aria-checked={annual}
+            aria-label="Toggle 12-month commitment"
+            onClick={() => setAnnual(p => !p)}
+            className={cn(
+              'relative w-12 h-[26px] rounded-full border transition-colors duration-300 shrink-0 cursor-pointer',
+              annual ? 'bg-gold-300 border-gold-300' : 'bg-gold-400/[0.08] border-gold-400/[0.22]'
+            )}
+          >
+            <motion.div
+              animate={{ x: annual ? 22 : 0 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className={cn(
+                'absolute top-[3px] left-[3px] w-5 h-5 rounded-full',
+                annual ? 'bg-surface-0' : 'bg-gold-300'
+              )}
+            />
+          </button>
+
+          <div className="flex items-center gap-2.5">
+            <span className={cn(
+              'text-[13.5px] font-semibold transition-colors duration-200',
+              annual ? 'text-ink-0' : 'text-ink-3'
+            )}>
+              12 Months
+            </span>
+            <span className="text-[10px] font-extrabold tracking-[0.1em] uppercase text-gold-400 bg-gold-400/[0.08] border border-gold-400/[0.20] px-2.5 py-1 rounded-full">
+              Best Value
+            </span>
+          </div>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-3 gap-5 max-md:grid-cols-1"
+          className="grid grid-cols-3 gap-5 max-md:grid-cols-1 mb-6"
           initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
           variants={staggerContainer(0.13)}
         >
-          {PRICING.map((plan) => (
+          {PACKAGES.map((pkg) => (
             <motion.div
-              key={plan.name}
+              key={pkg.name}
               variants={fadeUp}
               transition={{ duration: 0.6, ease }}
               whileHover={{ y: -7, transition: { duration: 0.25, ease } }}
-              className="group"
+              className={cn(
+                'relative rounded-2xl overflow-hidden',
+                pkg.popular
+                  ? 'bg-gold-400/[0.06] border border-gold-400/[0.25]'
+                  : 'bg-gold-400/[0.03] border border-gold-400/[0.10]'
+              )}
             >
-              <Card className="relative bg-gold-400/[0.04] backdrop-blur-md border border-gold-400/[0.10] rounded-2xl shadow-none overflow-hidden transition-colors duration-300 hover:bg-gold-400/[0.08] hover:border-gold-400/[0.20] h-full min-h-[420px]">
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-300/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" aria-hidden="true" />
-                <CardContent className="p-9 flex flex-col h-full gap-6">
+              {pkg.popular && (
+                <>
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-300/50 to-transparent" aria-hidden="true" />
+                  <div className="absolute top-0 left-0 right-0 flex justify-center">
+                    <span className="text-[10px] font-extrabold tracking-[0.14em] uppercase bg-gold-300 text-black px-4 py-1.5 rounded-b-lg">
+                      Most Popular
+                    </span>
+                  </div>
+                </>
+              )}
 
-                  {/* Icon */}
-                  <div className="w-14 h-14 rounded-2xl border border-gold-400/[0.18] bg-gold-400/[0.06] flex items-center justify-center shrink-0">
-                    <plan.Icon className="w-6 h-6 text-gold-300" strokeWidth={1.5} />
+              <div className={cn('p-9 flex flex-col h-full', pkg.popular && 'pt-12')}>
+                <div className="mb-7">
+                  <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-gold-500 mb-3">
+                    {pkg.name}
+                  </p>
+
+                  {/* Price — animates between monthly and annual */}
+                  <div className="flex items-end gap-2.5 mb-1 min-h-[52px]">
+                    <AnimatePresence mode="wait">
+                      {annual && pkg.annualPrice ? (
+                        <motion.div
+                          key="annual"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.22, ease }}
+                          className="flex items-baseline gap-1.5"
+                        >
+                          <span className="text-[38px] font-extrabold tracking-[-0.04em] leading-none text-gold-300">
+                            {pkg.annualPrice}
+                          </span>
+                          <span className="text-[13px] text-ink-2 font-medium">/ month</span>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="monthly"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.22, ease }}
+                          className="flex items-baseline gap-1.5"
+                        >
+                          <span className="text-[38px] font-extrabold tracking-[-0.04em] leading-none text-gold-300">
+                            {pkg.price}
+                          </span>
+                          <span className="text-[13px] text-ink-2 font-medium">{pkg.priceSub}</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    <AnimatePresence>
+                      {annual && pkg.annualSaving && (
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.75 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.75 }}
+                          transition={{ duration: 0.22, ease }}
+                          className="mb-1 text-[10.5px] font-extrabold tracking-[0.08em] uppercase text-black bg-gold-300 px-2.5 py-1 rounded-full shrink-0"
+                        >
+                          {pkg.annualSaving}
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
                   </div>
 
-                  {/* Content */}
-                  <div className="flex flex-col gap-4 flex-1 justify-end">
-                    <div>
-                      <h3 className="text-[28px] font-extrabold tracking-[-0.03em] text-gold-200 leading-tight mb-1">
-                        {plan.name}
-                      </h3>
-                      <p className="text-[12.5px] font-bold tracking-[0.04em] text-gold-400 uppercase">
-                        {plan.subtitle}
-                      </p>
-                    </div>
-                    <p className="text-[14px] text-ink-1 leading-[1.75]">{plan.description}</p>
-                    <p className="text-[13.5px] text-ink-1 leading-[1.65]">
-                      <span className="font-bold text-gold-200">Ideal for: </span>
-                      {plan.idealFor}
-                    </p>
-                  </div>
+                  <AnimatePresence>
+                    {annual && pkg.annualPrice && (
+                      <motion.p
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.22, ease }}
+                        className="text-[11.5px] font-semibold text-gold-400 mb-3 overflow-hidden"
+                      >
+                        12-month commitment
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
 
-                </CardContent>
-              </Card>
+                  <p className="text-[14px] text-ink-1 leading-[1.65]">{pkg.tagline}</p>
+                </div>
+
+                <div className="h-px bg-gold-400/[0.08] mb-6" />
+
+                <ul className="flex flex-col gap-3.5">
+                  {/* Waived build fee bonus — appears on annual toggle */}
+                  <AnimatePresence>
+                    {annual && pkg.annualPrice && (
+                      <motion.li
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25, ease }}
+                        className="flex items-start gap-3 overflow-hidden"
+                      >
+                        <span className="text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center text-gold-300">✓</span>
+                        <span className="text-[13.5px] leading-[1.6] text-gold-200 font-semibold">
+                          Website build fee waived
+                        </span>
+                      </motion.li>
+                    )}
+                  </AnimatePresence>
+
+                  {pkg.features.map((f, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className={cn(
+                        'text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center',
+                        f.type === 'yes'   && 'text-gold-300',
+                        f.type === 'no'    && 'text-ink-3',
+                        f.type === 'addon' && 'text-gold-400',
+                      )}>
+                        {f.type === 'yes' ? '✓' : f.type === 'addon' ? '+' : '×'}
+                      </span>
+                      <span className={cn(
+                        'text-[13.5px] leading-[1.6]',
+                        f.type === 'no' ? 'text-ink-3' : 'text-ink-1',
+                      )}>
+                        {f.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          className="bg-gold-400/[0.03] border border-gold-400/[0.08] rounded-xl p-6"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease }}
+        >
+          <p className="text-[13.5px] text-ink-1 leading-[1.8]">
+            <span className="font-bold text-gold-200">How it works: </span>
+            Every site begins with a one-time custom build (typical range $1,000–$5,000 depending on scope).
+            After launch, choose the plan that matches how involved you want us to be.
+            Ask about <span className="font-semibold text-gold-300">reduced build pricing</span> when
+            you commit to a 12-month Care or Grow plan. Plans are month-to-month and you can move up
+            a tier any time. Taxes not included.{' '}
+            <span className="text-ink-2">Prices may vary on a case-by-case basis depending on project complexity and requirements.</span>
+          </p>
         </motion.div>
 
       </div>
@@ -619,10 +729,21 @@ function ContactSection() {
 }
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
-const FOOTER_LINKS = {
-  Services:  ['Web Design', 'Paid Ads', 'Video Production'],
-  Company:   ['About', 'Our Work', 'Team', 'Contact'],
-  Resources: ['Blog', 'Case Studies', 'Free Audit'],
+const FOOTER_LINKS: Record<string, { label: string; href: string }[]> = {
+  Services: [
+    { label: 'Web Design',       href: '/services/web-design'       },
+    { label: 'Paid Ads',         href: '/services/paid-ads'         },
+    { label: 'Video Production', href: '/services/video-production' },
+  ],
+  Company: [
+    { label: 'Team',    href: '#team'    },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'Contact', href: '#contact' },
+  ],
+  Resources: [
+    { label: 'Blog',       href: '#'        },
+    { label: 'Free Audit', href: '#contact' },
+  ],
 }
 
 function Footer() {
@@ -631,8 +752,13 @@ function Footer() {
       <div className="max-w-[1200px] mx-auto px-8">
         <div className="grid grid-cols-[260px_1fr] gap-20 mb-16 max-md:grid-cols-1 max-md:gap-12">
           <div>
+<<<<<<< HEAD
             <a href="/" className="text-[17px] font-extrabold tracking-tight text-gold-300 transition-colors hover:text-gold-200">
               Omniviq Marketing
+=======
+            <a href="/" className="text-base font-extrabold tracking-tight text-gold-300 transition-colors hover:text-gold-200">
+              Omniviq Digital
+>>>>>>> b0ffe9eed9868b4ecb6614d762c4f520c5eb409d
             </a>
             <p className="mt-5 text-sm text-ink-2 leading-[1.7]">
               Full-service digital marketing<br />for local businesses in Toronto.
@@ -643,10 +769,10 @@ function Footer() {
               <div key={group}>
                 <span className="block text-[11px] font-bold tracking-[0.12em] uppercase text-ink-2 mb-5">{group}</span>
                 <ul className="flex flex-col gap-3">
-                  {links.map((link) => (
-                    <li key={link}>
-                      <a href={`#${link.toLowerCase().replace(/\s/g, '-')}`} className="text-sm text-ink-2 transition-colors hover:text-ink-0">
-                        {link}
+                  {links.map(({ label, href }) => (
+                    <li key={label}>
+                      <a href={href} className="text-sm text-ink-2 transition-colors hover:text-ink-0">
+                        {label}
                       </a>
                     </li>
                   ))}
@@ -658,10 +784,17 @@ function Footer() {
         <Separator className="bg-gold-400/[0.08] mb-8" />
         <div className="flex items-center justify-between flex-wrap gap-2">
           <span className="text-[12.5px] text-ink-3">
+<<<<<<< HEAD
             &copy; {new Date().getFullYear()} Omniviq Marketing. Toronto, ON. All rights reserved.
           </span>
           <a href="mailto:support@omniviqmarketing.ca" className="text-[12.5px] text-ink-2 transition-colors hover:text-gold-300">
             support@omniviqmarketing.ca
+=======
+            &copy; {new Date().getFullYear()} Omniviq Digital. Toronto, ON. All rights reserved.
+          </span>
+          <a href="mailto:support@omniviqdigital.ca" className="text-[12.5px] text-ink-2 transition-colors hover:text-gold-300">
+            support@omniviqdigital.ca
+>>>>>>> b0ffe9eed9868b4ecb6614d762c4f520c5eb409d
           </a>
         </div>
       </div>
