@@ -78,7 +78,7 @@ function Nav() {
     <header className="fixed top-0 left-0 right-0 z-50 h-[68px] border-b border-[#888888]/20 bg-[rgba(0,0,0,0.85)] backdrop-blur-2xl">
       <div className="h-full max-w-[1200px] mx-auto px-8 flex items-center gap-10">
         <a href="/" className="text-[17px] font-extrabold tracking-tight text-gold-300 shrink-0 transition-colors hover:text-gold-200">
-          Vanta Marketing
+          Omniviq Marketing
         </a>
         <nav className="flex items-center gap-0.5 flex-1 max-md:hidden" aria-label="Main navigation">
           {links.map(({ href, label }) => (
@@ -631,8 +631,8 @@ function Footer() {
       <div className="max-w-[1200px] mx-auto px-8">
         <div className="grid grid-cols-[260px_1fr] gap-20 mb-16 max-md:grid-cols-1 max-md:gap-12">
           <div>
-            <a href="/" className="text-base font-extrabold tracking-tight text-gold-300 transition-colors hover:text-gold-200">
-              Vanta Marketing
+            <a href="/" className="text-[17px] font-extrabold tracking-tight text-gold-300 transition-colors hover:text-gold-200">
+              Omniviq Marketing
             </a>
             <p className="mt-5 text-sm text-ink-2 leading-[1.7]">
               Full-service digital marketing<br />for local businesses in Toronto.
@@ -658,10 +658,10 @@ function Footer() {
         <Separator className="bg-gold-400/[0.08] mb-8" />
         <div className="flex items-center justify-between flex-wrap gap-2">
           <span className="text-[12.5px] text-ink-3">
-            &copy; {new Date().getFullYear()} Vanta Marketing. Toronto, ON. All rights reserved.
+            &copy; {new Date().getFullYear()} Omniviq Marketing. Toronto, ON. All rights reserved.
           </span>
-          <a href="mailto:support@vantamarketing.ca" className="text-[12.5px] text-ink-2 transition-colors hover:text-gold-300">
-            support@vantamarketing.ca
+          <a href="mailto:support@omniviqmarketing.ca" className="text-[12.5px] text-ink-2 transition-colors hover:text-gold-300">
+            support@omniviqmarketing.ca
           </a>
         </div>
       </div>

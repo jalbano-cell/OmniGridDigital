@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-const TO = 'support@vantamarketing.ca'
+const TO = 'support@omniviqmarketing.ca'
 
 export async function POST(req: NextRequest) {
   let body: Record<string, string>
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await transporter.sendMail({
-      from: `"Vanta Marketing Website" <${process.env.SMTP_USER}>`,
+      from: `"Omniviq Marketing Website" <${process.env.SMTP_USER}>`,
       to: TO,
       replyTo: `"${name}" <${email}>`,
       subject: `Audit Request — ${name} @ ${business} (${service})`,
