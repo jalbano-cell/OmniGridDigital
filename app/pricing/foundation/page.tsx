@@ -32,7 +32,7 @@ const STEPS: Step[] = [
 const FEATURES: Feature[] = [
   {
     title: 'Full Service Access',
-    body:  'Web Design, Paid Ads, and Video Production — all under one retainer, one team, one point of contact.',
+    body:  'Web Design, Paid Ads, and Video Production under one retainer. Web design includes a custom build plus your choice of Build & Care ($149/mo) or Build & Grow ($399/mo) ongoing package.',
   },
   {
     title: 'Dedicated Account Manager',

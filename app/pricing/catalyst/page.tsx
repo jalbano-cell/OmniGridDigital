@@ -32,7 +32,7 @@ const STEPS: Step[] = [
 const FEATURES: Feature[] = [
   {
     title: 'Full Services From Day One',
-    body:  'Web Design, Paid Ads, and Video Production all start immediately — you don\'t wait until you\'ve "paid enough."',
+    body:  'Web Design (including custom build + Build & Care or Build & Grow ongoing package), Paid Ads, and Video Production — all financed across your chosen term, starting immediately.',
   },
   {
     title: '6 or 12-Month Payment Plans',

@@ -36,7 +36,7 @@ const FEATURES: Feature[] = [
   },
   {
     title: 'Full Agency Services',
-    body:  'Web Design, Paid Ads, and Video Production — the complete suite, applied with a long-term strategic lens.',
+    body:  'Web Design (custom build + Build & Care or Build & Grow package), Paid Ads, and Video Production — costs offset through the equity agreement, applied with a long-term strategic lens.',
   },
   {
     title: 'Senior Team Involvement',

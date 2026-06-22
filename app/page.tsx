@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import gsap from 'gsap'
 import ContactForm from './contact-form'
@@ -11,7 +11,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
-import { Banknote, CalendarDays, Handshake, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 const Globe = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
 
@@ -349,96 +349,294 @@ function Team() {
 }
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
-const PRICING = [
+type FeatureType = 'yes' | 'no' | 'addon'
+
+const PACKAGES = [
   {
-    Icon:        Banknote,
-    name:        'Foundation',
-    slug:        'foundation',
-    subtitle:    'Traditional Cash Partnership',
-    description: 'For businesses ready to grow, our Foundation model provides a straightforward, cash-based retainer structure. We work alongside you crafting strategies that align with your goals and drive measurable, lasting results.',
-    idealFor:    'Established and growth-focused businesses seeking a reliable, no-surprises partnership for digital marketing.',
+    name:         'Build & Handoff',
+    price:        'One-time',
+    priceSub:     'build fee — you own everything',
+    tagline:      'For clients who want to fully own and edit the site themselves.',
+    popular:      false,
+    annualPrice:  null as string | null,
+    annualSaving: null as string | null,
+    features: [
+      { type: 'no'    as FeatureType, text: 'Hosting & monthly costs — you manage' },
+      { type: 'no'    as FeatureType, text: 'Maintenance — DIY'                    },
+      { type: 'no'    as FeatureType, text: 'Uptime, SSL, security & backups'      },
+      { type: 'addon' as FeatureType, text: 'CMS to edit without code — add-on'   },
+      { type: 'addon' as FeatureType, text: 'Booking app — add-on'                },
+      { type: 'no'    as FeatureType, text: 'New pages / features — quoted'        },
+    ],
   },
   {
-    Icon:        CalendarDays,
-    name:        'Catalyst',
-    slug:        'catalyst',
-    subtitle:    'Flexible Payment Model',
-    description: 'Access our full suite of services today while spreading payments over a flexible 6–12 month period. A small retainer and manageable surcharge lets us move fast without stretching your budget.',
-    idealFor:    'Ambitious brands seeking immediate results and a structured payment plan that supports long-term growth.',
+    name:         'Build & Care',
+    price:        'From $149',
+    priceSub:     '/ month',
+    tagline:      'For most small businesses that just want it handled.',
+    popular:      true,
+    annualPrice:  '$134',
+    annualSaving: 'Save 10%',
+    features: [
+      { type: 'yes'   as FeatureType, text: 'Hosting & monthly costs — included'       },
+      { type: 'yes'   as FeatureType, text: 'We maintain the site for you'             },
+      { type: 'yes'   as FeatureType, text: 'Uptime, SSL, security & backups'          },
+      { type: 'yes'   as FeatureType, text: 'Up to 4 edits / month, 48-hr turnaround' },
+      { type: 'yes'   as FeatureType, text: 'CMS included — edit without code'         },
+      { type: 'addon' as FeatureType, text: 'Booking app — add-on (+ small monthly)'  },
+    ],
   },
   {
-    Icon:        Handshake,
-    name:        'Venture',
-    slug:        'venture',
-    subtitle:    'Equity-Based Collaboration',
-    description: 'Our Venture model lets you offset up to 50% of costs through an equity-based agreement. Designed for startups and visionary brands with high potential — we share the risk and share the reward.',
-    idealFor:    'Bold startups and purpose-driven businesses looking for a dedicated partner invested in their journey.',
+    name:         'Build & Grow',
+    price:        'From $399',
+    priceSub:     '/ month',
+    tagline:      'For sites that drive leads, bookings, or sales.',
+    popular:      false,
+    annualPrice:  '$349',
+    annualSaving: 'Save 13%',
+    features: [
+      { type: 'yes' as FeatureType, text: 'Everything in Care, plus…'                  },
+      { type: 'yes' as FeatureType, text: 'Larger edit allowance, priority turnaround' },
+      { type: 'yes' as FeatureType, text: 'Monthly analytics & reporting'              },
+      { type: 'yes' as FeatureType, text: 'Ongoing SEO & performance tuning'           },
+      { type: 'yes' as FeatureType, text: 'Periodic new pages / features included'     },
+      { type: 'yes' as FeatureType, text: 'Booking app — included'                     },
+    ],
   },
 ]
 
 function Pricing() {
+  const [annual, setAnnual] = useState(false)
+
   return (
     <section className="py-[120px] border-t border-gold-400/[0.07]" id="pricing">
       <div className="max-w-[1200px] mx-auto px-8">
 
         <motion.div
-          className="mb-[72px]"
+          className="mb-[56px] max-w-[600px]"
           initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}
           variants={fadeUp} transition={{ duration: 0.65, ease }}
         >
           <p className="text-[11.5px] font-semibold tracking-[0.15em] uppercase text-gold-400 mb-5">Pricing</p>
-          <h2 className="text-[clamp(36px,5vw,56px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-gold-300">
-            Our Affordable<br />
-            <span className="text-gold-200">Pricing Options.</span>
+          <h2 className="text-[clamp(36px,5vw,56px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-gold-300 mb-5">
+            Website Packages<br />
+            <span className="text-gold-200">Built Around You.</span>
           </h2>
+          <p className="text-[17px] text-ink-1 leading-[1.75]">
+            Every site starts with a one-time custom build. Pick how hands-on you want us afterward.
+          </p>
+        </motion.div>
+
+        {/* Billing toggle */}
+        <motion.div
+          className="flex items-center gap-4 mb-12"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease, delay: 0.15 }}
+        >
+          <span className={cn(
+            'text-[13.5px] font-semibold transition-colors duration-200',
+            !annual ? 'text-ink-0' : 'text-ink-3'
+          )}>
+            Monthly
+          </span>
+
+          <button
+            role="switch"
+            aria-checked={annual}
+            aria-label="Toggle 12-month commitment"
+            onClick={() => setAnnual(p => !p)}
+            className={cn(
+              'relative w-12 h-[26px] rounded-full border transition-colors duration-300 shrink-0 cursor-pointer',
+              annual ? 'bg-gold-300 border-gold-300' : 'bg-gold-400/[0.08] border-gold-400/[0.22]'
+            )}
+          >
+            <motion.div
+              animate={{ x: annual ? 22 : 0 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className={cn(
+                'absolute top-[3px] left-[3px] w-5 h-5 rounded-full',
+                annual ? 'bg-surface-0' : 'bg-gold-300'
+              )}
+            />
+          </button>
+
+          <div className="flex items-center gap-2.5">
+            <span className={cn(
+              'text-[13.5px] font-semibold transition-colors duration-200',
+              annual ? 'text-ink-0' : 'text-ink-3'
+            )}>
+              12 Months
+            </span>
+            <span className="text-[10px] font-extrabold tracking-[0.1em] uppercase text-gold-400 bg-gold-400/[0.08] border border-gold-400/[0.20] px-2.5 py-1 rounded-full">
+              Best Value
+            </span>
+          </div>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-3 gap-5 max-md:grid-cols-1"
+          className="grid grid-cols-3 gap-5 max-md:grid-cols-1 mb-6"
           initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
           variants={staggerContainer(0.13)}
         >
-          {PRICING.map((plan) => (
-            <motion.a
-              key={plan.name}
-              href={`/pricing/${plan.slug}`}
+          {PACKAGES.map((pkg) => (
+            <motion.div
+              key={pkg.name}
               variants={fadeUp}
               transition={{ duration: 0.6, ease }}
               whileHover={{ y: -7, transition: { duration: 0.25, ease } }}
-              className="group block"
+              className={cn(
+                'relative rounded-2xl overflow-hidden',
+                pkg.popular
+                  ? 'bg-gold-400/[0.06] border border-gold-400/[0.25]'
+                  : 'bg-gold-400/[0.03] border border-gold-400/[0.10]'
+              )}
             >
-              <Card className="relative bg-gold-400/[0.04] backdrop-blur-md border border-gold-400/[0.10] rounded-2xl shadow-none overflow-hidden transition-colors duration-300 hover:bg-gold-400/[0.08] hover:border-gold-400/[0.20] h-full min-h-[420px]">
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-300/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" aria-hidden="true" />
-                <CardContent className="p-9 flex flex-col h-full gap-6">
-
-                  <div className="w-14 h-14 rounded-2xl border border-gold-400/[0.18] bg-gold-400/[0.06] flex items-center justify-center shrink-0">
-                    <plan.Icon className="w-6 h-6 text-gold-300" strokeWidth={1.5} />
-                  </div>
-
-                  <div className="flex flex-col gap-4 flex-1 justify-end">
-                    <div>
-                      <h3 className="text-[28px] font-extrabold tracking-[-0.03em] text-gold-200 leading-tight mb-1">
-                        {plan.name}
-                      </h3>
-                      <p className="text-[12.5px] font-bold tracking-[0.04em] text-gold-400 uppercase">
-                        {plan.subtitle}
-                      </p>
-                    </div>
-                    <p className="text-[14px] text-ink-1 leading-[1.75]">{plan.description}</p>
-                    <p className="text-[13.5px] text-ink-1 leading-[1.65]">
-                      <span className="font-bold text-gold-200">Ideal for: </span>
-                      {plan.idealFor}
-                    </p>
-                    <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gold-400 group-hover:text-gold-300 transition-colors">
-                      Learn More
-                      <ArrowRight className="w-3 h-3" />
+              {pkg.popular && (
+                <>
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-300/50 to-transparent" aria-hidden="true" />
+                  <div className="absolute top-0 left-0 right-0 flex justify-center">
+                    <span className="text-[10px] font-extrabold tracking-[0.14em] uppercase bg-gold-300 text-black px-4 py-1.5 rounded-b-lg">
+                      Most Popular
                     </span>
                   </div>
+                </>
+              )}
 
-                </CardContent>
-              </Card>
-            </motion.a>
+              <div className={cn('p-9 flex flex-col h-full', pkg.popular && 'pt-12')}>
+                <div className="mb-7">
+                  <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-gold-500 mb-3">
+                    {pkg.name}
+                  </p>
+
+                  {/* Price — animates between monthly and annual */}
+                  <div className="flex items-end gap-2.5 mb-1 min-h-[52px]">
+                    <AnimatePresence mode="wait">
+                      {annual && pkg.annualPrice ? (
+                        <motion.div
+                          key="annual"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.22, ease }}
+                          className="flex items-baseline gap-1.5"
+                        >
+                          <span className="text-[38px] font-extrabold tracking-[-0.04em] leading-none text-gold-300">
+                            {pkg.annualPrice}
+                          </span>
+                          <span className="text-[13px] text-ink-2 font-medium">/ month</span>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="monthly"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.22, ease }}
+                          className="flex items-baseline gap-1.5"
+                        >
+                          <span className="text-[38px] font-extrabold tracking-[-0.04em] leading-none text-gold-300">
+                            {pkg.price}
+                          </span>
+                          <span className="text-[13px] text-ink-2 font-medium">{pkg.priceSub}</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    <AnimatePresence>
+                      {annual && pkg.annualSaving && (
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.75 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.75 }}
+                          transition={{ duration: 0.22, ease }}
+                          className="mb-1 text-[10.5px] font-extrabold tracking-[0.08em] uppercase text-black bg-gold-300 px-2.5 py-1 rounded-full shrink-0"
+                        >
+                          {pkg.annualSaving}
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <AnimatePresence>
+                    {annual && pkg.annualPrice && (
+                      <motion.p
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.22, ease }}
+                        className="text-[11.5px] font-semibold text-gold-400 mb-3 overflow-hidden"
+                      >
+                        12-month commitment
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+
+                  <p className="text-[14px] text-ink-1 leading-[1.65]">{pkg.tagline}</p>
+                </div>
+
+                <div className="h-px bg-gold-400/[0.08] mb-6" />
+
+                <ul className="flex flex-col gap-3.5">
+                  {/* Waived build fee bonus — appears on annual toggle */}
+                  <AnimatePresence>
+                    {annual && pkg.annualPrice && (
+                      <motion.li
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25, ease }}
+                        className="flex items-start gap-3 overflow-hidden"
+                      >
+                        <span className="text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center text-gold-300">✓</span>
+                        <span className="text-[13.5px] leading-[1.6] text-gold-200 font-semibold">
+                          Website build fee waived
+                        </span>
+                      </motion.li>
+                    )}
+                  </AnimatePresence>
+
+                  {pkg.features.map((f, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className={cn(
+                        'text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center',
+                        f.type === 'yes'   && 'text-gold-300',
+                        f.type === 'no'    && 'text-ink-3',
+                        f.type === 'addon' && 'text-gold-400',
+                      )}>
+                        {f.type === 'yes' ? '✓' : f.type === 'addon' ? '+' : '×'}
+                      </span>
+                      <span className={cn(
+                        'text-[13.5px] leading-[1.6]',
+                        f.type === 'no' ? 'text-ink-3' : 'text-ink-1',
+                      )}>
+                        {f.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          className="bg-gold-400/[0.03] border border-gold-400/[0.08] rounded-xl p-6"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease }}
+        >
+          <p className="text-[13.5px] text-ink-1 leading-[1.8]">
+            <span className="font-bold text-gold-200">How it works: </span>
+            Every site begins with a one-time custom build (typical range $1,000–$5,000 depending on scope).
+            After launch, choose the plan that matches how involved you want us to be.
+            Ask about <span className="font-semibold text-gold-300">reduced build pricing</span> when
+            you commit to a 12-month Care or Grow plan. Plans are month-to-month and you can move up
+            a tier any time. Taxes not included.{' '}
+            <span className="text-ink-2">Prices may vary on a case-by-case basis depending on project complexity and requirements.</span>
+          </p>
         </motion.div>
 
       </div>
