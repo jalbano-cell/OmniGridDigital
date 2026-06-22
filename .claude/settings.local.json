@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Read(//usr/local/**)",
+      "Read(//c/Users/johna/.nvm/**)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Users/johna/AppData/Roaming/**)",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(npm --version)",
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "PowerShell(Get-ChildItem \"C:\\\\Program Files\\\\nodejs\" -ErrorAction SilentlyContinue; Get-ChildItem \"C:\\\\Program Files \\(x86\\)\\\\nodejs\" -ErrorAction SilentlyContinue; Get-ChildItem \"$env:APPDATA\\\\npm\" -ErrorAction SilentlyContinue | Select-Object -First 5; $env:PATH -split ';' | Select-String -Pattern \"node\" -SimpleMatch)",
+      "PowerShell($env:PATH = \"C:\\\\Program Files\\\\nodejs;\" + $env:PATH; Set-Location \"C:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\"; npm install 2>&1 | Select-Object -Last 8)",
+      "PowerShell($env:PATH = \"C:\\\\Program Files\\\\nodejs;\" + $env:PATH; Set-Location \"C:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\"; Start-Process -FilePath \"C:\\\\Program Files\\\\nodejs\\\\npm.cmd\" -ArgumentList \"run\", \"dev\" -WorkingDirectory \"C:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\" -WindowStyle Normal)",
+      "PowerShell(Start-Sleep -Seconds 5; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 8 -UseBasicParsing; \"HTTP $\\($r.StatusCode\\) — $\\($r.Content.Length\\) bytes\" } catch { \"Not ready yet: $_\" })",
+      "Bash(find \"c:/Users/johna\" -name \"bgvanta.png\" 2>/dev/null | head -5)",
+      "Read(//c/Users/johna/**)",
+      "Bash(mkdir -p \"c:/Users/johna/OneDrive/Documents/Claude/public\" && cp \"c:/Users/johna/Downloads/bgvanta.png\" \"c:/Users/johna/OneDrive/Documents/Claude/public/bgvanta.png\" && echo \"copied\")",
+      "PowerShell(Start-Sleep -Seconds 3; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 8 -UseBasicParsing; \"HTTP $\\($r.StatusCode\\) — $\\($r.Content.Length\\) bytes\" } catch { \"Server not responding: $_\" })",
+      "PowerShell($env:PATH = \"C:\\\\Program Files\\\\nodejs;\" + $env:PATH; Start-Process -FilePath \"C:\\\\Program Files\\\\nodejs\\\\npm.cmd\" -ArgumentList \"run\", \"dev\" -WorkingDirectory \"C:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\" -WindowStyle Normal; Start-Sleep -Seconds 8; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 10 -UseBasicParsing; \"HTTP $\\($r.StatusCode\\) — $\\($r.Content.Length\\) bytes\" } catch { \"Not ready yet: $_\" })",
+      "WebFetch(domain:www.vantamarketing.ca)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 8 -UseBasicParsing; \"HTTP $\\($r.StatusCode\\) — $\\($r.Content.Length\\) bytes\" } catch { \"Not responding: $_\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 8 -UseBasicParsing; \"HTTP $\\($r.StatusCode\\) — $\\($r.Content.Length\\) bytes\" } catch { \"Not responding — restarting...\"; $env:PATH = \"C:\\\\Program Files\\\\nodejs;\" + $env:PATH; Start-Process -FilePath \"C:\\\\Program Files\\\\nodejs\\\\npm.cmd\" -ArgumentList \"run\",\"dev\" -WorkingDirectory \"C:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\" -WindowStyle Normal })",
+      "PowerShell($env:PATH = \"C:\\\\Program Files\\\\nodejs;\" + $env:PATH; Set-Location \"C:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\"; npm install nodemailer @types/nodemailer 2>&1 | Select-Object -Last 6)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 8 -UseBasicParsing; \"HTTP $\\($r.StatusCode\\)\" } catch { \"Restarting...\"; $env:PATH = \"C:\\\\Program Files\\\\nodejs;\" + $env:PATH; Start-Process -FilePath \"C:\\\\Program Files\\\\nodejs\\\\npm.cmd\" -ArgumentList \"run\",\"dev\" -WorkingDirectory \"C:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\" -WindowStyle Normal })",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "PowerShell(Start-Process \"http://localhost:3000\")",
+      "Bash(cd \"/c/Users/johna/OneDrive/Documents/Claude\" && cat package.json)",
+      "Read(//c/c/Users/johna/OneDrive/Documents/Claude/**)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('exports', d.get\\('main', 'no exports'\\)\\), indent=2\\)\\)\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\johna\\Downloads"
+    ]
+  }
+}
