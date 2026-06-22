@@ -704,6 +704,10 @@ const FOOTER_LINKS: Record<string, { label: string; href: string }[]> = {
     { label: 'Blog',       href: '#'        },
     { label: 'Free Audit', href: '#contact' },
   ],
+  Contact: [
+    { label: 'support@omniviqmarketing.ca', href: 'mailto:support@omniviqmarketing.ca' },
+    { label: '(416) 827-0920',              href: 'tel:+14168270920'                  },
+  ],
 }
 
 function Footer() {
@@ -719,7 +723,7 @@ function Footer() {
               Full-service digital marketing<br />for local businesses in Toronto.
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-10 max-sm:grid-cols-2">
+          <div className="grid grid-cols-4 gap-10 max-lg:grid-cols-2">
             {Object.entries(FOOTER_LINKS).map(([group, links]) => (
               <div key={group}>
                 <span className="block text-[11px] font-bold tracking-[0.12em] uppercase text-ink-2 mb-5">{group}</span>
@@ -741,9 +745,6 @@ function Footer() {
           <span className="text-[12.5px] text-ink-3">
             &copy; {new Date().getFullYear()} Omniviq Marketing. Toronto, ON. All rights reserved.
           </span>
-          <a href="mailto:support@omniviqmarketing.ca" className="text-[12.5px] text-ink-2 transition-colors hover:text-gold-300">
-            support@omniviqmarketing.ca
-          </a>
         </div>
       </div>
     </footer>
