@@ -4,18 +4,17 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ContactForm from './contact-form'
+import { Nav } from '@/components/nav'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
-import { Banknote, CalendarDays, Handshake } from 'lucide-react'
+import { Banknote, CalendarDays, Handshake, ArrowRight } from 'lucide-react'
 
 const Globe = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
 
-gsap.registerPlugin(ScrollTrigger)
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -40,7 +39,6 @@ export default function Home() {
         <Hero />
         <Services />
         <WhyUs />
-        <Work />
         <Team />
         <Pricing />
         <ContactSection />
@@ -61,43 +59,6 @@ function PageBackground() {
       <div className="absolute bottom-[-5%] left-[28%] w-[600px] h-[600px] rounded-full bg-[#888888]/[0.10] blur-[150px]" />
       <div className="absolute inset-0 bg-noise opacity-[0.04] mix-blend-overlay" />
     </div>
-  )
-}
-
-// ─── Nav ──────────────────────────────────────────────────────────────────────
-function Nav() {
-  const links = [
-    { href: '#services', label: 'Services'  },
-    { href: '#why-us',   label: 'Why Us'    },
-    { href: '#work',     label: 'Our Work'  },
-    { href: '#team',     label: 'Team'      },
-    { href: '#pricing',  label: 'Pricing'   },
-    { href: '#contact',  label: 'Contact'   },
-  ]
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-[68px] border-b border-[#888888]/20 bg-[rgba(0,0,0,0.85)] backdrop-blur-2xl">
-      <div className="h-full max-w-[1200px] mx-auto px-8 flex items-center gap-10">
-        <a href="/" className="text-[17px] font-extrabold tracking-tight text-gold-300 shrink-0 transition-colors hover:text-gold-200">
-          Vanta Marketing
-        </a>
-        <nav className="flex items-center gap-0.5 flex-1 max-md:hidden" aria-label="Main navigation">
-          {links.map(({ href, label }) => (
-            <a key={href} href={href} className="text-sm font-medium text-ink-1 px-3.5 py-1.5 rounded-md transition-colors hover:text-ink-0 hover:bg-gold-400/[0.06]">
-              {label}
-            </a>
-          ))}
-        </nav>
-        <motion.a
-          href="#contact"
-          whileHover={{ scale: 1.04, y: -1 }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ duration: 0.18, ease }}
-          className={cn(buttonVariants(), 'bg-gold-400 text-white hover:bg-gold-200 text-[13.5px] font-bold px-5 h-9 shrink-0')}
-        >
-          Get a Free Audit
-        </motion.a>
-      </div>
-    </header>
   )
 }
 
@@ -165,15 +126,6 @@ function Hero() {
           >
             Get a Free Audit
           </motion.a>
-          <motion.a
-            href="#work"
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.2, ease }}
-            className={cn(buttonVariants({ variant: 'outline' }), 'border-gold-400/[0.18] text-ink-1 bg-gold-400/[0.04] backdrop-blur-sm hover:border-gold-400/30 hover:bg-gold-400/[0.08] hover:text-ink-0 text-sm font-semibold h-11 px-6')}
-          >
-            See Our Work
-          </motion.a>
         </div>
 
         <div data-h="trust" className="gsap-will-animate border-t border-gold-400/[0.08] pt-8">
@@ -196,9 +148,9 @@ function Hero() {
 
 // ─── Services ─────────────────────────────────────────────────────────────────
 const SERVICES = [
-  { number: '01', title: 'Web Design',       body: 'Custom websites built to convert visitors into customers. Fast, mobile-first, and built to last.' },
-  { number: '02', title: 'Paid Ads',         body: 'Meta and Google ad campaigns managed for maximum ROI. We handle the strategy, creative, and optimization.' },
-  { number: '03', title: 'Video Production', body: 'Professional video content shot and edited for ads, reels, and social media. Real production, real results.' },
+  { number: '01', title: 'Web Design',       slug: 'web-design',       body: 'Custom websites built to convert visitors into customers. Fast, mobile-first, and built to last.' },
+  { number: '02', title: 'Paid Ads',         slug: 'paid-ads',         body: 'Meta and Google ad campaigns managed for maximum ROI. We handle the strategy, creative, and optimization.' },
+  { number: '03', title: 'Video Production', slug: 'video-production', body: 'Professional video content shot and edited for ads, reels, and social media. Real production, real results.' },
 ]
 
 function Services() {
@@ -227,11 +179,13 @@ function Services() {
           variants={staggerContainer(0.13)}
         >
           {SERVICES.map((s) => (
-            <motion.div
+            <motion.a
               key={s.number}
+              href={`/services/${s.slug}`}
               variants={fadeUp}
               transition={{ duration: 0.6, ease }}
               whileHover={{ y: -7, transition: { duration: 0.25, ease } }}
+              className="block"
             >
               <Card className="bg-gold-400/[0.03] backdrop-blur-md border border-gold-400/[0.10] rounded-2xl shadow-none relative overflow-hidden group transition-colors duration-300 hover:bg-gold-400/[0.07] hover:border-gold-400/[0.18] h-full">
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-400/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-400" aria-hidden="true" />
@@ -239,9 +193,13 @@ function Services() {
                   <span className="text-[11px] font-bold tracking-[0.12em] text-gold-500">{s.number}</span>
                   <h3 className="text-lg font-bold tracking-[-0.02em] text-gold-200 leading-snug">{s.title}</h3>
                   <p className="text-[14.5px] text-ink-1 leading-[1.75]">{s.body}</p>
+                  <span className="mt-auto pt-2 flex items-center gap-1.5 text-[12px] font-semibold text-gold-400 group-hover:text-gold-300 transition-colors">
+                    View Work
+                    <ArrowRight className="w-3 h-3" />
+                  </span>
                 </CardContent>
               </Card>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
 
@@ -316,98 +274,6 @@ function WhyUs() {
           </motion.div>
 
         </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── Work ─────────────────────────────────────────────────────────────────────
-const WORK = [
-  { client: 'Maplewood Bistro', type: 'Web Design',       title: 'Local Restaurant Rebrand',  stat: '+40%',  statLabel: 'online reservations',   body: 'Full site redesign with a streamlined booking flow — new site increased online reservations by 40%.' },
-  { client: 'FitForge Gym',     type: 'Paid Ads',         title: 'Gym Meta Ad Campaign',       stat: '3.8×',  statLabel: 'ROAS in first 60 days', body: 'Meta ad strategy built from the ground up — 3.8x return on ad spend in the first 60 days.' },
-  { client: 'Ember & Grain',    type: 'Video Production', title: 'Food Brand Content Shoot',   stat: '200K+', statLabel: 'organic reach',         body: '12 reels produced and edited for social — 200K+ organic reach with zero paid promotion.' },
-]
-
-const scaleUp = {
-  hidden: { opacity: 0, scale: 0.88 },
-  show:   { opacity: 1, scale: 1    },
-}
-
-function Work() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo('.stat-value',
-        { opacity: 0, scale: 0.55, y: 8 },
-        {
-          opacity: 1, scale: 1, y: 0,
-          duration: 0.7,
-          stagger: 0.18,
-          ease: 'back.out(1.8)',
-          clearProps: 'transform',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 68%',
-          },
-        }
-      )
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
-  return (
-    <section ref={sectionRef} className="py-[120px] border-t border-gold-400/[0.07]" id="work">
-      <div className="max-w-[1200px] mx-auto px-8">
-
-        <motion.div
-          className="mb-[72px]"
-          initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}
-          variants={fadeUp} transition={{ duration: 0.65, ease }}
-        >
-          <p className="text-[11.5px] font-semibold tracking-[0.15em] uppercase text-gold-400 mb-5">Portfolio</p>
-          <h2 className="text-[clamp(36px,5vw,56px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-gold-300">
-            Work That<br />
-            <span className="text-gold-200">Speaks for Itself.</span>
-          </h2>
-        </motion.div>
-
-        <motion.div
-          className="grid grid-cols-3 gap-5 max-md:grid-cols-2 max-sm:grid-cols-1"
-          initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
-          variants={staggerContainer(0.11)}
-        >
-          {WORK.map((item) => (
-            <motion.div
-              key={item.client}
-              variants={scaleUp}
-              transition={{ duration: 0.55, ease }}
-              whileHover={{ y: -8, transition: { duration: 0.25, ease } }}
-              className="group relative"
-            >
-              <Card className="bg-gold-400/[0.03] backdrop-blur-md border border-gold-400/[0.10] rounded-2xl overflow-hidden shadow-none transition-colors duration-300 hover:bg-gold-400/[0.07] hover:border-gold-400/[0.18] h-full">
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
-                <CardContent className="p-9 flex flex-col gap-4">
-                  <div className="flex items-center justify-between">
-                    <Badge variant="outline" className="text-[11px] font-bold tracking-[0.12em] uppercase text-gold-500 bg-gold-400/[0.08] border-gold-400/25 rounded-[4px] px-2.5 py-1 h-auto">
-                      {item.type}
-                    </Badge>
-                    <span className="text-[12.5px] text-ink-2 font-medium">{item.client}</span>
-                  </div>
-                  <div className="flex flex-col gap-0.5 py-2">
-                    <span className="stat-value opacity-0 text-[52px] font-extrabold tracking-[-0.04em] leading-none text-gold-300">
-                      {item.stat}
-                    </span>
-                    <span className="text-[12.5px] text-ink-2 font-medium tracking-wide">{item.statLabel}</span>
-                  </div>
-                  <h3 className="text-[19px] font-bold tracking-[-0.02em] text-gold-200 leading-snug">{item.title}</h3>
-                  <p className="text-sm text-ink-1 leading-[1.75]">{item.body}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-
       </div>
     </section>
   )
@@ -619,10 +485,21 @@ function ContactSection() {
 }
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
-const FOOTER_LINKS = {
-  Services:  ['Web Design', 'Paid Ads', 'Video Production'],
-  Company:   ['About', 'Our Work', 'Team', 'Contact'],
-  Resources: ['Blog', 'Case Studies', 'Free Audit'],
+const FOOTER_LINKS: Record<string, { label: string; href: string }[]> = {
+  Services: [
+    { label: 'Web Design',       href: '/services/web-design'       },
+    { label: 'Paid Ads',         href: '/services/paid-ads'         },
+    { label: 'Video Production', href: '/services/video-production' },
+  ],
+  Company: [
+    { label: 'Team',    href: '#team'    },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'Contact', href: '#contact' },
+  ],
+  Resources: [
+    { label: 'Blog',       href: '#'        },
+    { label: 'Free Audit', href: '#contact' },
+  ],
 }
 
 function Footer() {
@@ -632,7 +509,7 @@ function Footer() {
         <div className="grid grid-cols-[260px_1fr] gap-20 mb-16 max-md:grid-cols-1 max-md:gap-12">
           <div>
             <a href="/" className="text-base font-extrabold tracking-tight text-gold-300 transition-colors hover:text-gold-200">
-              Vanta Marketing
+              Omniviq Digital
             </a>
             <p className="mt-5 text-sm text-ink-2 leading-[1.7]">
               Full-service digital marketing<br />for local businesses in Toronto.
@@ -643,10 +520,10 @@ function Footer() {
               <div key={group}>
                 <span className="block text-[11px] font-bold tracking-[0.12em] uppercase text-ink-2 mb-5">{group}</span>
                 <ul className="flex flex-col gap-3">
-                  {links.map((link) => (
-                    <li key={link}>
-                      <a href={`#${link.toLowerCase().replace(/\s/g, '-')}`} className="text-sm text-ink-2 transition-colors hover:text-ink-0">
-                        {link}
+                  {links.map(({ label, href }) => (
+                    <li key={label}>
+                      <a href={href} className="text-sm text-ink-2 transition-colors hover:text-ink-0">
+                        {label}
                       </a>
                     </li>
                   ))}
@@ -658,10 +535,10 @@ function Footer() {
         <Separator className="bg-gold-400/[0.08] mb-8" />
         <div className="flex items-center justify-between flex-wrap gap-2">
           <span className="text-[12.5px] text-ink-3">
-            &copy; {new Date().getFullYear()} Vanta Marketing. Toronto, ON. All rights reserved.
+            &copy; {new Date().getFullYear()} Omniviq Digital. Toronto, ON. All rights reserved.
           </span>
-          <a href="mailto:support@vantamarketing.ca" className="text-[12.5px] text-ink-2 transition-colors hover:text-gold-300">
-            support@vantamarketing.ca
+          <a href="mailto:support@omniviqdigital.ca" className="text-[12.5px] text-ink-2 transition-colors hover:text-gold-300">
+            support@omniviqdigital.ca
           </a>
         </div>
       </div>
