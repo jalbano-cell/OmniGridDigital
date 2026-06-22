@@ -351,25 +351,28 @@ function Team() {
 // ─── Pricing ──────────────────────────────────────────────────────────────────
 const PRICING = [
   {
-    Icon: Banknote,
-    name: 'Foundation',
-    subtitle: 'Traditional Cash Partnership',
+    Icon:        Banknote,
+    name:        'Foundation',
+    slug:        'foundation',
+    subtitle:    'Traditional Cash Partnership',
     description: 'For businesses ready to grow, our Foundation model provides a straightforward, cash-based retainer structure. We work alongside you crafting strategies that align with your goals and drive measurable, lasting results.',
-    idealFor: 'Established and growth-focused businesses seeking a reliable, no-surprises partnership for digital marketing.',
+    idealFor:    'Established and growth-focused businesses seeking a reliable, no-surprises partnership for digital marketing.',
   },
   {
-    Icon: CalendarDays,
-    name: 'Catalyst',
-    subtitle: 'Flexible Payment Model',
+    Icon:        CalendarDays,
+    name:        'Catalyst',
+    slug:        'catalyst',
+    subtitle:    'Flexible Payment Model',
     description: 'Access our full suite of services today while spreading payments over a flexible 6–12 month period. A small retainer and manageable surcharge lets us move fast without stretching your budget.',
-    idealFor: 'Ambitious brands seeking immediate results and a structured payment plan that supports long-term growth.',
+    idealFor:    'Ambitious brands seeking immediate results and a structured payment plan that supports long-term growth.',
   },
   {
-    Icon: Handshake,
-    name: 'Venture',
-    subtitle: 'Equity-Based Collaboration',
+    Icon:        Handshake,
+    name:        'Venture',
+    slug:        'venture',
+    subtitle:    'Equity-Based Collaboration',
     description: 'Our Venture model lets you offset up to 50% of costs through an equity-based agreement. Designed for startups and visionary brands with high potential — we share the risk and share the reward.',
-    idealFor: 'Bold startups and purpose-driven businesses looking for a dedicated partner invested in their journey.',
+    idealFor:    'Bold startups and purpose-driven businesses looking for a dedicated partner invested in their journey.',
   },
 ]
 
@@ -396,23 +399,22 @@ function Pricing() {
           variants={staggerContainer(0.13)}
         >
           {PRICING.map((plan) => (
-            <motion.div
+            <motion.a
               key={plan.name}
+              href={`/pricing/${plan.slug}`}
               variants={fadeUp}
               transition={{ duration: 0.6, ease }}
               whileHover={{ y: -7, transition: { duration: 0.25, ease } }}
-              className="group"
+              className="group block"
             >
               <Card className="relative bg-gold-400/[0.04] backdrop-blur-md border border-gold-400/[0.10] rounded-2xl shadow-none overflow-hidden transition-colors duration-300 hover:bg-gold-400/[0.08] hover:border-gold-400/[0.20] h-full min-h-[420px]">
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-300/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" aria-hidden="true" />
                 <CardContent className="p-9 flex flex-col h-full gap-6">
 
-                  {/* Icon */}
                   <div className="w-14 h-14 rounded-2xl border border-gold-400/[0.18] bg-gold-400/[0.06] flex items-center justify-center shrink-0">
                     <plan.Icon className="w-6 h-6 text-gold-300" strokeWidth={1.5} />
                   </div>
 
-                  {/* Content */}
                   <div className="flex flex-col gap-4 flex-1 justify-end">
                     <div>
                       <h3 className="text-[28px] font-extrabold tracking-[-0.03em] text-gold-200 leading-tight mb-1">
@@ -427,11 +429,15 @@ function Pricing() {
                       <span className="font-bold text-gold-200">Ideal for: </span>
                       {plan.idealFor}
                     </p>
+                    <span className="flex items-center gap-1.5 text-[12px] font-semibold text-gold-400 group-hover:text-gold-300 transition-colors">
+                      Learn More
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
                   </div>
 
                 </CardContent>
               </Card>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
 
