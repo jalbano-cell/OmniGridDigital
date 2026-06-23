@@ -877,7 +877,7 @@ function Footer() {
                       onClick={() => setShowModal(true)}
                       className="text-sm text-ink-2 transition-colors hover:text-ink-0 text-left"
                     >
-                      support@omniviqmarketing.ca
+                      support@omnigriddigital.ca
                     </button>
                   </li>
                   <li>
@@ -892,7 +892,7 @@ function Footer() {
           <Separator className="bg-gold-400/[0.08] mb-8" />
           <div className="flex items-center justify-between flex-wrap gap-2">
             <span className="text-[12.5px] text-ink-3">
-              &copy; {new Date().getFullYear()} Omniviq Marketing. Toronto, ON. All rights reserved.
+              &copy; {new Date().getFullYear()} Omnigrid Digital. Toronto, ON. All rights reserved.
             </span>
           </div>
         </div>
