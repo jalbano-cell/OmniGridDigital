@@ -350,17 +350,20 @@ function Team() {
 }
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
-type FeatureType = 'yes' | 'no' | 'addon'
+type FeatureType   = 'yes' | 'no' | 'addon'
+type BillingPeriod = 'monthly' | '6month' | 'annual'
 
 const PACKAGES = [
   {
-    name:         'Build & Handoff',
-    price:        'One-time',
-    priceSub:     'build fee — you own everything',
-    tagline:      'For clients who want to fully own and edit the site themselves.',
-    popular:      false,
-    annualPrice:  null as string | null,
-    annualSaving: null as string | null,
+    name:           'Build & Handoff',
+    price:          'One-time',
+    priceSub:       'build fee — you own everything',
+    tagline:        'For clients who want to fully own and edit the site themselves.',
+    popular:        false,
+    sixMonthPrice:  null as string | null,
+    sixMonthSaving: null as string | null,
+    annualPrice:    null as string | null,
+    annualSaving:   null as string | null,
     features: [
       { type: 'no'    as FeatureType, text: 'Hosting & monthly costs — you manage' },
       { type: 'no'    as FeatureType, text: 'Maintenance — DIY'                    },
@@ -371,13 +374,15 @@ const PACKAGES = [
     ],
   },
   {
-    name:         'Build & Care',
-    price:        'From $149',
-    priceSub:     '/ month',
-    tagline:      'For most small businesses that just want it handled.',
-    popular:      true,
-    annualPrice:  '$134',
-    annualSaving: 'Save 10%',
+    name:           'Build & Care',
+    price:          'From $149',
+    priceSub:       '/ month',
+    tagline:        'For most small businesses that just want it handled.',
+    popular:        true,
+    sixMonthPrice:  '$142',
+    sixMonthSaving: 'Save 5%',
+    annualPrice:    '$134',
+    annualSaving:   'Save 10%',
     features: [
       { type: 'yes'   as FeatureType, text: 'Hosting & monthly costs — included'       },
       { type: 'yes'   as FeatureType, text: 'We maintain the site for you'             },
@@ -388,13 +393,15 @@ const PACKAGES = [
     ],
   },
   {
-    name:         'Build & Grow',
-    price:        'From $399',
-    priceSub:     '/ month',
-    tagline:      'For sites that drive leads, bookings, or sales.',
-    popular:      false,
-    annualPrice:  '$349',
-    annualSaving: 'Save 13%',
+    name:           'Build & Grow',
+    price:          'From $399',
+    priceSub:       '/ month',
+    tagline:        'For sites that drive leads, bookings, or sales.',
+    popular:        false,
+    sixMonthPrice:  '$367',
+    sixMonthSaving: 'Save 8%',
+    annualPrice:    '$349',
+    annualSaving:   'Save 13%',
     features: [
       { type: 'yes' as FeatureType, text: 'Everything in Care, plus…'                  },
       { type: 'yes' as FeatureType, text: 'Larger edit allowance, priority turnaround' },
@@ -406,8 +413,22 @@ const PACKAGES = [
   },
 ]
 
+const BILLING_OPTIONS: { id: BillingPeriod; label: string; badge?: string }[] = [
+  { id: 'monthly', label: 'Monthly'   },
+  { id: '6month',  label: '6 Months'  },
+  { id: 'annual',  label: 'Annually', badge: 'Best Value' },
+]
+
 function Pricing() {
-  const [annual, setAnnual] = useState(false)
+  const [billing, setBilling] = useState<BillingPeriod>('monthly')
+
+  function getPriceInfo(pkg: typeof PACKAGES[0]) {
+    if (billing === 'annual'  && pkg.annualPrice)    return { price: pkg.annualPrice,   sub: '/ month', saving: pkg.annualSaving,   commitment: 'Annual commitment'    }
+    if (billing === '6month'  && pkg.sixMonthPrice)  return { price: pkg.sixMonthPrice, sub: '/ month', saving: pkg.sixMonthSaving, commitment: '6-month commitment'   }
+    return { price: pkg.price, sub: pkg.priceSub, saving: null, commitment: null }
+  }
+
+  const isDiscounted = billing !== 'monthly'
 
   return (
     <section className="py-[120px] border-t border-gold-400/[0.07]" id="pricing">
@@ -428,51 +449,39 @@ function Pricing() {
           </p>
         </motion.div>
 
-        {/* Billing toggle */}
+        {/* Billing segmented control */}
         <motion.div
-          className="flex items-center gap-4 mb-12"
+          className="mb-12"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease, delay: 0.15 }}
         >
-          <span className={cn(
-            'text-[13.5px] font-semibold transition-colors duration-200',
-            !annual ? 'text-ink-0' : 'text-ink-3'
-          )}>
-            Monthly
-          </span>
-
-          <button
-            role="switch"
-            aria-checked={annual}
-            aria-label="Toggle 12-month commitment"
-            onClick={() => setAnnual(p => !p)}
-            className={cn(
-              'relative w-12 h-[26px] rounded-full border transition-colors duration-300 shrink-0 cursor-pointer',
-              annual ? 'bg-gold-300 border-gold-300' : 'bg-gold-400/[0.08] border-gold-400/[0.22]'
-            )}
-          >
-            <motion.div
-              animate={{ x: annual ? 22 : 0 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className={cn(
-                'absolute top-[3px] left-[3px] w-5 h-5 rounded-full',
-                annual ? 'bg-surface-0' : 'bg-gold-300'
-              )}
-            />
-          </button>
-
-          <div className="flex items-center gap-2.5">
-            <span className={cn(
-              'text-[13.5px] font-semibold transition-colors duration-200',
-              annual ? 'text-ink-0' : 'text-ink-3'
-            )}>
-              12 Months
-            </span>
-            <span className="text-[10px] font-extrabold tracking-[0.1em] uppercase text-gold-400 bg-gold-400/[0.08] border border-gold-400/[0.20] px-2.5 py-1 rounded-full">
-              Best Value
-            </span>
+          <div className="inline-flex items-center bg-gold-400/[0.05] border border-gold-400/[0.12] rounded-xl p-1 gap-1">
+            {BILLING_OPTIONS.map(({ id, label, badge }) => (
+              <button
+                key={id}
+                onClick={() => setBilling(id)}
+                className={cn(
+                  'relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-[13.5px] font-semibold transition-all duration-200 cursor-pointer',
+                  billing === id
+                    ? 'bg-gold-400 text-white shadow-[0_2px_12px_rgba(136,136,136,0.25)]'
+                    : 'text-ink-2 hover:text-ink-0'
+                )}
+              >
+                {label}
+                {badge && (
+                  <span className={cn(
+                    'text-[9.5px] font-extrabold tracking-[0.1em] uppercase px-2 py-0.5 rounded-full transition-colors duration-200',
+                    billing === id
+                      ? 'bg-white/20 text-white'
+                      : 'bg-gold-400/[0.12] text-gold-400 border border-gold-400/[0.20]'
+                  )}>
+                    {badge}
+                  </span>
+                )}
+              </button>
+            ))}
           </div>
         </motion.div>
 
@@ -481,42 +490,45 @@ function Pricing() {
           initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
           variants={staggerContainer(0.13)}
         >
-          {PACKAGES.map((pkg) => (
-            <motion.div
-              key={pkg.name}
-              variants={fadeUp}
-              transition={{ duration: 0.6, ease }}
-              whileHover={{ y: -7, transition: { duration: 0.25, ease } }}
-              className={cn(
-                'relative rounded-2xl overflow-hidden',
-                pkg.popular
-                  ? 'bg-gold-400/[0.06] border border-gold-400/[0.25]'
-                  : 'bg-gold-400/[0.03] border border-gold-400/[0.10]'
-              )}
-            >
-              {pkg.popular && (
-                <>
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-300/50 to-transparent" aria-hidden="true" />
-                  <div className="absolute top-0 left-0 right-0 flex justify-center">
-                    <span className="text-[10px] font-extrabold tracking-[0.14em] uppercase bg-gold-300 text-black px-4 py-1.5 rounded-b-lg">
-                      Most Popular
-                    </span>
-                  </div>
-                </>
-              )}
+          {PACKAGES.map((pkg) => {
+            const { price, sub, saving, commitment } = getPriceInfo(pkg)
+            const priceKey = billing + price
 
-              <div className={cn('p-9 flex flex-col h-full', pkg.popular && 'pt-12')}>
-                <div className="mb-7">
-                  <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-gold-500 mb-3">
-                    {pkg.name}
-                  </p>
+            return (
+              <motion.div
+                key={pkg.name}
+                variants={fadeUp}
+                transition={{ duration: 0.6, ease }}
+                whileHover={{ y: -7, transition: { duration: 0.25, ease } }}
+                className={cn(
+                  'relative rounded-2xl overflow-hidden',
+                  pkg.popular
+                    ? 'bg-gold-400/[0.06] border border-gold-400/[0.25]'
+                    : 'bg-gold-400/[0.03] border border-gold-400/[0.10]'
+                )}
+              >
+                {pkg.popular && (
+                  <>
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-300/50 to-transparent" aria-hidden="true" />
+                    <div className="absolute top-0 left-0 right-0 flex justify-center">
+                      <span className="text-[10px] font-extrabold tracking-[0.14em] uppercase bg-gold-300 text-black px-4 py-1.5 rounded-b-lg">
+                        Most Popular
+                      </span>
+                    </div>
+                  </>
+                )}
 
-                  {/* Price — animates between monthly and annual */}
-                  <div className="flex items-end gap-2.5 mb-1 min-h-[52px]">
-                    <AnimatePresence mode="wait">
-                      {annual && pkg.annualPrice ? (
+                <div className={cn('p-9 flex flex-col h-full', pkg.popular && 'pt-12')}>
+                  <div className="mb-7">
+                    <p className="text-[11px] font-bold tracking-[0.12em] uppercase text-gold-500 mb-3">
+                      {pkg.name}
+                    </p>
+
+                    {/* Price */}
+                    <div className="flex items-end gap-2.5 mb-1 min-h-[52px]">
+                      <AnimatePresence mode="wait">
                         <motion.div
-                          key="annual"
+                          key={priceKey}
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
@@ -524,102 +536,106 @@ function Pricing() {
                           className="flex items-baseline gap-1.5"
                         >
                           <span className="text-[38px] font-extrabold tracking-[-0.04em] leading-none text-gold-300">
-                            {pkg.annualPrice}
+                            {price}
                           </span>
-                          <span className="text-[13px] text-ink-2 font-medium">/ month</span>
+                          <span className="text-[13px] text-ink-2 font-medium">{sub}</span>
                         </motion.div>
-                      ) : (
-                        <motion.div
-                          key="monthly"
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.22, ease }}
-                          className="flex items-baseline gap-1.5"
-                        >
-                          <span className="text-[38px] font-extrabold tracking-[-0.04em] leading-none text-gold-300">
-                            {pkg.price}
-                          </span>
-                          <span className="text-[13px] text-ink-2 font-medium">{pkg.priceSub}</span>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                      </AnimatePresence>
+
+                      <AnimatePresence>
+                        {saving && (
+                          <motion.span
+                            key={billing + 'badge'}
+                            initial={{ opacity: 0, scale: 0.75 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.75 }}
+                            transition={{ duration: 0.22, ease }}
+                            className="mb-1 text-[10.5px] font-extrabold tracking-[0.08em] uppercase text-black bg-gold-300 px-2.5 py-1 rounded-full shrink-0"
+                          >
+                            {saving}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </div>
 
                     <AnimatePresence>
-                      {annual && pkg.annualSaving && (
-                        <motion.span
-                          initial={{ opacity: 0, scale: 0.75 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.75 }}
+                      {commitment && (
+                        <motion.p
+                          key={commitment}
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.22, ease }}
-                          className="mb-1 text-[10.5px] font-extrabold tracking-[0.08em] uppercase text-black bg-gold-300 px-2.5 py-1 rounded-full shrink-0"
+                          className="text-[11.5px] font-semibold text-gold-400 mb-3 overflow-hidden"
                         >
-                          {pkg.annualSaving}
-                        </motion.span>
+                          {commitment}
+                        </motion.p>
                       )}
                     </AnimatePresence>
+
+                    <p className="text-[14px] text-ink-1 leading-[1.65]">{pkg.tagline}</p>
                   </div>
 
-                  <AnimatePresence>
-                    {annual && pkg.annualPrice && (
-                      <motion.p
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.22, ease }}
-                        className="text-[11.5px] font-semibold text-gold-400 mb-3 overflow-hidden"
-                      >
-                        12-month commitment
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
+                  <div className="h-px bg-gold-400/[0.08] mb-6" />
 
-                  <p className="text-[14px] text-ink-1 leading-[1.65]">{pkg.tagline}</p>
-                </div>
+                  <ul className="flex flex-col gap-3.5">
+                    {/* Build fee bonus — varies by billing period */}
+                    <AnimatePresence>
+                      {billing === '6month' && (pkg.sixMonthPrice) && (
+                        <motion.li
+                          key="6month-bonus"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25, ease }}
+                          className="flex items-start gap-3 overflow-hidden"
+                        >
+                          <span className="text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center text-gold-300">✓</span>
+                          <span className="text-[13.5px] leading-[1.6] text-gold-200 font-semibold">
+                            Build fee 50% discount
+                          </span>
+                        </motion.li>
+                      )}
+                      {billing === 'annual' && (pkg.annualPrice) && (
+                        <motion.li
+                          key="annual-bonus"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25, ease }}
+                          className="flex items-start gap-3 overflow-hidden"
+                        >
+                          <span className="text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center text-gold-300">✓</span>
+                          <span className="text-[13.5px] leading-[1.6] text-gold-200 font-semibold">
+                            Website build fee waived
+                          </span>
+                        </motion.li>
+                      )}
+                    </AnimatePresence>
 
-                <div className="h-px bg-gold-400/[0.08] mb-6" />
-
-                <ul className="flex flex-col gap-3.5">
-                  {/* Waived build fee bonus — appears on annual toggle */}
-                  <AnimatePresence>
-                    {annual && pkg.annualPrice && (
-                      <motion.li
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.25, ease }}
-                        className="flex items-start gap-3 overflow-hidden"
-                      >
-                        <span className="text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center text-gold-300">✓</span>
-                        <span className="text-[13.5px] leading-[1.6] text-gold-200 font-semibold">
-                          Website build fee waived
+                    {pkg.features.map((f, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className={cn(
+                          'text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center',
+                          f.type === 'yes'   && 'text-gold-300',
+                          f.type === 'no'    && 'text-ink-3',
+                          f.type === 'addon' && 'text-gold-400',
+                        )}>
+                          {f.type === 'yes' ? '✓' : f.type === 'addon' ? '+' : '×'}
                         </span>
-                      </motion.li>
-                    )}
-                  </AnimatePresence>
-
-                  {pkg.features.map((f, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <span className={cn(
-                        'text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center',
-                        f.type === 'yes'   && 'text-gold-300',
-                        f.type === 'no'    && 'text-ink-3',
-                        f.type === 'addon' && 'text-gold-400',
-                      )}>
-                        {f.type === 'yes' ? '✓' : f.type === 'addon' ? '+' : '×'}
-                      </span>
-                      <span className={cn(
-                        'text-[13.5px] leading-[1.6]',
-                        f.type === 'no' ? 'text-ink-3' : 'text-ink-1',
-                      )}>
-                        {f.text}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          ))}
+                        <span className={cn(
+                          'text-[13.5px] leading-[1.6]',
+                          f.type === 'no' ? 'text-ink-3' : 'text-ink-1',
+                        )}>
+                          {f.text}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            )
+          })}
         </motion.div>
 
         <motion.div
@@ -634,7 +650,7 @@ function Pricing() {
             Every site begins with a one-time custom build (typical range $1,000–$5,000 depending on scope).
             After launch, choose the plan that matches how involved you want us to be.
             Ask about <span className="font-semibold text-gold-300">reduced build pricing</span> when
-            you commit to a 12-month Care or Grow plan. Plans are month-to-month and you can move up
+            you commit to a 6 or 12-month Care or Grow plan. Plans are month-to-month and you can move up
             a tier any time. Taxes not included.{' '}
             <span className="text-ink-2">Prices may vary on a case-by-case basis depending on project complexity and requirements.</span>
           </p>
