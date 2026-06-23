@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { ArrowLeft, ArrowRight, Check, Banknote, CalendarDays, Handshake } from 'lucide-react'
 import { Nav } from '@/components/nav'
 import { buttonVariants } from '@/components/ui/button'
@@ -354,6 +355,9 @@ export function PricingDetailPage({
 
       <footer className="border-t border-gold-400/[0.07] bg-surface-0/70 backdrop-blur-xl py-8">
         <div className="max-w-[1200px] mx-auto px-8 flex items-center justify-between flex-wrap gap-3">
+          <a href="/" className="text-[15px] font-extrabold tracking-tight text-white transition-opacity hover:opacity-80">
+            Omniviq Digital
+          </a>
           <span className="text-[12.5px] text-ink-3">
             &copy; {new Date().getFullYear()} Omniviq Digital. Toronto, ON. All rights reserved.
           </span>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import gsap from 'gsap'
 import ContactForm from './contact-form'
 import { Nav } from '@/components/nav'
@@ -716,8 +717,8 @@ function Footer() {
       <div className="max-w-[1200px] mx-auto px-8">
         <div className="grid grid-cols-[260px_1fr] gap-20 mb-16 max-md:grid-cols-1 max-md:gap-12">
           <div>
-            <a href="/" className="text-[17px] font-extrabold tracking-tight text-gold-300 transition-colors hover:text-gold-200">
-              Omniviq Marketing
+            <a href="/" className="text-[17px] font-extrabold tracking-tight text-white transition-opacity hover:opacity-80">
+              Omniviq Digital
             </a>
             <p className="mt-5 text-sm text-ink-2 leading-[1.7]">
               Full-service digital marketing<br />for local businesses in Toronto.
