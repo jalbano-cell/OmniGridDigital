@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-const ContactForm = dynamic(() => import('./contact-form'))
+import gsap from 'gsap'
+import ContactForm from './contact-form'
 import { Nav } from '@/components/nav'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -83,18 +84,15 @@ function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    let ctx: { revert(): void } | null = null
-    import('gsap').then(({ default: gsap }) => {
-      ctx = gsap.context(() => {
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-        tl.to('[data-h="eyebrow"]',  { opacity: 1, y: 0, duration: 0.65 })
-          .to('[data-h="headline"]', { opacity: 1, y: 0, duration: 0.85 }, '-=0.45')
-          .to('[data-h="sub"]',      { opacity: 1, y: 0, duration: 0.6  }, '-=0.55')
-          .to('[data-h="actions"]',  { opacity: 1, y: 0, duration: 0.5  }, '-=0.45')
-          .to('[data-h="trust"]',    { opacity: 1, y: 0, duration: 0.5  }, '-=0.35')
-      }, sectionRef)
-    })
-    return () => { ctx?.revert() }
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      tl.to('[data-h="eyebrow"]',  { opacity: 1, y: 0, duration: 0.65 })
+        .to('[data-h="headline"]', { opacity: 1, y: 0, duration: 0.85 }, '-=0.45')
+        .to('[data-h="sub"]',      { opacity: 1, y: 0, duration: 0.6  }, '-=0.55')
+        .to('[data-h="actions"]',  { opacity: 1, y: 0, duration: 0.5  }, '-=0.45')
+        .to('[data-h="trust"]',    { opacity: 1, y: 0, duration: 0.5  }, '-=0.35')
+    }, sectionRef)
+    return () => ctx.revert()
   }, [])
 
   return (
