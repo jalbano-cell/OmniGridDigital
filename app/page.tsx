@@ -351,27 +351,26 @@ function Team() {
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
 type FeatureType   = 'yes' | 'no' | 'addon'
-type Feature       = { type: FeatureType; text: string; hideOn?: BillingPeriod[] }
 type BillingPeriod = 'monthly' | '6month' | 'annual'
 
 const PACKAGES = [
   {
     name:           'Build & Handoff',
-    price:          '$800',
-    priceSub:       'one-time — you own everything',
-    tagline:        'Full ownership, no monthly fees. You get the site, the code, and the keys.',
+    price:          'One-time',
+    priceSub:       'build fee — you own everything',
+    tagline:        'For clients who want to fully own and edit the site themselves.',
     popular:        false,
     sixMonthPrice:  null as string | null,
     sixMonthSaving: null as string | null,
     annualPrice:    null as string | null,
     annualSaving:   null as string | null,
     features: [
-      { type: 'yes'   as FeatureType, text: 'You own the site outright'           },
-      { type: 'yes'   as FeatureType, text: 'Full source code & assets delivered' },
-      { type: 'no'    as FeatureType, text: 'Hosting & monthly costs — you manage'},
-      { type: 'no'    as FeatureType, text: 'Maintenance & updates — on you'      },
-      { type: 'addon' as FeatureType, text: 'CMS to edit without code — add-on'  },
-      { type: 'addon' as FeatureType, text: 'Booking app — add-on'               },
+      { type: 'no'    as FeatureType, text: 'Hosting & monthly costs — you manage' },
+      { type: 'no'    as FeatureType, text: 'Maintenance — DIY'                    },
+      { type: 'no'    as FeatureType, text: 'Uptime, SSL, security & backups'      },
+      { type: 'addon' as FeatureType, text: 'CMS to edit without code — add-on'   },
+      { type: 'addon' as FeatureType, text: 'Booking app — add-on'                },
+      { type: 'no'    as FeatureType, text: 'New pages / features — quoted'        },
     ],
   },
   {
@@ -385,7 +384,6 @@ const PACKAGES = [
     annualPrice:    '$134',
     annualSaving:   'Save 10%',
     features: [
-      { type: 'addon' as FeatureType, text: '$800 build fee to get started', hideOn: ['annual'] as BillingPeriod[] },
       { type: 'yes'   as FeatureType, text: 'Hosting & monthly costs — included'       },
       { type: 'yes'   as FeatureType, text: 'We maintain the site for you'             },
       { type: 'yes'   as FeatureType, text: 'Uptime, SSL, security & backups'          },
@@ -405,11 +403,10 @@ const PACKAGES = [
     annualPrice:    '$349',
     annualSaving:   'Save 13%',
     features: [
-      { type: 'addon' as FeatureType, text: '$800 build fee to get started', hideOn: ['annual'] as BillingPeriod[] },
       { type: 'yes' as FeatureType, text: 'Everything in Care, plus…'                  },
       { type: 'yes' as FeatureType, text: 'Larger edit allowance, priority turnaround' },
       { type: 'yes' as FeatureType, text: 'Monthly analytics & reporting'              },
-      { type: 'yes' as FeatureType, text: 'AI search optimization — get found in ChatGPT & Google AI answers' },
+      { type: 'yes' as FeatureType, text: 'Ongoing SEO & performance tuning'           },
       { type: 'yes' as FeatureType, text: 'Periodic new pages / features included'     },
       { type: 'yes' as FeatureType, text: 'Booking app — included'                     },
     ],
@@ -616,7 +613,7 @@ function Pricing() {
                       )}
                     </AnimatePresence>
 
-                    {pkg.features.filter(f => !(f as Feature).hideOn?.includes(billing)).map((f, i) => (
+                    {pkg.features.map((f, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <span className={cn(
                           'text-[13px] font-bold leading-none mt-[3px] shrink-0 w-4 text-center',
@@ -650,9 +647,11 @@ function Pricing() {
         >
           <p className="text-[13.5px] text-ink-1 leading-[1.8]">
             <span className="font-bold text-gold-200">How it works: </span>
-            Every site starts with a custom build — <span className="font-semibold text-gold-200">Build & Handoff</span> is a flat $800 one-time fee and you own everything.
-            For Care and Grow plans, the build fee is included; commit to 6 or 12 months and the monthly rate drops.
-            Plans are month-to-month and you can move up a tier any time. Taxes not included.{' '}
+            Every site begins with a one-time custom build (typical range $1,000–$5,000 depending on scope).
+            After launch, choose the plan that matches how involved you want us to be.
+            Ask about <span className="font-semibold text-gold-300">reduced build pricing</span> when
+            you commit to a 6 or 12-month Care or Grow plan. Plans are month-to-month and you can move up
+            a tier any time. Taxes not included.{' '}
             <span className="text-ink-2">Prices may vary on a case-by-case basis depending on project complexity and requirements.</span>
           </p>
         </motion.div>
