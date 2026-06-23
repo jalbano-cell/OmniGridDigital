@@ -846,7 +846,7 @@ function Footer() {
           <div className="grid grid-cols-[260px_1fr] gap-20 mb-16 max-md:grid-cols-1 max-md:gap-12">
             <div>
               <a href="/" className="text-[17px] font-extrabold tracking-tight text-white transition-opacity hover:opacity-80">
-                Omniviq Digital
+                Omnigrid Digital
               </a>
               <p className="mt-5 text-sm text-ink-2 leading-[1.7]">
                 Full-service digital marketing<br />for local businesses in Toronto.

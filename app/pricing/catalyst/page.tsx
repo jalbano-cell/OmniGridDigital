@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { PricingDetailPage, type Step, type Feature } from '@/components/pricing-detail-page'
 
 export const metadata: Metadata = {
-  title: 'Catalyst — Omniviq Digital',
+  title: 'Catalyst — Omnigrid Digital',
   description: 'Get started now and spread payments over 6–12 months. Full agency services from day one, structured to fit your cash flow.',
 }
 
@@ -71,7 +71,7 @@ export default function CatalystPage() {
       name="Catalyst"
       subtitle="Flexible Payment Model"
       tagline="Start now. Pay over time. Don't let cash flow hold your growth back."
-      description="Catalyst gives you access to the full Omniviq Digital service suite today, with payments spread across 6 or 12 months. A small deposit gets work underway immediately, and a transparent, fixed surcharge covers the deferred balance. Everything you'd get in Foundation — structured to fit your budget."
+      description="Catalyst gives you access to the full Omnigrid Digital service suite today, with payments spread across 6 or 12 months. A small deposit gets work underway immediately, and a transparent, fixed surcharge covers the deferred balance. Everything you'd get in Foundation — structured to fit your budget."
       commitment="6 or 12-month payment agreement"
       payment="Deposit + fixed monthly instalments with surcharge"
       steps={STEPS}

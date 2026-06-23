@@ -1,7 +1,7 @@
-# Project Specs — Omniviq Digital
+# Project Specs — Omnigrid Digital
 
 ## What the app does & who uses it
-Single-page marketing website for Omniviq Digital, a Toronto-based digital marketing agency. Prospective local-business clients visit the site to learn about services, view case studies, meet the team, explore pricing, and submit a contact/audit request.
+Single-page marketing website for Omnigrid Digital, a Toronto-based digital marketing agency. Prospective local-business clients visit the site to learn about services, view case studies, meet the team, explore pricing, and submit a contact/audit request.
 
 ## Tech stack
 - **Framework:** Next.js 15 (App Router) with TypeScript

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ServiceCatalogPage, type Project } from '@/components/service-catalog-page'
 
 export const metadata: Metadata = {
-  title: 'Web Design — Omniviq Digital',
+  title: 'Web Design — Omnigrid Digital',
   description: 'Custom websites built to convert visitors into customers. Fast, mobile-first, and built to last.',
 }
 

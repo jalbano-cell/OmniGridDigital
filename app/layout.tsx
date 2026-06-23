@@ -10,7 +10,7 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Omniviq Digital',
+  title: 'Omnigrid Digital',
   icons: { icon: '/favicon.png' },
   description:
     'Full-service digital marketing for local businesses — websites, ads, and content that actually converts.',

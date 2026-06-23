@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ServiceCatalogPage, type Project } from '@/components/service-catalog-page'
 
 export const metadata: Metadata = {
-  title: 'Paid Ads — Omniviq Digital',
+  title: 'Paid Ads — Omnigrid Digital',
   description: 'Meta and Google ad campaigns managed for maximum ROI. Strategy, creative, and optimization — all handled.',
 }
 

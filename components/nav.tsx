@@ -24,7 +24,7 @@ export function Nav() {
     <header className="fixed top-0 left-0 right-0 z-50 h-[68px] border-b border-[#888888]/20 bg-[rgba(0,0,0,0.85)] backdrop-blur-2xl">
       <div className="h-full max-w-[1200px] mx-auto px-8 flex items-center gap-10">
         <a href="/" className="text-[17px] font-extrabold tracking-tight text-white shrink-0 transition-opacity hover:opacity-80">
-          Omniviq Digital
+          Omnigrid Digital
         </a>
         <nav className="flex items-center gap-0.5 flex-1 max-md:hidden" aria-label="Main navigation">
           {LINKS.map(({ href, label }) => (

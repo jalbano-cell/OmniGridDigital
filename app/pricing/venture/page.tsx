@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { PricingDetailPage, type Step, type Feature } from '@/components/pricing-detail-page'
 
 export const metadata: Metadata = {
-  title: 'Venture — Omniviq Digital',
+  title: 'Venture — Omnigrid Digital',
   description: 'Offset up to 50% of marketing costs through an equity or revenue-share agreement. We become your dedicated growth partner.',
 }
 
