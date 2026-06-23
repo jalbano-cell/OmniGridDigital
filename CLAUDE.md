@@ -39,3 +39,12 @@ Always look at existing files before you creating new ones. Don't start coding u
 
 **Rule 4: Test before you respond**
 Before making any code changes, run the relevant tests or start the dev checklist to check for errors before responding. Never say "done" if the code is untested.
+
+**Rule 5: Simplicity First**
+Minimum code that solves the problem. Nothing speculative.
+    - No abstractions for single-use code.
+    - No "flexibility" or "configurability" that wasn't requested.
+    - No error handling for impossible scenarios.
+    - If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior UI designer and front end developer say this is overcomplicated?" If yes, simplify.

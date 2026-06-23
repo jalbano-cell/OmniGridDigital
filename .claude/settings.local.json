@@ -59,7 +59,9 @@
       "Bash(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh)",
       "Bash(bash)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/services/web-design)",
-      "PowerShell(Copy-Item \"C:\\\\Users\\\\johna\\\\Downloads\\\\Omniviq_Digital_white.png\" \"C:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\\\\public\\\\favicon.png\" -Force)"
+      "PowerShell(Copy-Item \"C:\\\\Users\\\\johna\\\\Downloads\\\\Omniviq_Digital_white.png\" \"C:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\\\\public\\\\favicon.png\" -Force)",
+      "PowerShell(Start-Sleep -Seconds 8; Get-Content \"C:\\\\Users\\\\johna\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-johna-OneDrive-Documents-Claude\\\\a4540da1-2cb4-4074-b0c0-399d30ece91c\\\\scratchpad\\\\dev-server.log\" | where { $_ -match \"GET|error|Error|warn|200|500\" } | Select-Object -Last 5)",
+      "PowerShell($r = try { \\(Invoke-RestMethod -Uri \"http://localhost:3000\" -Method Get -TimeoutSec 5 -UseBasicParsing\\).Length } catch { \"failed: $_\" }; $r)"
     ],
     "additionalDirectories": [
       "c:\\Users\\johna\\Downloads",

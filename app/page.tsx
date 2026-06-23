@@ -12,7 +12,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, X } from 'lucide-react'
 
 const Globe = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
 
@@ -705,49 +705,185 @@ const FOOTER_LINKS: Record<string, { label: string; href: string }[]> = {
     { label: 'Blog',       href: '#'        },
     { label: 'Free Audit', href: '#contact' },
   ],
-  Contact: [
-    { label: 'support@omniviqmarketing.ca', href: 'mailto:support@omniviqmarketing.ca' },
-    { label: '(416) 827-0920',              href: 'tel:+14168270920'                  },
-  ],
+}
+
+// ─── Footer contact modal ─────────────────────────────────────────────────────
+function FooterContactModal({ onClose }: { onClose: () => void }) {
+  const [form, setForm]     = useState({ name: '', subject: '', email: '', message: '' })
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+
+  function set(field: string) {
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm(prev => ({ ...prev, [field]: e.target.value }))
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      setStatus(res.ok ? 'sent' : 'error')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const inputCls = 'w-full bg-gold-400/[0.03] border border-gold-400/[0.14] rounded-lg px-4 py-3 text-[14px] text-ink-0 placeholder:text-ink-2 outline-none transition-all hover:bg-gold-400/[0.05] focus:border-gold-400/50 focus:bg-gold-400/[0.05] focus:ring-2 focus:ring-gold-400/10'
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="relative w-full max-w-md bg-surface-0 border border-gold-400/[0.15] rounded-2xl shadow-[0_24px_80px_rgba(0,0,0,0.6)] overflow-hidden"
+        initial={{ opacity: 0, scale: 0.96, y: 14 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: 14 }}
+        transition={{ duration: 0.22, ease }}
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Gold top accent line */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-400/60 to-transparent" />
+
+        {/* Header */}
+        <div className="px-8 pt-8 pb-6 border-b border-gold-400/[0.08]">
+          <button
+            onClick={onClose}
+            className="absolute top-5 right-5 text-ink-3 hover:text-ink-0 transition-colors"
+            aria-label="Close"
+          >
+            <X className="w-4 h-4" />
+          </button>
+          <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-gold-400 mb-2">Support</p>
+          <h3 className="text-[20px] font-extrabold tracking-[-0.02em] text-gold-200 leading-tight">Get in Touch</h3>
+          <p className="text-[13px] text-ink-2 mt-1">We&rsquo;ll get back to you within 24 hours.</p>
+        </div>
+
+        {/* Body */}
+        <div className="px-8 py-7">
+          {status === 'sent' ? (
+            <div className="flex flex-col items-start gap-4 py-4">
+              <div className="w-10 h-10 rounded-full border-2 border-gold-400 flex items-center justify-center">
+                <svg className="w-4 h-4 text-gold-400" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8l4 4 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-[16px] font-bold text-gold-200">Message sent!</p>
+                <p className="text-[13px] text-ink-2 mt-1">We&rsquo;ll review your message and follow up shortly.</p>
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[12px] font-semibold tracking-[0.04em] text-gold-400">Name</label>
+                <input required placeholder="Your full name" value={form.name} onChange={set('name')} className={inputCls} />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[12px] font-semibold tracking-[0.04em] text-gold-400">Subject</label>
+                <input required placeholder="What's this about?" value={form.subject} onChange={set('subject')} className={inputCls} />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[12px] font-semibold tracking-[0.04em] text-gold-400">Email</label>
+                <input required type="email" placeholder="you@example.com" value={form.email} onChange={set('email')} className={inputCls} />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[12px] font-semibold tracking-[0.04em] text-gold-400">Message</label>
+                <textarea required placeholder="How can we help?" value={form.message} onChange={set('message')} rows={4} className={`${inputCls} resize-none`} />
+              </div>
+              {status === 'error' && (
+                <p className="text-[12px] text-red-400 bg-red-600/10 border border-red-600/20 rounded-lg px-3 py-2">
+                  Something went wrong — please try again.
+                </p>
+              )}
+              <motion.button
+                type="submit"
+                disabled={status === 'sending'}
+                whileHover={{ scale: 1.02, y: -1 }} whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.15, ease }}
+                className={cn(buttonVariants(), 'bg-gold-400 text-white hover:bg-gold-200 font-bold text-[13.5px] h-11 mt-1 shadow-[0_0_0_0_rgba(136,136,136,0)] hover:shadow-[0_8px_24px_rgba(136,136,136,0.25)] transition-shadow duration-300 disabled:opacity-60 disabled:cursor-not-allowed')}
+              >
+                {status === 'sending' ? 'Sending…' : 'Send Message'}
+              </motion.button>
+            </form>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  )
 }
 
 function Footer() {
+  const [showModal, setShowModal] = useState(false)
+
   return (
-    <footer className="border-t border-gold-400/[0.07] bg-surface-0/70 backdrop-blur-xl pt-[72px] pb-10">
-      <div className="max-w-[1200px] mx-auto px-8">
-        <div className="grid grid-cols-[260px_1fr] gap-20 mb-16 max-md:grid-cols-1 max-md:gap-12">
-          <div>
-            <a href="/" className="text-[17px] font-extrabold tracking-tight text-white transition-opacity hover:opacity-80">
-              Omniviq Digital
-            </a>
-            <p className="mt-5 text-sm text-ink-2 leading-[1.7]">
-              Full-service digital marketing<br />for local businesses in Toronto.
-            </p>
-          </div>
-          <div className="grid grid-cols-4 gap-10 max-lg:grid-cols-2">
-            {Object.entries(FOOTER_LINKS).map(([group, links]) => (
-              <div key={group}>
-                <span className="block text-[11px] font-bold tracking-[0.12em] uppercase text-ink-2 mb-5">{group}</span>
+    <>
+      <footer className="border-t border-gold-400/[0.07] bg-surface-0/70 backdrop-blur-xl pt-[72px] pb-10">
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="grid grid-cols-[260px_1fr] gap-20 mb-16 max-md:grid-cols-1 max-md:gap-12">
+            <div>
+              <a href="/" className="text-[17px] font-extrabold tracking-tight text-white transition-opacity hover:opacity-80">
+                Omniviq Digital
+              </a>
+              <p className="mt-5 text-sm text-ink-2 leading-[1.7]">
+                Full-service digital marketing<br />for local businesses in Toronto.
+              </p>
+            </div>
+            <div className="grid grid-cols-4 gap-10 max-lg:grid-cols-2">
+              {Object.entries(FOOTER_LINKS).map(([group, links]) => (
+                <div key={group}>
+                  <span className="block text-[11px] font-bold tracking-[0.12em] uppercase text-ink-2 mb-5">{group}</span>
+                  <ul className="flex flex-col gap-3">
+                    {links.map(({ label, href }) => (
+                      <li key={label}>
+                        <a href={href} className="text-sm text-ink-2 transition-colors hover:text-ink-0">
+                          {label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+
+              {/* Contact column */}
+              <div>
+                <span className="block text-[11px] font-bold tracking-[0.12em] uppercase text-ink-2 mb-5">Contact</span>
                 <ul className="flex flex-col gap-3">
-                  {links.map(({ label, href }) => (
-                    <li key={label}>
-                      <a href={href} className="text-sm text-ink-2 transition-colors hover:text-ink-0">
-                        {label}
-                      </a>
-                    </li>
-                  ))}
+                  <li>
+                    <button
+                      onClick={() => setShowModal(true)}
+                      className="text-sm text-ink-2 transition-colors hover:text-ink-0 text-left"
+                    >
+                      support@omniviqmarketing.ca
+                    </button>
+                  </li>
+                  <li>
+                    <a href="tel:+14168270920" className="text-sm text-ink-2 transition-colors hover:text-ink-0">
+                      (416) 827-0920
+                    </a>
+                  </li>
                 </ul>
               </div>
-            ))}
+            </div>
+          </div>
+          <Separator className="bg-gold-400/[0.08] mb-8" />
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <span className="text-[12.5px] text-ink-3">
+              &copy; {new Date().getFullYear()} Omniviq Marketing. Toronto, ON. All rights reserved.
+            </span>
           </div>
         </div>
-        <Separator className="bg-gold-400/[0.08] mb-8" />
-        <div className="flex items-center justify-between flex-wrap gap-2">
-          <span className="text-[12.5px] text-ink-3">
-            &copy; {new Date().getFullYear()} Omniviq Marketing. Toronto, ON. All rights reserved.
-          </span>
-        </div>
-      </div>
-    </footer>
+      </footer>
+
+      <AnimatePresence>
+        {showModal && <FooterContactModal onClose={() => setShowModal(false)} />}
+      </AnimatePresence>
+    </>
   )
 }
