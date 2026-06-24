@@ -15,6 +15,8 @@ const PROJECTS: Project[] = [
     tags:        ['Web Design', 'Booking'],
     stat:        '+40%',
     statLabel:   'online reservations',
+    image:       '/good-eats-hero.jpg',
+    link:        'https://goodeatss.netlify.app/',
   },
   {
     client:      'FitForge Gym',
