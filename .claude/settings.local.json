@@ -67,7 +67,13 @@
       "Bash(npm list *)",
       "Bash(where playwright *)",
       "Bash(npm init *)",
-      "Bash('[id=\\\\\"pricing\\\\\"]')"
+      "Bash('[id=\\\\\"pricing\\\\\"]')",
+      "WebFetch(domain:celebrated-brigadeiros-dfac03.netlify.app)",
+      "PowerShell(Start-Process -NoNewWindow -FilePath \"cmd.exe\" -ArgumentList \"/c cd `\"c:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude`\" && npm run dev -- --port 3000 > `\"c:\\\\Users\\\\johna\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\dev-server.log`\" 2>&1\")",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 10)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force })",
+      "PowerShell(netstat -ano | Select-String \":3000 \" | ForEach-Object { \\($_ -split '\\\\s+'\\)[-1] } | Sort-Object -Unique | ForEach-Object { taskkill /PID $_ /F })",
+      "PowerShell($f = \"c:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\\\\public\\\\gym-hero.webp\"; [math]::Round\\(\\(Get-Item $f\\).Length / 1KB, 1\\))"
     ],
     "additionalDirectories": [
       "c:\\Users\\johna\\Downloads",

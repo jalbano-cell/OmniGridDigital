@@ -24,6 +24,8 @@ const PROJECTS: Project[] = [
     tags:        ['Web Design', 'CRO'],
     stat:        '3×',
     statLabel:   'sign-up rate',
+    image:       '/gym-hero.webp',
+    link:        'https://gymtests.netlify.app/',
   },
   {
     client:      'Ember & Grain',
@@ -52,6 +54,8 @@ const PROJECTS: Project[] = [
     year:        '2025',
     description: 'Service menu, team profiles, and a seamless online booking integration — all in one clean, mobile-first experience.',
     tags:        ['Web Design', 'Booking'],
+    image:       '/barbershop-hero.jpg',
+    link:        'https://celebrated-brigadeiros-dfac03.netlify.app/',
   },
 ]
 

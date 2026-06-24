@@ -16,6 +16,8 @@ export interface Project {
   tags:        string[]
   stat?:       string
   statLabel?:  string
+  image?:      string
+  link?:       string
 }
 
 interface ServiceCatalogPageProps {
@@ -51,7 +53,14 @@ function PageBackground() {
   )
 }
 
-function AssetPlaceholder() {
+function AssetPlaceholder({ image }: { image?: string }) {
+  if (image) {
+    return (
+      <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-gold-400/[0.08] group-hover:border-gold-400/[0.18] transition-colors duration-300">
+        <Image src={image} alt="Project preview" fill className="object-cover object-top" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+      </div>
+    )
+  }
   return (
     <div className="relative w-full aspect-video bg-surface-2 rounded-xl overflow-hidden border border-gold-400/[0.08] flex items-center justify-center group-hover:border-gold-400/[0.18] transition-colors duration-300">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-400/20 to-transparent" />
@@ -156,7 +165,13 @@ export function ServiceCatalogPage({
                 >
                   <div className="bg-gold-400/[0.03] backdrop-blur-md border border-gold-400/[0.10] rounded-2xl overflow-hidden transition-colors duration-300 hover:bg-gold-400/[0.07] hover:border-gold-400/[0.18] h-full">
                     <div className="p-3 pb-0">
-                      <AssetPlaceholder />
+                      {p.link ? (
+                        <a href={p.link} target="_blank" rel="noopener noreferrer" className="block">
+                          <AssetPlaceholder image={p.image} />
+                        </a>
+                      ) : (
+                        <AssetPlaceholder image={p.image} />
+                      )}
                     </div>
                     <div className="p-6 pt-5 flex flex-col gap-3">
                       <div className="flex items-center justify-between gap-2">
@@ -184,9 +199,21 @@ export function ServiceCatalogPage({
                         </div>
                       )}
 
-                      <h3 className="text-[17px] font-bold tracking-[-0.02em] text-gold-200 leading-snug">
-                        {p.project}
-                      </h3>
+                      {p.link ? (
+                        <a
+                          href={p.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[17px] font-bold tracking-[-0.02em] text-gold-200 leading-snug hover:text-gold-300 transition-colors inline-flex items-center gap-1.5 group/link"
+                        >
+                          {p.project}
+                          <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-200" />
+                        </a>
+                      ) : (
+                        <h3 className="text-[17px] font-bold tracking-[-0.02em] text-gold-200 leading-snug">
+                          {p.project}
+                        </h3>
+                      )}
                       <span className="text-[12.5px] font-semibold text-ink-2">{p.client}</span>
                       <p className="text-sm text-ink-1 leading-[1.75]">{p.description}</p>
                     </div>
