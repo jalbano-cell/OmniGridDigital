@@ -73,7 +73,8 @@
       "PowerShell(Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 10)",
       "PowerShell(Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force })",
       "PowerShell(netstat -ano | Select-String \":3000 \" | ForEach-Object { \\($_ -split '\\\\s+'\\)[-1] } | Sort-Object -Unique | ForEach-Object { taskkill /PID $_ /F })",
-      "PowerShell($f = \"c:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\\\\public\\\\gym-hero.webp\"; [math]::Round\\(\\(Get-Item $f\\).Length / 1KB, 1\\))"
+      "PowerShell($f = \"c:\\\\Users\\\\johna\\\\OneDrive\\\\Documents\\\\Claude\\\\public\\\\gym-hero.webp\"; [math]::Round\\(\\(Get-Item $f\\).Length / 1KB, 1\\))",
+      "Bash(git checkout *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\johna\\Downloads",
