@@ -30,13 +30,6 @@ const PROJECTS: Project[] = [
     link:        'https://gymtests.netlify.app/',
   },
   {
-    client:      'Ember & Grain',
-    project:     'Restaurant Brand Site',
-    year:        '2024',
-    description: 'Full brand site built around the restaurant\'s story — menu, gallery, events, and a custom reservations experience.',
-    tags:        ['Web Design', 'Branding'],
-  },
-  {
     client:      'Ridgeline Coffee Co.',
     project:     'E-Commerce & Brand Site',
     year:        '2025',
