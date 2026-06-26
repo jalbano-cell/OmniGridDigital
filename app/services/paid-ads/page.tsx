@@ -13,6 +13,7 @@ const PROJECTS: Project[] = [
     tags:      ['Meta Ads', 'Fitness'],
     stat:      '3.8×',
     statLabel: 'ROAS in first 60 days',
+    image:     '/ads-fitness.jpg',
   },
   {
     project:   'Google Local Search Campaign',
@@ -20,6 +21,7 @@ const PROJECTS: Project[] = [
     tags:      ['Google Ads', 'Local'],
     stat:      '2.4×',
     statLabel: 'local visibility increase',
+    image:     '/ads-search.jpg',
   },
   {
     project:   'Instagram & Facebook Brand Awareness',
@@ -27,6 +29,7 @@ const PROJECTS: Project[] = [
     tags:      ['Meta Ads', 'Brand'],
     stat:      '200K+',
     statLabel: 'people reached',
+    image:     '/ads-brand.jpg',
   },
   {
     project:   'Meta Product Launch Campaign',
@@ -34,6 +37,7 @@ const PROJECTS: Project[] = [
     tags:      ['Meta Ads', 'E-Commerce'],
     stat:      '45%',
     statLabel: 'lower cost per acquisition',
+    image:     '/ads-ecommerce.jpg',
   },
   {
     project:   'Google Real Estate Lead Ads',
@@ -41,6 +45,7 @@ const PROJECTS: Project[] = [
     tags:      ['Google Ads', 'Real Estate'],
     stat:      '58',
     statLabel: 'qualified leads per month',
+    image:     '/ads-realestate.jpg',
   },
   {
     project:   'Local Google Ads Campaign',
@@ -48,6 +53,7 @@ const PROJECTS: Project[] = [
     tags:      ['Google Ads', 'Local'],
     stat:      '2.1×',
     statLabel: 'booking rate increase',
+    image:     '/ads-local-map.jpg',
   },
 ]
 
