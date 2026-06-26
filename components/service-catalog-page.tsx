@@ -9,10 +9,10 @@ import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 export interface Project {
-  client:      string
+  client?:     string
   project:     string
   year:        string
-  description: string
+  description?: string
   tags:        string[]
   stat?:       string
   statLabel?:  string
@@ -214,8 +214,8 @@ export function ServiceCatalogPage({
                           {p.project}
                         </h3>
                       )}
-                      <span className="text-[12.5px] font-semibold text-ink-2">{p.client}</span>
-                      <p className="text-sm text-ink-1 leading-[1.75]">{p.description}</p>
+                      {p.client && <span className="text-[12.5px] font-semibold text-ink-2">{p.client}</span>}
+                      {p.description && <p className="text-sm text-ink-1 leading-[1.75]">{p.description}</p>}
                     </div>
                   </div>
                 </motion.div>
@@ -277,10 +277,10 @@ export function ServiceCatalogPage({
       <footer className="border-t border-gold-400/[0.07] bg-surface-0/70 backdrop-blur-xl py-8">
         <div className="max-w-[1200px] mx-auto px-8 flex items-center justify-between flex-wrap gap-3">
           <a href="/" className="text-[15px] font-extrabold tracking-tight text-white transition-opacity hover:opacity-80">
-            Omnigrid Digital
+            OmniGrid Digital
           </a>
           <span className="text-[12.5px] text-ink-3">
-            &copy; {new Date().getFullYear()} Omnigrid Digital. Toronto, ON. All rights reserved.
+            &copy; {new Date().getFullYear()} OmniGrid Digital. Toronto, ON. All rights reserved.
           </span>
           <a
             href="mailto:support@omnigriddigital.ca"

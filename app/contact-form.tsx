@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 const inputBase =
-  'w-full bg-gold-400/[0.03] border border-gold-400/[0.14] rounded-lg px-4 py-3.5 text-[15px] text-ink-0 placeholder:text-ink-2 outline-none transition-all hover:bg-gold-400/[0.05] focus:border-gold-400/50 focus:bg-gold-400/[0.05] focus:ring-2 focus:ring-gold-400/10 disabled:opacity-50 disabled:cursor-not-allowed'
+  'w-full bg-white/[0.04] border border-white/[0.10] rounded-xl px-4 py-3.5 text-[15px] text-ink-0 placeholder:text-ink-3 outline-none transition-all hover:bg-white/[0.06] focus:border-gold-400/50 focus:bg-white/[0.06] focus:ring-2 focus:ring-gold-400/10 disabled:opacity-50 disabled:cursor-not-allowed'
 
 const inputError =
   'border-red-600 ring-2 ring-red-600/10 focus:border-red-600 focus:ring-red-600/15'
@@ -57,14 +57,14 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-start gap-4 p-12 bg-gold-400/[0.04] border border-gold-400/25 rounded-2xl">
-        <div className="w-11 h-11 rounded-full border-2 border-gold-400 flex items-center justify-center">
-          <svg className="w-4 h-4 text-gold-400" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div className="flex flex-col items-start gap-4 p-12 bg-white/[0.03] border border-white/[0.10] rounded-2xl">
+        <div className="w-11 h-11 rounded-full border-2 border-gold-300 flex items-center justify-center">
+          <svg className="w-4 h-4 text-gold-300" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 8l4 4 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <h3 className="text-[22px] font-bold tracking-[-0.02em] text-gold-200">We&rsquo;ll be in touch soon.</h3>
-        <p className="text-[15px] text-ink-1 leading-[1.7]">
+        <h3 className="text-[22px] font-bold tracking-[-0.02em] text-ink-0">We&rsquo;ll be in touch soon.</h3>
+        <p className="text-[15px] text-ink-2 leading-[1.7]">
           Thanks for reaching out &mdash; we&rsquo;ll review your details and follow up within one business day.
         </p>
       </div>
@@ -75,18 +75,18 @@ export default function ContactForm() {
     <form className="flex flex-col gap-6" onSubmit={handleSubmit} noValidate>
       <div className="grid grid-cols-2 gap-5 max-sm:grid-cols-1">
         <div className="flex flex-col gap-2">
-          <label className="text-[13px] font-semibold tracking-[0.03em] text-gold-400" htmlFor="name">Name</label>
+          <label className="text-[13px] font-semibold tracking-[0.03em] text-ink-2" htmlFor="name">Name</label>
           <input className={inputBase} id="name" name="name" type="text" placeholder="Your full name" required disabled={loading} />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-[13px] font-semibold tracking-[0.03em] text-gold-400" htmlFor="business">Business Name</label>
+          <label className="text-[13px] font-semibold tracking-[0.03em] text-ink-2" htmlFor="business">Business Name</label>
           <input className={inputBase} id="business" name="business" type="text" placeholder="Your business name" required disabled={loading} />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-5 max-sm:grid-cols-1">
         <div className="flex flex-col gap-2">
-          <label className="text-[13px] font-semibold tracking-[0.03em] text-gold-400" htmlFor="email">Email</label>
+          <label className="text-[13px] font-semibold tracking-[0.03em] text-ink-2" htmlFor="email">Email</label>
           <input
             className={cn(inputBase, emailError && inputError)}
             id="email" name="email" type="email"
@@ -105,22 +105,23 @@ export default function ContactForm() {
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-[13px] font-semibold tracking-[0.03em] text-gold-400" htmlFor="phone">Phone</label>
+          <label className="text-[13px] font-semibold tracking-[0.03em] text-ink-2" htmlFor="phone">Phone</label>
           <input className={inputBase} id="phone" name="phone" type="tel" placeholder="+1 (416) 000-0000" disabled={loading} />
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text-[13px] font-semibold tracking-[0.03em] text-gold-400" htmlFor="service">Service Interested In</label>
+        <label className="text-[13px] font-semibold tracking-[0.03em] text-ink-2" htmlFor="service">Service Interested In</label>
         <div className="relative">
           <select
             className={cn(inputBase, 'appearance-none pr-11 cursor-pointer font-semibold')}
             id="service" name="service" disabled={loading}
           >
-            <option>Web Design</option>
-            <option>Paid Ads</option>
-            <option>Video Production</option>
-            <option>Full-Service Package</option>
+            <option value="">Select a plan…</option>
+            <option>Launch — $1,000 CAD (One-Time)</option>
+            <option>Starter — $299 CAD/month</option>
+            <option>Growth — $599 CAD/month</option>
+            <option>Custom Package</option>
           </select>
           <span
             className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none w-0 h-0 border-l-[5px] border-r-[5px] border-t-[6px] border-l-transparent border-r-transparent border-t-ink-2"
@@ -130,7 +131,7 @@ export default function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text-[13px] font-semibold tracking-[0.03em] text-gold-400" htmlFor="message">Message</label>
+        <label className="text-[13px] font-semibold tracking-[0.03em] text-ink-2" htmlFor="message">Message</label>
         <textarea
           className={cn(inputBase, 'resize-y min-h-[130px]')}
           id="message" name="message"
@@ -147,7 +148,7 @@ export default function ContactForm() {
 
       <Button
         type="submit"
-        className="self-start mt-2 bg-gold-400 text-white hover:bg-gold-300 font-bold text-base px-8 h-14 transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(136,136,136,0.35)] disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+        className="self-start mt-2 bg-gold-400 text-white hover:bg-gold-500 font-semibold text-[15px] px-8 h-12 rounded-xl transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(37,99,235,0.4)] disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
         disabled={loading}
       >
         {loading ? 'Sending…' : 'Get a Free Audit'}

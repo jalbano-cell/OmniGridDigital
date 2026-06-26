@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { PricingDetailPage, type Step, type Feature } from '@/components/pricing-detail-page'
 
 export const metadata: Metadata = {
-  title: 'Foundation — Omnigrid Digital',
+  title: 'Foundation — OmniGrid Digital',
   description: 'A straightforward, cash-based retainer partnership. Full-service digital marketing with predictable billing and a dedicated team.',
 }
 

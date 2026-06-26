@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await transporter.sendMail({
-      from: `"Omnigrid Digital Website" <${process.env.SMTP_USER}>`,
+      from: `"OmniGrid Digital Website" <${process.env.SMTP_USER}>`,
       to: TO,
       replyTo: `"${name}" <${email}>`,
       subject: `Support Request — ${name}: ${subject}`,
