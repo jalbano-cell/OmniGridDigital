@@ -1004,7 +1004,6 @@ const FOOTER_LINKS: Record<string, { label: string; href: string }[]> = {
     { label: 'Contact', href: '#contact' },
   ],
   Resources: [
-    { label: 'Blog',       href: '#'        },
     { label: 'Free Audit', href: '#contact' },
   ],
 }
