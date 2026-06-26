@@ -41,7 +41,7 @@ const PROJECTS: Project[] = [
     stat:      '+55%',
     statLabel: 'online bookings',
     image:     '/barbershop-hero.jpg',
-    link:      'https://celebrated-brigadeiros-dfac03.netlify.app/',
+    link:      'https://barbershop-gamma-fawn.vercel.app/',
   },
 ]
 
