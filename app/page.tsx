@@ -8,7 +8,8 @@ import { Nav } from '@/components/nav'
 import { cn } from '@/lib/utils'
 import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, ChevronDown, Phone, FileText, MapPin, ShieldCheck } from 'lucide-react'
 
-const Globe = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
+const Globe          = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
+const GalaxyBackground = dynamic(() => import('./galaxy-background').then(m => m.GalaxyBackground), { ssr: false })
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -52,89 +53,8 @@ export default function Home() {
 }
 
 // ─── Page Background ──────────────────────────────────────────────────────────
-const C_STARS: [number, number, number, number][] = [
-  [88,42,0.8,0.35],[145,78,1.1,0.45],[210,35,0.7,0.3],[290,112,0.9,0.4],[365,55,1.2,0.5],
-  [435,145,0.8,0.35],[510,28,0.9,0.4],[592,165,1,0.45],[648,68,0.8,0.3],[715,135,1.1,0.5],
-  [780,42,0.7,0.35],[852,168,0.9,0.4],[920,55,1.2,0.45],[995,128,0.8,0.35],[1058,72,1,0.4],
-  [1125,148,0.9,0.5],[1195,38,0.8,0.35],[1270,125,1.1,0.45],[1340,68,0.7,0.3],[1410,155,0.9,0.4],
-  [62,225,1,0.4],[148,305,0.8,0.35],[225,258,1.1,0.45],[318,348,0.7,0.3],[392,275,0.9,0.4],
-  [468,338,1.2,0.5],[545,248,0.8,0.35],[622,315,1,0.45],[698,258,0.9,0.4],[772,368,0.8,0.35],
-  [928,348,0.7,0.3],[1005,225,0.9,0.4],[1082,298,1,0.45],[1235,358,1.1,0.4],[1312,238,0.7,0.3],
-  [1388,325,0.9,0.45],[42,455,0.9,0.4],[125,538,0.8,0.35],[198,478,1.1,0.45],[275,558,0.7,0.3],
-  [355,488,0.9,0.4],[428,565,1,0.45],[505,438,0.8,0.35],[580,542,1.1,0.4],[658,468,0.7,0.3],
-  [735,555,0.9,0.45],[812,448,1.2,0.5],[888,528,0.8,0.35],[962,488,1,0.4],[1038,568,0.9,0.45],
-  [1115,452,0.8,0.35],[1192,548,1.1,0.4],[1268,472,0.7,0.3],[1345,558,0.9,0.4],[1415,498,1,0.45],
-  [75,668,0.8,0.35],[155,748,1.1,0.45],[232,695,0.9,0.4],[308,775,0.7,0.3],[388,718,1,0.45],
-  [465,798,0.8,0.35],[545,672,0.9,0.4],[622,758,1.1,0.5],[698,702,0.7,0.35],[775,782,1,0.4],
-  [852,658,0.8,0.35],[928,738,0.9,0.45],[1082,778,0.8,0.35],[1158,715,1,0.4],[1235,798,0.9,0.45],
-  [1312,672,0.7,0.3],[1388,752,1.1,0.4],[1420,842,0.8,0.35],[165,435,0.7,0.3],[490,345,0.9,0.4],
-  [1050,195,0.8,0.35],[1430,385,0.7,0.3],[30,148,1,0.4],[1440,248,0.8,0.35],[720,855,1,0.4],
-]
-
-const C_HUBS: [number, number, number, string][] = [
-  [145,78,2.2,'#0EA5E9'],
-  [365,55,2.5,'#2563EB'],
-  [510,28,2,'#0EA5E9'],
-  [715,135,2.8,'#2563EB'],
-  [920,55,2.2,'#0EA5E9'],
-  [1125,148,2.5,'#2563EB'],
-  [1340,68,2,'#0EA5E9'],
-  [225,258,2.2,'#2563EB'],
-  [545,248,2.8,'#0EA5E9'],
-  [848,285,2.2,'#2563EB'],
-  [1158,265,2.5,'#0EA5E9'],
-  [1388,325,2,'#2563EB'],
-  [388,718,2,'#2563EB'],
-  [698,702,2.5,'#0EA5E9'],
-  [1005,688,2.2,'#2563EB'],
-]
-
-const C_EDGES: [number, number][] = [
-  [0,1],[1,2],[2,3],[3,4],[4,5],[5,6],
-  [0,7],[7,8],[8,9],[9,10],[10,11],
-  [1,7],[3,8],[4,9],[5,10],
-  [8,12],[9,13],[10,14],[12,13],[13,14],
-]
-
 function PageBackground() {
-  return (
-    <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden" aria-hidden="true">
-      {/* Ambient color blobs */}
-      <div className="absolute -top-[30%] -left-[10%] w-[800px] h-[800px] rounded-full bg-[#2563EB]/[0.14] blur-[180px]" />
-      <div className="absolute -top-[10%] right-[-18%] w-[700px] h-[700px] rounded-full bg-[#0EA5E9]/[0.09] blur-[160px]" />
-      <div className="absolute top-[55%] right-[-8%] w-[600px] h-[600px] rounded-full bg-[#2563EB]/[0.07] blur-[140px]" />
-      <div className="absolute top-[65%] -left-[5%] w-[500px] h-[500px] rounded-full bg-[#0EA5E9]/[0.06] blur-[150px]" />
-
-      {/* Constellation layer */}
-      <svg
-        className="absolute inset-0 w-full h-full"
-        viewBox="0 0 1440 900"
-        preserveAspectRatio="xMidYMid slice"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {C_STARS.map(([cx, cy, r, o], i) => (
-          <circle key={i} cx={cx} cy={cy} r={r} fill="white" fillOpacity={o} />
-        ))}
-        {C_EDGES.map(([a, b], i) => (
-          <line
-            key={i}
-            x1={C_HUBS[a][0]} y1={C_HUBS[a][1]}
-            x2={C_HUBS[b][0]} y2={C_HUBS[b][1]}
-            stroke="#3B82F6"
-            strokeWidth="0.6"
-            strokeOpacity="0.2"
-          />
-        ))}
-        {C_HUBS.map(([cx, cy, r, color], i) => (
-          <g key={i}>
-            <circle cx={cx} cy={cy} r={r + 8} fill={color} fillOpacity="0.04" />
-            <circle cx={cx} cy={cy} r={r + 3} fill={color} fillOpacity="0.12" />
-            <circle cx={cx} cy={cy} r={r} fill={color} fillOpacity="0.65" />
-          </g>
-        ))}
-      </svg>
-    </div>
-  )
+  return <GalaxyBackground />
 }
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
@@ -164,7 +84,7 @@ function Hero({ onContact }: { onContact: () => void }) {
               </span>
               <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-ink-1">Toronto, ON</span>
               <span className="w-px h-3.5 bg-ink-3/40 shrink-0" />
-              <span className="text-[11px] font-medium tracking-[0.06em] text-ink-3">Digital Marketing Agency</span>
+              <span className="text-[11px] font-medium tracking-[0.06em] text-ink-3">Digital Marketing</span>
             </motion.div>
 
             <motion.h1
@@ -911,7 +831,7 @@ function Pricing({ onContact }: { onContact: () => void }) {
 // ─── Contact ──────────────────────────────────────────────────────────────────
 function ContactSection() {
   return (
-    <section className="relative border-t border-white/[0.06] overflow-hidden min-h-[860px] flex items-center" id="contact">
+    <section className="relative border-t border-white/[0.06] overflow-hidden min-h-[860px] flex items-center bg-[#0F172A]" id="contact">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <Globe />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_75%_at_65%_50%,transparent_35%,#0F172A_80%)]" />
@@ -1124,7 +1044,7 @@ function Footer() {
   const [showModal, setShowModal] = useState(false)
 
   return (
-    <footer className="border-t border-white/[0.06] bg-surface-1/80 backdrop-blur-xl">
+    <footer className="border-t border-white/[0.06] bg-[#111827]">
       <div className="max-w-[1200px] mx-auto px-8 py-16">
         <div className="grid grid-cols-[240px_1fr] gap-16 mb-14 max-md:grid-cols-1 max-md:gap-10">
 
@@ -1183,8 +1103,8 @@ function Footer() {
             &copy; {new Date().getFullYear()} OmniGrid Digital. Toronto, ON. All rights reserved.
           </span>
           <div className="flex items-center gap-5">
-            <a href="#" className="text-[12.5px] text-ink-3 hover:text-ink-2 transition-colors">Privacy Policy</a>
-            <a href="#" className="text-[12.5px] text-ink-3 hover:text-ink-2 transition-colors">Terms</a>
+            <a href="/privacy-policy.html" className="text-[12.5px] text-ink-3 hover:text-ink-2 transition-colors">Privacy Policy</a>
+            <a href="/terms.html" className="text-[12.5px] text-ink-3 hover:text-ink-2 transition-colors">Terms</a>
           </div>
         </div>
       </div>
