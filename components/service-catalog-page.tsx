@@ -45,10 +45,10 @@ function staggerContainer(stagger = 0.1, delayChildren = 0) {
 function PageBackground() {
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden" aria-hidden="true">
-      <div className="absolute -top-[20%] -left-[12%] w-[900px] h-[900px] rounded-full bg-[#888888]/[0.14] blur-[180px]" />
-      <div className="absolute -top-[10%] right-[-15%] w-[750px] h-[750px] rounded-full bg-[#505050]/[0.18] blur-[160px]" />
-      <div className="absolute top-[45%] right-[-8%] w-[650px] h-[650px] rounded-full bg-[#d1d0d0]/[0.06] blur-[160px]" />
-      <div className="absolute inset-0 bg-noise opacity-[0.04] mix-blend-overlay" />
+      <div className="absolute -top-[20%] -left-[12%] w-[900px] h-[900px] rounded-full bg-[#1e3a8a]/[0.22] blur-[200px]" />
+      <div className="absolute -top-[10%] right-[-15%] w-[750px] h-[750px] rounded-full bg-[#0EA5E9]/[0.10] blur-[180px]" />
+      <div className="absolute top-[45%] right-[-8%] w-[650px] h-[650px] rounded-full bg-[#2563EB]/[0.08] blur-[180px]" />
+      <div className="absolute inset-0 bg-noise opacity-[0.03] mix-blend-overlay" />
     </div>
   )
 }
@@ -119,7 +119,7 @@ export function ServiceCatalogPage({
               <motion.h1
                 variants={fadeUp}
                 transition={{ duration: 0.7, ease }}
-                className="text-[clamp(40px,7vw,84px)] font-extrabold leading-none tracking-[-0.04em] text-gold-300 mb-6"
+                className="text-[clamp(54px,7vw,84px)] font-extrabold leading-[1.02] tracking-[-0.04em] text-gold-300 mb-6"
               >
                 {headline}<br />
                 <span className="text-gold-200">{subheadline}</span>
@@ -127,7 +127,7 @@ export function ServiceCatalogPage({
               <motion.p
                 variants={fadeUp}
                 transition={{ duration: 0.6, ease }}
-                className="max-w-[520px] text-[17px] text-ink-1 leading-[1.75]"
+                className="max-w-[540px] text-[18px] text-ink-1 leading-[1.8]"
               >
                 {description}
               </motion.p>
@@ -138,15 +138,18 @@ export function ServiceCatalogPage({
         {/* ── Portfolio Grid ── */}
         <section className="py-[100px]">
           <div className="max-w-[1200px] mx-auto px-8">
-            <motion.p
-              className="text-[11.5px] font-semibold tracking-[0.16em] uppercase text-ink-3 mb-10"
+            <motion.div
+              className="flex items-center gap-3 mb-12"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              {projects.length} Projects
-            </motion.p>
+              <span className="w-6 h-px bg-gold-400/50" />
+              <p className="text-[11.5px] font-semibold tracking-[0.16em] uppercase text-ink-3">
+                {projects.length} Projects
+              </p>
+            </motion.div>
 
             <motion.div
               className="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-sm:grid-cols-1"
@@ -173,7 +176,7 @@ export function ServiceCatalogPage({
                         <AssetPlaceholder image={p.image} />
                       )}
                     </div>
-                    <div className="p-6 pt-5 flex flex-col gap-3">
+                    <div className="p-7 pt-5 flex flex-col gap-3.5">
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2 flex-wrap">
                           {p.tags.map((tag) => (
@@ -215,7 +218,7 @@ export function ServiceCatalogPage({
                         </h3>
                       )}
                       {p.client && <span className="text-[12.5px] font-semibold text-ink-2">{p.client}</span>}
-                      {p.description && <p className="text-sm text-ink-1 leading-[1.75]">{p.description}</p>}
+                      {p.description && <p className="text-[15.5px] text-ink-1 leading-[1.8]">{p.description}</p>}
                     </div>
                   </div>
                 </motion.div>
@@ -243,7 +246,7 @@ export function ServiceCatalogPage({
               <motion.h2
                 variants={fadeUp}
                 transition={{ duration: 0.7, ease }}
-                className="text-[clamp(36px,5vw,60px)] font-extrabold leading-[1.05] tracking-[-0.035em] text-gold-300 mb-5"
+                className="text-[clamp(40px,5vw,60px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-gold-300 mb-5"
               >
                 Ready to Add Your Business<br />
                 <span className="text-gold-200">to the List?</span>
