@@ -22,7 +22,7 @@ const PROJECTS: Project[] = [
     tags:      ['Web Design', 'CRO'],
     stat:      '3×',
     statLabel: 'sign-up rate',
-    image:     '/gym-hero.webp',
+    image:     '/gym-screenshot.png',
     link:      'https://gym-flax-nu.vercel.app/',
   },
   {
