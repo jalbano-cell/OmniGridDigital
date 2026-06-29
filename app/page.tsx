@@ -64,9 +64,9 @@ const FLOAT_CARDS = [
 ]
 
 const DASHBOARD_STATS = [
-  { label: 'ROI',         value: '171%',  pct: 85, colorFrom: 'from-gold-400',   colorTo: 'to-gold-300',    icon: TrendingUp,   iconColor: 'text-gold-300'  },
-  { label: 'Engagement',  value: '44.8K', pct: 92, colorFrom: 'from-[#60A5FA]',  colorTo: 'to-[#3B82F6]',  icon: BarChart3,    iconColor: 'text-[#60A5FA]' },
-  { label: 'Conversions', value: '6.4K',  pct: 78, colorFrom: 'from-[#C084FC]',  colorTo: 'to-[#7C3AED]',  icon: CheckCircle2, iconColor: 'text-[#C084FC]' },
+  { label: 'ROI',         value: '85.5%', pct: 85, colorFrom: 'from-gold-400',   colorTo: 'to-gold-300',    icon: TrendingUp,   iconColor: 'text-gold-300'  },
+  { label: 'Engagement',  value: '22.4K', pct: 92, colorFrom: 'from-[#60A5FA]',  colorTo: 'to-[#3B82F6]',  icon: BarChart3,    iconColor: 'text-[#60A5FA]' },
+  { label: 'Conversions', value: '3.2K',  pct: 78, colorFrom: 'from-[#C084FC]',  colorTo: 'to-[#7C3AED]',  icon: CheckCircle2, iconColor: 'text-[#C084FC]' },
 ]
 
 function Hero({ onContact }: { onContact: () => void }) {
