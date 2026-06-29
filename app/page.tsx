@@ -954,7 +954,8 @@ function Pricing({ onContact }: { onContact: () => void }) {
           </div>
 
           <div className="rounded-2xl overflow-hidden border border-white/[0.08] backdrop-blur-sm bg-white/[0.015]">
-            <table className="w-full border-collapse">
+            <div className="overflow-x-auto">
+            <table className="w-full min-w-[520px] border-collapse">
               <thead>
                 <tr className="border-b border-white/[0.08] bg-white/[0.03]">
                   <th className="text-left px-6 py-4 text-[11px] font-bold tracking-[0.12em] uppercase text-ink-3">Feature</th>
@@ -993,6 +994,7 @@ function Pricing({ onContact }: { onContact: () => void }) {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         </motion.div>
 
