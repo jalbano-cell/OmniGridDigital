@@ -31,7 +31,7 @@ const PROJECTS: Project[] = [
     tags:      ['Web Design', 'Real Estate'],
     stat:      '+48%',
     statLabel: 'qualified leads',
-    image:     '/realestate-hero.svg',
+    image:     '/realestate-screenshot.png',
     link:      'https://real-estate-ubf9.vercel.app/',
   },
   {
