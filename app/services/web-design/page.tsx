@@ -13,7 +13,7 @@ const PROJECTS: Project[] = [
     tags:      ['Web Design', 'Booking'],
     stat:      '+40%',
     statLabel: 'online reservations',
-    image:     '/good-eats-hero.jpg',
+    image:     '/restaurant-screenshot.png',
     link:      'https://goodeatss.vercel.app/',
   },
   {
