@@ -40,7 +40,7 @@ const PROJECTS: Project[] = [
     tags:      ['Web Design', 'Booking'],
     stat:      '+55%',
     statLabel: 'online bookings',
-    image:     '/barbershop-hero.jpg',
+    image:     '/barbershop-screenshot.png',
     link:      'https://barbershop-gamma-fawn.vercel.app/',
   },
 ]
