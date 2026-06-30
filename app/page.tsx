@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 import ContactForm from './contact-form'
 import { Nav } from '@/components/nav'
 import { cn } from '@/lib/utils'
-import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, ChevronDown, Phone, FileText, MapPin, ShieldCheck } from 'lucide-react'
+import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, ChevronDown, Phone, FileText, MapPin, ShieldCheck, LayoutGrid } from 'lucide-react'
 
 const Globe          = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
 import { GalaxyBackground } from './galaxy-background'
@@ -746,6 +746,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 function Pricing({ onContact }: { onContact: () => void }) {
   const [isAnnual, setIsAnnual] = useState(false)
+  const [showCompare, setShowCompare] = useState(false)
 
   return (
     <section className="py-[120px] border-t border-white/[0.06] relative overflow-hidden" id="pricing">
@@ -938,65 +939,29 @@ function Pricing({ onContact }: { onContact: () => void }) {
           ))}
         </motion.div>
 
-        {/* Comparison table — proper <table> element inspired by 21st.dev */}
+        {/* Compare Plans button */}
         <motion.div
-          className="mb-24"
-          initial={{ opacity: 0, y: 24 }}
+          className="flex justify-center mb-24"
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.65, ease }}
+          transition={{ duration: 0.55, ease }}
         >
-          <div className="text-center mb-10">
-            <p className="text-[11.5px] font-semibold tracking-[0.15em] uppercase text-gold-300 mb-3">Compare Plans</p>
-            <h3 className={cn('text-[clamp(26px,3.5vw,38px)] font-bold tracking-[-0.03em] text-ink-0', heading)}>
-              Everything Side by Side
-            </h3>
-          </div>
-
-          <div className="rounded-2xl overflow-hidden border border-white/[0.08] backdrop-blur-sm bg-white/[0.015]">
-            <div className="overflow-x-auto">
-            <table className="w-full min-w-[520px] border-collapse">
-              <thead>
-                <tr className="border-b border-white/[0.08] bg-white/[0.03]">
-                  <th className="text-left px-6 py-4 text-[11px] font-bold tracking-[0.12em] uppercase text-ink-3">Feature</th>
-                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-gold-300">Launch</th>
-                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-[#60A5FA]">Starter</th>
-                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-gold-300">Growth</th>
-                </tr>
-              </thead>
-              <tbody>
-                {COMPARE_ROWS.map((row, i) => (
-                  <tr
-                    key={row.label}
-                    className={cn(
-                      'border-b border-white/[0.05] last:border-0 transition-colors hover:bg-white/[0.025]',
-                      i % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.01]'
-                    )}
-                  >
-                    <td className="px-6 py-3.5 text-[13.5px] text-ink-2">{row.label}</td>
-                    {(['launch', 'starter', 'growth'] as const).map((key) => (
-                      <td key={key} className="px-4 py-3.5 text-center">
-                        {row[key] ? (
-                          <span className={cn(
-                            'inline-flex w-[20px] h-[20px] rounded-full items-center justify-center',
-                            key === 'starter'
-                              ? 'bg-gradient-to-br from-[#3B82F6] to-[#2563EB] shadow-[0_0_6px_rgba(59,130,246,0.35)]'
-                              : 'bg-gradient-to-br from-gold-400/25 to-gold-300/15 border border-gold-400/[0.22]'
-                          )}>
-                            <Check className={cn('w-3 h-3', key === 'starter' ? 'text-white' : 'text-gold-300')} strokeWidth={3} />
-                          </span>
-                        ) : (
-                          <Minus className="w-4 h-4 text-ink-3/35 mx-auto" />
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            </div>
-          </div>
+          <motion.button
+            onClick={() => setShowCompare(true)}
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.18, ease }}
+            className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-white/[0.06] border border-white/[0.14] text-ink-0 text-[13.5px] font-medium hover:bg-white/[0.10] hover:border-white/[0.22] transition-all"
+          >
+            <LayoutGrid className="w-3.5 h-3.5 text-gold-300" />
+            Compare Plans
+          </motion.button>
         </motion.div>
+
+        <AnimatePresence>
+          {showCompare && <ComparePlansModal onClose={() => setShowCompare(false)} />}
+        </AnimatePresence>
 
         {/* FAQ */}
         <motion.div
@@ -1110,6 +1075,89 @@ function ContactSection() {
         </motion.div>
       </div>
     </section>
+  )
+}
+
+// ─── Compare Plans Modal ──────────────────────────────────────────────────────
+function ComparePlansModal({ onClose }: { onClose: () => void }) {
+  return (
+    <motion.div
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+
+      <motion.div
+        className="relative z-10 w-full max-w-2xl bg-surface-1 border border-white/[0.10] rounded-2xl shadow-[0_24px_80px_rgba(0,0,0,0.7)] max-h-[88vh] flex flex-col overflow-hidden"
+        initial={{ opacity: 0, scale: 0.96, y: 16 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: 16 }}
+        transition={{ duration: 0.24, ease }}
+      >
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-400/60 to-transparent" />
+
+        <div className="px-8 pt-7 pb-5 border-b border-white/[0.06] flex items-start justify-between shrink-0">
+          <div>
+            <p className="text-[11px] font-bold tracking-[0.14em] uppercase text-gold-300 mb-1">Plans</p>
+            <h3 className="text-[20px] font-bold tracking-[-0.02em] text-ink-0 leading-tight font-[family-name:var(--font-heading)]">
+              Everything Side by Side
+            </h3>
+          </div>
+          <button
+            onClick={onClose}
+            className="relative z-10 w-8 h-8 flex items-center justify-center rounded-lg text-ink-3 hover:text-ink-0 hover:bg-white/[0.08] transition-all ml-4 mt-0.5 shrink-0"
+            aria-label="Close"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        <div className="overflow-y-auto">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[480px] border-collapse">
+              <thead>
+                <tr className="border-b border-white/[0.08] bg-white/[0.03] sticky top-0">
+                  <th className="text-left px-6 py-4 text-[11px] font-bold tracking-[0.12em] uppercase text-ink-3">Feature</th>
+                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-gold-300">Launch</th>
+                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-[#60A5FA]">Starter</th>
+                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-gold-300">Growth</th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMPARE_ROWS.map((row, i) => (
+                  <tr
+                    key={row.label}
+                    className={cn(
+                      'border-b border-white/[0.05] last:border-0 transition-colors hover:bg-white/[0.025]',
+                      i % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.01]'
+                    )}
+                  >
+                    <td className="px-6 py-3.5 text-[13.5px] text-ink-2">{row.label}</td>
+                    {(['launch', 'starter', 'growth'] as const).map((key) => (
+                      <td key={key} className="px-4 py-3.5 text-center">
+                        {row[key] ? (
+                          <span className={cn(
+                            'inline-flex w-[20px] h-[20px] rounded-full items-center justify-center',
+                            key === 'starter'
+                              ? 'bg-gradient-to-br from-[#3B82F6] to-[#2563EB] shadow-[0_0_6px_rgba(59,130,246,0.35)]'
+                              : 'bg-gradient-to-br from-gold-400/25 to-gold-300/15 border border-gold-400/[0.22]'
+                          )}>
+                            <Check className={cn('w-3 h-3', key === 'starter' ? 'text-white' : 'text-gold-300')} strokeWidth={3} />
+                          </span>
+                        ) : (
+                          <Minus className="w-4 h-4 text-ink-3/35 mx-auto" />
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   )
 }
 
