@@ -18,7 +18,6 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'OmniGrid Digital — Digital Marketing Agency Toronto',
-  icons: { icon: '/favicon.svg' },
   description:
     'Toronto digital marketing agency. High-converting websites, Google Ads, Meta Ads, and SEO that generate real revenue for local businesses.',
 }
@@ -27,6 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={cn('antialiased', spaceGrotesk.variable, inter.variable)}>
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
