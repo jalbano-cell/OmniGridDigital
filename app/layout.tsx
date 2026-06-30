@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, Inter } from 'next/font/google'
 import { cn } from '@/lib/utils'
+import { localBusinessSchema } from '@/lib/schema'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -25,6 +26,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={cn('antialiased', spaceGrotesk.variable, inter.variable)}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+      </head>
       <body className="font-[family-name:var(--font-sans)]">{children}</body>
     </html>
   )
