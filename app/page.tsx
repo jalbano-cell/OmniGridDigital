@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, ChevronDown, Phone, FileText, MapPin, ShieldCheck } from 'lucide-react'
 
 const Globe          = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
-const GalaxyBackground = dynamic(() => import('./galaxy-background').then(m => m.GalaxyBackground), { ssr: false })
+import { GalaxyBackground } from './galaxy-background'
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
