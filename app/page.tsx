@@ -1328,7 +1328,7 @@ function Footer() {
                     onClick={() => setShowModal(true)}
                     className="mt-2.5 text-[13.5px] text-gold-300 hover:text-gold-400 transition-colors"
                   >
-                    support@omnigriddigital.ca
+                    zaink@omnigriddigital.ca
                   </button>
                 )}
               </div>

@@ -286,10 +286,10 @@ export function ServiceCatalogPage({
             &copy; {new Date().getFullYear()} OmniGrid Digital. Toronto, ON. All rights reserved.
           </span>
           <a
-            href="mailto:support@omnigriddigital.ca"
+            href="mailto:zaink@omnigriddigital.ca"
             className="text-[12.5px] text-ink-2 transition-colors hover:text-gold-300"
           >
-            support@omnigriddigital.ca
+            zaink@omnigriddigital.ca
           </a>
         </div>
       </footer>

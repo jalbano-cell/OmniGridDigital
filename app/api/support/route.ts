@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-const TO = 'support@omnigriddigital.ca'
+const TO = 'zaink@omnigriddigital.ca'
 
 export async function POST(req: NextRequest) {
   let body: Record<string, string>

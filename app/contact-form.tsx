@@ -118,9 +118,9 @@ export default function ContactForm() {
             id="service" name="service" disabled={loading}
           >
             <option value="">Select a plan…</option>
-            <option>Launch — $1,000 CAD (One-Time)</option>
-            <option>Starter — $299 CAD/month</option>
-            <option>Growth — $599 CAD/month</option>
+            <option>Launch — CAD · One-Time</option>
+            <option>Starter — CAD/month + Ad Spend</option>
+            <option>Growth — CAD/month + Ad Spend</option>
             <option>Custom Package</option>
           </select>
           <span
