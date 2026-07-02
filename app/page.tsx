@@ -745,7 +745,6 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 function Pricing({ onContact }: { onContact: () => void }) {
-  const [isAnnual, setIsAnnual] = useState(false)
   const [showCompare, setShowCompare] = useState(false)
 
   return (
@@ -781,41 +780,11 @@ function Pricing({ onContact }: { onContact: () => void }) {
           <p className="text-[17px] text-ink-2 leading-[1.8]">
             No hidden fees. No surprises. Pick the plan that fits where your business is today.
           </p>
-
-          {/* Billing period toggle pill */}
-          <div className="relative flex w-[270px] mx-auto mt-8 bg-white/[0.04] border border-white/[0.09] rounded-full p-1">
-            <motion.div
-              className="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-white/[0.10] border border-white/[0.12] pointer-events-none"
-              animate={{ x: isAnnual ? 'calc(100% + 4px)' : '0%' }}
-              transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-            />
-            <button
-              onClick={() => setIsAnnual(false)}
-              className={cn(
-                'relative z-10 flex-1 py-2 text-[13px] font-medium rounded-full transition-colors duration-200',
-                !isAnnual ? 'text-ink-0' : 'text-ink-3'
-              )}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setIsAnnual(true)}
-              className={cn(
-                'relative z-10 flex-1 py-2 text-[13px] font-medium rounded-full transition-colors duration-200 inline-flex items-center justify-center gap-1.5',
-                isAnnual ? 'text-ink-0' : 'text-ink-3'
-              )}
-            >
-              Annual
-              <span className="text-[9px] font-bold tracking-[0.04em] bg-gold-400/[0.16] text-gold-300 px-1.5 py-0.5 rounded-full border border-gold-400/[0.22]">
-                −20%
-              </span>
-            </button>
-          </div>
         </motion.div>
 
         {/* Pricing Cards — glassmorphism, floating badge, gradient checks */}
         <motion.div
-          className="grid grid-cols-3 gap-6 max-lg:grid-cols-1 max-lg:max-w-[480px] max-lg:mx-auto mb-24"
+          className="grid grid-cols-3 gap-5 max-lg:grid-cols-1 max-lg:max-w-[420px] max-lg:mx-auto mb-24"
           initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
           variants={staggerContainer(0.12)}
         >
@@ -852,68 +821,44 @@ function Pricing({ onContact }: { onContact: () => void }) {
                   <div className="absolute top-0 right-0 w-52 h-52 bg-[#3B82F6]/[0.07] blur-[70px] -mr-14 -mt-14 pointer-events-none rounded-full" />
                 )}
 
-                <div className="p-8 flex flex-col flex-1 relative z-10">
+                <div className="p-6 flex flex-col flex-1 relative z-10">
                   <p className={cn(
-                    'text-[10px] font-bold tracking-[0.20em] uppercase mb-6',
+                    'text-[10px] font-bold tracking-[0.20em] uppercase mb-4',
                     plan.featured ? 'text-[#60A5FA]' : 'text-ink-3'
                   )}>
                     {plan.name}
                   </p>
 
-                  <div className="mb-1.5 overflow-hidden">
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={isAnnual && plan.cadence.includes('/month') ? 'annual' : 'monthly'}
-                        initial={{ opacity: 0, y: -14 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 14 }}
-                        transition={{ duration: 0.2, ease }}
-                        className={cn(
-                          'text-[50px] font-bold tracking-[-0.04em] leading-none block',
-                          plan.featured
-                            ? 'text-white'
-                            : 'bg-gradient-to-r from-gold-400 to-gold-300 bg-clip-text text-transparent',
-                          heading
-                        )}
-                      >
-                        {isAnnual && plan.cadence.includes('/month')
-                          ? `$${Math.round(parseInt(plan.price.replace(/\D/g, '')) * 0.8)}`
-                          : plan.price}
-                      </motion.span>
-                    </AnimatePresence>
-                  </div>
-                  <p className="text-[12px] text-ink-3 font-medium mb-4 mt-2">
-                    {isAnnual && plan.cadence.includes('/month')
-                      ? plan.cadence.replace('/month', '/mo · billed annually')
-                      : plan.cadence}
+                  <p className="text-[15px] text-ink-0 font-semibold mb-3">
+                    {plan.cadence}
                   </p>
-                  <p className="text-[15px] text-ink-2 leading-[1.7] mb-7">{plan.tagline}</p>
+                  <p className="text-[13.5px] text-ink-2 leading-[1.6] mb-5">{plan.tagline}</p>
 
-                  <div className="h-px bg-white/[0.06] mb-6" />
+                  <div className="h-px bg-white/[0.06] mb-4" />
 
                   {plan.inherit && (
-                    <p className="text-[11.5px] font-semibold text-[#60A5FA] mb-4">{plan.inherit}</p>
+                    <p className="text-[11.5px] font-semibold text-[#60A5FA] mb-3">{plan.inherit}</p>
                   )}
 
                   {/* Feature list — gradient circle check icons from 21st.dev */}
-                  <ul className="flex flex-col gap-3 mb-7 flex-1">
+                  <ul className="flex flex-col gap-2 mb-5 flex-1">
                     {plan.features.map((f) => (
-                      <li key={f} className="flex items-start gap-3">
+                      <li key={f} className="flex items-start gap-2.5">
                         <span className={cn(
-                          'w-[18px] h-[18px] rounded-full flex items-center justify-center shrink-0 mt-[2px]',
+                          'w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-[2px]',
                           plan.featured
                             ? 'bg-gradient-to-br from-[#3B82F6] to-[#2563EB] shadow-[0_0_8px_rgba(59,130,246,0.35)]'
                             : 'bg-gradient-to-br from-gold-400/25 to-gold-300/15 border border-gold-400/[0.22]'
                         )}>
-                          <Check className={cn('w-2.5 h-2.5', plan.featured ? 'text-white' : 'text-gold-300')} strokeWidth={3} />
+                          <Check className={cn('w-2 h-2', plan.featured ? 'text-white' : 'text-gold-300')} strokeWidth={3} />
                         </span>
-                        <span className="text-[13.5px] text-ink-2 leading-[1.65]">{f}</span>
+                        <span className="text-[12.5px] text-ink-2 leading-[1.6]">{f}</span>
                       </li>
                     ))}
                   </ul>
 
                   {plan.adSpendNote && (
-                    <p className="text-[11.5px] text-ink-3 italic mb-5 leading-[1.6] border-t border-white/[0.05] pt-4">
+                    <p className="text-[11px] text-ink-3 italic mb-4 leading-[1.5] border-t border-white/[0.05] pt-3">
                       {plan.adSpendNote}
                     </p>
                   )}
@@ -924,7 +869,7 @@ function Pricing({ onContact }: { onContact: () => void }) {
                     whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.15 }}
                     className={cn(
-                      'inline-flex items-center justify-center gap-2 h-11 rounded-xl text-[13.5px] font-semibold transition-all w-full',
+                      'inline-flex items-center justify-center gap-2 h-10 rounded-xl text-[13px] font-semibold transition-all w-full',
                       plan.featured
                         ? 'bg-gradient-to-r from-[#3B82F6] to-[#2563EB] text-white shadow-[0_0_28px_rgba(59,130,246,0.40)] hover:shadow-[0_0_40px_rgba(59,130,246,0.55)]'
                         : 'bg-white/[0.06] border border-white/[0.12] text-ink-0 hover:bg-white/[0.10] hover:border-white/[0.20]'
