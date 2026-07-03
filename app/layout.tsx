@@ -27,6 +27,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={cn('antialiased', spaceGrotesk.variable, inter.variable)}>
       <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-B9BM82XHVX"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-B9BM82XHVX');`,
+          }}
+        />
+        {/* End Google tag (gtag.js) */}
         {/* Google Tag Manager */}
         <Script
           id="gtm-script"
