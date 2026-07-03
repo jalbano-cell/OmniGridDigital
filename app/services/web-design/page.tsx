@@ -43,6 +43,18 @@ const PROJECTS: Project[] = [
     image:     '/barbershop-screenshot.png',
     link:      'https://barbershop-gamma-fawn.vercel.app/',
   },
+  {
+    project:   'Local Plumbing Company Site',
+    year:      '2026',
+    tags:      ['Web Design', 'Local Service'],
+    image:     '/jlz-plumbing-screenshot.png',
+  },
+  {
+    project:   'Pizza Shop Ordering Site',
+    year:      '2026',
+    tags:      ['Web Design', 'Restaurant'],
+    image:     '/appetite-pizza-screenshot.png',
+  },
 ]
 
 export default function WebDesignPage() {
