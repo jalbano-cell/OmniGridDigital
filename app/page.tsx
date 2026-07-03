@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import ContactForm from './contact-form'
 import { Nav } from '@/components/nav'
+import { FaqItem } from '@/components/faq-item'
+import { APP_URL } from '@/lib/config'
 import { cn } from '@/lib/utils'
-import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, ChevronDown, Phone, FileText, MapPin, ShieldCheck, LayoutGrid, BrainCircuit } from 'lucide-react'
+import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, Phone, FileText, MapPin, ShieldCheck, LayoutGrid, BrainCircuit, CalendarClock, RefreshCcw, PlugZap, Workflow } from 'lucide-react'
 
 const Globe          = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
 import { GalaxyBackground } from './galaxy-background'
@@ -37,6 +39,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero onContact={openContact} />
+        <FollowUpQuoteSpotlight />
         <Services />
         <WhyUs />
         <Pricing onContact={openContact} />
@@ -292,6 +295,112 @@ function Hero({ onContact }: { onContact: () => void }) {
   )
 }
 
+// ─── FollowupQuote Spotlight ────────────────────────────────────────────────────
+const FOLLOWUPQUOTE_POINTS = [
+  { title: 'Win More Jobs',                    body: 'Estimates that get a timely follow-up close at a much higher rate than ones left to go cold.',        icon: TrendingUp   },
+  { title: 'Never Forget an Estimate',         body: 'Every quote you send is tracked automatically, so nothing slips through the cracks.',                  icon: CalendarClock },
+  { title: 'Automate Follow-Up',               body: 'Follow-up messages are drafted for you and ready to send — no more chasing manually.',                  icon: RefreshCcw   },
+  { title: 'Works With Your Existing Process', body: 'FollowupQuote fits around the estimating tools you already use — nothing to switch, nothing to learn.', icon: PlugZap      },
+  { title: 'No Workflow Replacement',          body: "It's an add-on to how your business already runs, not a new system to manage.",                        icon: Workflow     },
+]
+
+function FollowUpQuoteSpotlight() {
+  return (
+    <section className="py-[120px] border-t border-white/[0.06] relative overflow-hidden">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.038) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+      <div className="absolute top-[10%] left-[-10%] w-[650px] h-[650px] rounded-full bg-gold-400/[0.05] blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-[0%] right-[-8%] w-[600px] h-[600px] rounded-full bg-[#2563EB]/[0.06] blur-[130px] pointer-events-none" />
+
+      <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+        <div className="grid grid-cols-[360px_1fr] gap-20 items-start max-lg:grid-cols-1 max-lg:gap-12">
+
+          <motion.div
+            className="sticky top-[calc(68px+32px)] max-lg:static"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, ease }}
+          >
+            <div className="flex items-center gap-3 mb-5">
+              <span className="w-6 h-px bg-gold-300/50" />
+              <p className="text-[11.5px] font-semibold tracking-[0.15em] uppercase text-gold-300">Flagship Product</p>
+            </div>
+            <h2 className={cn('text-[clamp(32px,4.5vw,50px)] font-bold leading-[1.08] tracking-[-0.03em] text-ink-0 mb-5', heading)}>
+              Estimate Follow-Up<br />Automation.
+            </h2>
+            <p className="text-[16.5px] text-ink-2 leading-[1.8] mb-8">
+              FollowupQuote automates your estimate follow-up so you win more jobs — without replacing the tools or process you already use.
+            </p>
+
+            <div className="flex items-center gap-3 flex-wrap">
+              <motion.a
+                href="/followupquote"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.18, ease }}
+                className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-gold-400 text-white text-[13.5px] font-semibold hover:bg-gold-500 transition-all shadow-[0_0_28px_rgba(37,99,235,0.40)]"
+              >
+                See How It Works
+                <ArrowRight className="w-3.5 h-3.5" />
+              </motion.a>
+              <motion.a
+                href="/followupquote#demo"
+                whileHover={{ scale: 1.02, y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.18, ease }}
+                className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-white/[0.05] border border-white/[0.14] text-ink-1 text-[13.5px] font-medium hover:bg-white/[0.09] hover:text-ink-0 transition-all"
+              >
+                Book a Demo
+              </motion.a>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="flex flex-col"
+            initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
+            variants={staggerContainer(0.1, 0.05)}
+          >
+            {FOLLOWUPQUOTE_POINTS.map((item, i) => {
+              const Icon = item.icon
+              return (
+                <motion.div
+                  key={item.title}
+                  variants={{ hidden: { opacity: 0, x: 28 }, show: { opacity: 1, x: 0 } }}
+                  transition={{ duration: 0.6, ease }}
+                  className={cn('py-7 group relative', i < FOLLOWUPQUOTE_POINTS.length - 1 && 'border-b border-white/[0.06]')}
+                >
+                  <div className="flex items-start gap-5">
+                    <div className={cn(
+                      'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-300 mt-0.5',
+                      'bg-gold-400/[0.09] border-gold-400/[0.16]',
+                      'group-hover:bg-gold-400/[0.20] group-hover:border-gold-400/[0.36] group-hover:shadow-[0_0_22px_rgba(234,179,8,0.16)]'
+                    )}>
+                      <Icon className="w-[18px] h-[18px] text-gold-400 transition-transform duration-300 group-hover:scale-110" strokeWidth={1.5} />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className={cn('text-[19px] font-semibold tracking-[-0.02em] text-ink-0 mb-2 group-hover:text-white transition-colors duration-200', heading)}>
+                        {item.title}
+                      </h3>
+                      <p className="text-[15px] text-ink-2 leading-[1.8]">{item.body}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Services ─────────────────────────────────────────────────────────────────
 const SERVICES = [
   {
@@ -318,14 +427,14 @@ const SERVICES = [
   },
   {
     number: '03',
-    title: 'AI Implementations',
-    href: '#pricing',
-    body: 'Custom AI agents, chatbots, and automation systems that plug directly into how your business already runs.',
+    title: 'FollowupQuote — Estimate Automation',
+    href: '/followupquote',
+    body: 'We help local service businesses automate estimate follow-up without changing the tools or workflow they already use.',
     icon: BrainCircuit,
     stat: 'New',
-    statLabel: 'Now Available',
-    features: ['AI Agents & Chatbots', 'Business Process Automation', 'CRM / ERP Integrations', 'Internal Dashboards & Reporting', 'Custom API Integrations'],
-    linkLabel: 'View Plans',
+    statLabel: 'Flagship Product',
+    features: ['Win More Jobs', 'Never Forget an Estimate', 'Automated Follow-Up Drafts', 'Works With Your Existing Tools', 'No Workflow Replacement'],
+    linkLabel: 'See How It Works',
   },
 ]
 
@@ -720,44 +829,6 @@ const FAQS = [
     a: "AI-Friendly means your site is structured so AI assistants can read, understand, and cite it. This includes schema markup, clear entity definitions, fast load times, and content written to answer real queries — not keyword-stuffed pages.",
   },
 ]
-
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div className="border-b border-white/[0.06] last:border-0">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-4 py-5 text-left group"
-        aria-expanded={open}
-      >
-        <span className={cn(
-          'text-[15px] font-semibold text-ink-0 leading-snug transition-colors group-hover:text-[#60A5FA]',
-          open && 'text-[#60A5FA]'
-        )}>
-          {q}
-        </span>
-        <ChevronDown className={cn(
-          'w-4 h-4 shrink-0 text-ink-3 transition-transform duration-300',
-          open && 'rotate-180 text-[#60A5FA]'
-        )} />
-      </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            key="body"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            style={{ overflow: 'hidden' }}
-          >
-            <p className="pb-5 text-[14.5px] text-ink-2 leading-[1.8]">{a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
 
 function Pricing({ onContact }: { onContact: () => void }) {
   const [showCompare, setShowCompare] = useState(false)
@@ -1185,10 +1256,11 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 }
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
-const FOOTER_LINKS: Record<string, { label: string; href: string }[]> = {
+const FOOTER_LINKS: Record<string, { label: string; href: string; external?: boolean }[]> = {
   Services: [
-    { label: 'Web Design', href: '/services/web-design' },
-    { label: 'Paid Ads',   href: '/services/paid-ads'   },
+    { label: 'Web Design',     href: '/services/web-design' },
+    { label: 'Paid Ads',       href: '/services/paid-ads'   },
+    { label: 'FollowupQuote',  href: '/followupquote'       },
   ],
   Company: [
     { label: 'Team',    href: '#team'    },
@@ -1196,7 +1268,8 @@ const FOOTER_LINKS: Record<string, { label: string; href: string }[]> = {
     { label: 'Contact', href: '#contact' },
   ],
   Resources: [
-    { label: 'Free Audit', href: '#contact' },
+    { label: 'Free Audit',    href: '#contact' },
+    { label: 'Client Login',  href: APP_URL, external: true },
   ],
 }
 
@@ -1348,9 +1421,14 @@ function Footer() {
               <div key={group}>
                 <p className="text-[11px] font-bold tracking-[0.13em] uppercase text-ink-3 mb-4">{group}</p>
                 <ul className="flex flex-col gap-2.5">
-                  {links.map(({ label, href }) => (
+                  {links.map(({ label, href, external }) => (
                     <li key={label}>
-                      <a href={href} className="text-[13.5px] text-ink-2 hover:text-ink-0 transition-colors">
+                      <a
+                        href={href}
+                        target={external ? '_blank' : undefined}
+                        rel={external ? 'noopener noreferrer' : undefined}
+                        className="text-[13.5px] text-ink-2 hover:text-ink-0 transition-colors"
+                      >
                         {label}
                       </a>
                     </li>

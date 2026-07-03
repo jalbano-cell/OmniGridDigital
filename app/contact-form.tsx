@@ -12,7 +12,12 @@ const inputBase =
 const inputError =
   'border-red-600 ring-2 ring-red-600/10 focus:border-red-600 focus:ring-red-600/15'
 
-export default function ContactForm() {
+interface ContactFormProps {
+  defaultService?: string
+  submitLabel?:    string
+}
+
+export default function ContactForm({ defaultService = '', submitLabel = 'Get a Free Audit' }: ContactFormProps) {
   const [email, setEmail]           = useState('')
   const [emailError, setEmailError] = useState('')
   const [loading, setLoading]       = useState(false)
@@ -115,12 +120,13 @@ export default function ContactForm() {
         <div className="relative">
           <select
             className={cn(inputBase, 'appearance-none pr-11 cursor-pointer font-semibold')}
-            id="service" name="service" disabled={loading}
+            id="service" name="service" defaultValue={defaultService} disabled={loading}
           >
             <option value="">Select a solution…</option>
             <option>Launch — Build Your Digital Foundation</option>
             <option>Grow — AI-Powered Growth System</option>
             <option>Transform — Custom AI &amp; Software Systems</option>
+            <option>FollowupQuote — Book a Demo</option>
             <option>Not Sure Yet — Book a Discovery Call</option>
           </select>
           <span
@@ -151,7 +157,7 @@ export default function ContactForm() {
         className="self-start mt-2 bg-gold-400 text-white hover:bg-gold-500 font-semibold text-[15px] px-8 h-12 rounded-xl transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(37,99,235,0.4)] disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
         disabled={loading}
       >
-        {loading ? 'Sending…' : 'Get a Free Audit'}
+        {loading ? 'Sending…' : submitLabel}
       </Button>
     </form>
   )
