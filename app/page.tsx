@@ -593,90 +593,92 @@ const PLANS = [
   {
     id: 'launch',
     name: 'Launch',
-    price: '$1,000',
-    cadence: 'CAD · One-Time',
-    tagline: 'Perfect for businesses that need a professional, AI-ready website.',
-    cta: 'Launch My Website',
-    adSpendNote: null,
+    cadence: null,
+    title: 'Build Your Digital Foundation',
+    tagline: 'Premium custom website designed to establish credibility and prepare for growth.',
+    customNote: 'Every build is scoped and fully customized after a free discovery call.',
+    cta: 'Launch My Project',
     featured: false,
     badge: '',
     inherit: null,
     features: [
       'Custom Website Design & Development',
-      'SEO Foundation & GEO Optimization',
-      'AI-Friendly Website Structure',
-      'Fast Performance Optimization',
-      'Google Analytics & Search Console',
-      'Google Business Profile Setup',
+      'SEO & GEO Foundation',
+      'AI-Ready Structure',
+      'Performance Optimization',
+      'Analytics & Search Console Setup',
       'Booking & Payment Integration',
       'SSL Security',
-      '30 Days Post-Launch Support',
+      'Post-Launch Support',
     ],
   },
   {
-    id: 'starter',
-    name: 'Starter',
-    price: '$299',
-    cadence: 'CAD/month + Ad Spend',
-    tagline: 'Maintain your site and run ads on one platform to start generating leads.',
-    cta: 'Start Growing',
-    adSpendNote: 'Ad spend paid directly to Google or Meta by you.',
+    id: 'grow',
+    name: 'Grow',
+    cadence: 'CAD / Month',
+    title: 'AI-Powered Growth System',
+    tagline: 'Turn your website into a lead generation and automation system with AI-powered marketing and optimization.',
+    customNote: 'All solutions are fully customized after a discovery call.',
+    cta: 'Start Scaling My Business',
     featured: true,
     badge: 'Most Popular',
     inherit: 'Everything in Launch, plus:',
     features: [
-      'Website Maintenance & Monthly Updates',
-      'Ongoing SEO & GEO Optimization',
-      'Monthly Performance Reports',
-      'Google Ads or Meta Ads (1 Platform)',
-      'Campaign Setup & Audience Research',
-      'Conversion Tracking',
-      'Ad Creative Design',
+      'SEO + GEO Optimization',
+      'Funnel & Landing Page Optimization',
+      'Multi-Platform Ad Management',
+      'AI Lead Qualification',
+      'Automated Follow-Ups (Email/SMS/CRM)',
+      'Conversion Tracking & Analytics',
+      'A/B Testing & Optimization',
+      'Growth Dashboards',
+      'Monthly Strategy Calls',
     ],
   },
   {
-    id: 'growth',
-    name: 'Growth',
-    price: '$599',
-    cadence: 'CAD/month + Ad Spend',
-    tagline: 'Dominate multiple platforms with advanced strategy and full-scale optimization.',
-    cta: 'Scale My Business',
-    adSpendNote: 'Ad spend paid directly to Google, Meta, or TikTok by you.',
+    id: 'transform',
+    name: 'Transform',
+    cadence: 'CAD / Month',
+    title: 'Custom AI & Software Systems',
+    tagline: 'Advanced custom software, AI agents, and automation systems built around your business operations.',
+    customNote: 'All builds are fully tailored to your business requirements.',
+    cta: 'Book a Discovery Call',
     featured: false,
     badge: '',
-    inherit: 'Everything in Starter, plus:',
+    inherit: 'Everything in Grow, plus:',
     features: [
-      'Google + Meta + TikTok Ads (up to 2 Platforms)',
-      'Multi-Platform Campaign Management',
-      'Advanced Audience & Competitor Research',
-      'Unlimited Campaign Optimization',
-      'Advanced A/B Testing',
-      'Funnel & Landing Page Optimization',
-      'Weekly Optimizations & Detailed ROI Reports',
-      'Monthly Strategy Calls',
-      'Priority Support',
+      'Custom Web Applications',
+      'AI Agents & Chatbots',
+      'CRM / ERP Integrations',
+      'Business Process Automation',
+      'Internal Dashboards',
+      'Client / Employee Portals',
+      'API Integrations',
+      'Advanced Systems & Reporting',
     ],
   },
 ]
 
-const COMPARE_ROWS: { label: string; launch: boolean; starter: boolean; growth: boolean }[] = [
-  { label: 'Custom Website Design',          launch: true,  starter: true,  growth: true  },
-  { label: 'SEO Foundation & GEO Optim.',    launch: true,  starter: true,  growth: true  },
-  { label: 'AI-Friendly Website Structure',  launch: true,  starter: true,  growth: true  },
-  { label: 'Performance Optimization',       launch: true,  starter: true,  growth: true  },
-  { label: 'Google Analytics Setup',         launch: true,  starter: true,  growth: true  },
-  { label: 'Google Business Profile',        launch: true,  starter: true,  growth: true  },
-  { label: 'SSL Security',                   launch: true,  starter: true,  growth: true  },
-  { label: 'Website Maintenance',            launch: false, starter: true,  growth: true  },
-  { label: 'Monthly Updates',                launch: false, starter: true,  growth: true  },
-  { label: 'Performance Reports',            launch: false, starter: true,  growth: true  },
-  { label: 'Ads Management (1 Platform)',    launch: false, starter: true,  growth: true  },
-  { label: 'Conversion Tracking',            launch: false, starter: true,  growth: true  },
-  { label: 'Multi-Platform Ads (2+)',        launch: false, starter: false, growth: true  },
-  { label: 'Advanced A/B Testing',           launch: false, starter: false, growth: true  },
-  { label: 'Funnel & Landing Page Optim.',   launch: false, starter: false, growth: true  },
-  { label: 'Monthly Strategy Calls',         launch: false, starter: false, growth: true  },
-  { label: 'Priority Support',               launch: false, starter: false, growth: true  },
+const COMPARE_ROWS: { label: string; launch: boolean; grow: boolean; transform: boolean }[] = [
+  { label: 'Custom Website Design',          launch: true,  grow: true,  transform: true  },
+  { label: 'SEO & GEO Foundation',           launch: true,  grow: true,  transform: true  },
+  { label: 'AI-Ready Structure',             launch: true,  grow: true,  transform: true  },
+  { label: 'Performance Optimization',       launch: true,  grow: true,  transform: true  },
+  { label: 'Analytics & Search Console',     launch: true,  grow: true,  transform: true  },
+  { label: 'Booking & Payment Integration',  launch: true,  grow: true,  transform: true  },
+  { label: 'SSL Security',                   launch: true,  grow: true,  transform: true  },
+  { label: 'SEO + GEO Optimization',         launch: false, grow: true,  transform: true  },
+  { label: 'Funnel & Landing Page Optim.',   launch: false, grow: true,  transform: true  },
+  { label: 'Multi-Platform Ad Management',   launch: false, grow: true,  transform: true  },
+  { label: 'AI Lead Qualification',          launch: false, grow: true,  transform: true  },
+  { label: 'Automated Follow-Ups',           launch: false, grow: true,  transform: true  },
+  { label: 'Conversion Tracking & Analytics',launch: false, grow: true,  transform: true  },
+  { label: 'Monthly Strategy Calls',         launch: false, grow: true,  transform: true  },
+  { label: 'Custom Web Applications',        launch: false, grow: false, transform: true  },
+  { label: 'AI Agents & Chatbots',           launch: false, grow: false, transform: true  },
+  { label: 'CRM / ERP Integrations',         launch: false, grow: false, transform: true  },
+  { label: 'Business Process Automation',    launch: false, grow: false, transform: true  },
+  { label: 'Client / Employee Portals',      launch: false, grow: false, transform: true  },
 ]
 
 const FAQS = [
@@ -685,12 +687,12 @@ const FAQS = [
     a: "Yes — 100%. Once your site is live, you own all the code, content, and assets. We never hold your website hostage.",
   },
   {
-    q: 'What is ad spend and who pays it?',
-    a: "Ad spend is the budget that goes directly to Google, Meta, or TikTok to run your ads. You pay the platforms from your own account — our monthly fee covers strategy, setup, management, and optimization only.",
+    q: 'How does pricing work?',
+    a: "There's no one-size-fits-all rate card. Every engagement — Launch, Grow, or Transform — is scoped around your specific goals during a free discovery call, so you get a proposal built for your business, not a generic package.",
   },
   {
-    q: 'Can I upgrade my plan?',
-    a: "Absolutely. You can move from Launch → Starter or Starter → Growth at any time. We'll adjust your billing and transition you seamlessly — no restart required.",
+    q: 'Can I move to a different tier later?',
+    a: "Absolutely. You can move from Launch → Grow or Grow → Transform at any time. We'll revisit your goals on a quick call and scope the next phase together — no restart required.",
   },
   {
     q: 'How long does it take to launch?',
@@ -775,10 +777,10 @@ function Pricing({ onContact }: { onContact: () => void }) {
             <span className="w-6 h-px bg-gold-300/50" />
           </div>
           <h2 className={cn('text-[clamp(36px,5vw,58px)] font-bold leading-[1.04] tracking-[-0.03em] text-ink-0 mb-5', heading)}>
-            Simple, Transparent Pricing.
+            Solutions Built Around Your Business.
           </h2>
           <p className="text-[17px] text-ink-2 leading-[1.8]">
-            No hidden fees. No surprises. Pick the plan that fits where your business is today.
+            No fixed packages. Every engagement starts with a free discovery call, so what you get is scoped and customized to your business — not a one-size-fits-all rate card.
           </p>
         </motion.div>
 
@@ -821,18 +823,42 @@ function Pricing({ onContact }: { onContact: () => void }) {
                   <div className="absolute top-0 right-0 w-52 h-52 bg-[#3B82F6]/[0.07] blur-[70px] -mr-14 -mt-14 pointer-events-none rounded-full" />
                 )}
 
-                <div className="p-6 flex flex-col flex-1 relative z-10">
+                <div className="p-8 flex flex-col flex-1 relative z-10">
+                  <div className="flex items-center gap-3 flex-wrap mb-3">
+                    <h3 className={cn(
+                      'text-[34px] font-bold tracking-[-0.02em] leading-none',
+                      plan.featured ? 'text-white' : 'text-ink-0',
+                      heading
+                    )}>
+                      {plan.name}
+                    </h3>
+                    {plan.cadence && (
+                      <span className={cn(
+                        'text-[10.5px] font-bold tracking-[0.10em] uppercase px-2.5 py-1 rounded-full border',
+                        plan.featured
+                          ? 'bg-[#60A5FA]/[0.12] text-[#60A5FA] border-[#60A5FA]/30'
+                          : 'bg-gold-400/[0.10] text-gold-300 border-gold-400/25'
+                      )}>
+                        {plan.cadence}
+                      </span>
+                    )}
+                  </div>
+
                   <p className={cn(
-                    'text-[10px] font-bold tracking-[0.20em] uppercase mb-4',
-                    plan.featured ? 'text-[#60A5FA]' : 'text-ink-3'
+                    'text-[14.5px] font-semibold tracking-[-0.01em] mb-4',
+                    plan.featured ? 'text-[#60A5FA]' : 'text-gold-300'
                   )}>
-                    {plan.name}
+                    {plan.title}
                   </p>
 
-                  <p className="text-[15px] text-ink-0 font-semibold mb-3">
-                    {plan.cadence}
+                  <p className="text-[15px] text-ink-2 leading-[1.7] mb-4">{plan.tagline}</p>
+
+                  <p className={cn(
+                    'text-[12.5px] font-semibold leading-[1.6] mb-7',
+                    plan.featured ? 'text-[#60A5FA]' : 'text-gold-300'
+                  )}>
+                    {plan.customNote}
                   </p>
-                  <p className="text-[13.5px] text-ink-2 leading-[1.6] mb-5">{plan.tagline}</p>
 
                   <div className="h-px bg-white/[0.06] mb-4" />
 
@@ -856,12 +882,6 @@ function Pricing({ onContact }: { onContact: () => void }) {
                       </li>
                     ))}
                   </ul>
-
-                  {plan.adSpendNote && (
-                    <p className="text-[11px] text-ink-3 italic mb-4 leading-[1.5] border-t border-white/[0.05] pt-3">
-                      {plan.adSpendNote}
-                    </p>
-                  )}
 
                   <motion.button
                     onClick={onContact}
@@ -1065,8 +1085,8 @@ function ComparePlansModal({ onClose }: { onClose: () => void }) {
                 <tr className="border-b border-white/[0.08] bg-white/[0.03] sticky top-0">
                   <th className="text-left px-6 py-4 text-[11px] font-bold tracking-[0.12em] uppercase text-ink-3">Feature</th>
                   <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-gold-300">Launch</th>
-                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-[#60A5FA]">Starter</th>
-                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-gold-300">Growth</th>
+                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-[#60A5FA]">Grow</th>
+                  <th className="px-4 py-4 text-center text-[11px] font-bold tracking-[0.12em] uppercase text-gold-300">Transform</th>
                 </tr>
               </thead>
               <tbody>
@@ -1079,16 +1099,16 @@ function ComparePlansModal({ onClose }: { onClose: () => void }) {
                     )}
                   >
                     <td className="px-6 py-3.5 text-[13.5px] text-ink-2">{row.label}</td>
-                    {(['launch', 'starter', 'growth'] as const).map((key) => (
+                    {(['launch', 'grow', 'transform'] as const).map((key) => (
                       <td key={key} className="px-4 py-3.5 text-center">
                         {row[key] ? (
                           <span className={cn(
                             'inline-flex w-[20px] h-[20px] rounded-full items-center justify-center',
-                            key === 'starter'
+                            key === 'grow'
                               ? 'bg-gradient-to-br from-[#3B82F6] to-[#2563EB] shadow-[0_0_6px_rgba(59,130,246,0.35)]'
                               : 'bg-gradient-to-br from-gold-400/25 to-gold-300/15 border border-gold-400/[0.22]'
                           )}>
-                            <Check className={cn('w-3 h-3', key === 'starter' ? 'text-white' : 'text-gold-300')} strokeWidth={3} />
+                            <Check className={cn('w-3 h-3', key === 'grow' ? 'text-white' : 'text-gold-300')} strokeWidth={3} />
                           </span>
                         ) : (
                           <Minus className="w-4 h-4 text-ink-3/35 mx-auto" />

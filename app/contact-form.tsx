@@ -117,11 +117,11 @@ export default function ContactForm() {
             className={cn(inputBase, 'appearance-none pr-11 cursor-pointer font-semibold')}
             id="service" name="service" disabled={loading}
           >
-            <option value="">Select a plan…</option>
-            <option>Launch — CAD · One-Time</option>
-            <option>Starter — CAD/month + Ad Spend</option>
-            <option>Growth — CAD/month + Ad Spend</option>
-            <option>Custom Package</option>
+            <option value="">Select a solution…</option>
+            <option>Launch — Build Your Digital Foundation</option>
+            <option>Grow — AI-Powered Growth System</option>
+            <option>Transform — Custom AI &amp; Software Systems</option>
+            <option>Not Sure Yet — Book a Discovery Call</option>
           </select>
           <span
             className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none w-0 h-0 border-l-[5px] border-r-[5px] border-t-[6px] border-l-transparent border-r-transparent border-t-ink-2"
