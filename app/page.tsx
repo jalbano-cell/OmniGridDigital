@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 import ContactForm from './contact-form'
 import { Nav } from '@/components/nav'
 import { cn } from '@/lib/utils'
-import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, ChevronDown, Phone, FileText, MapPin, ShieldCheck, LayoutGrid } from 'lucide-react'
+import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, ChevronDown, Phone, FileText, MapPin, ShieldCheck, LayoutGrid, BrainCircuit } from 'lucide-react'
 
 const Globe          = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
 import { GalaxyBackground } from './galaxy-background'
@@ -297,22 +297,35 @@ const SERVICES = [
   {
     number: '01',
     title: 'Web Design & Development',
-    slug: 'web-design',
+    href: '/services/web-design',
     body: 'Custom websites built to convert visitors into customers. Fast, mobile-first, and built to last.',
     icon: Globe2,
     stat: '~1 wk',
     statLabel: 'Avg. Launch',
     features: ['AI-Friendly Structure', 'SEO & GEO Foundation', 'Mobile-First Design', 'Conversion Optimized', 'Analytics Setup'],
+    linkLabel: 'View Work',
   },
   {
     number: '02',
     title: 'Paid Ads Management',
-    slug: 'paid-ads',
+    href: '/services/paid-ads',
     body: 'Google, Meta & TikTok campaigns managed for maximum ROI. Strategy, creatives, and optimization — all in one place.',
     icon: TrendingUp,
     stat: '5.8×',
     statLabel: 'Avg. ROAS',
     features: ['Google & Meta Ads', 'Ad Creative Design', 'Audience Research', 'Conversion Tracking', 'Weekly Optimization'],
+    linkLabel: 'View Work',
+  },
+  {
+    number: '03',
+    title: 'AI Implementations',
+    href: '#pricing',
+    body: 'Custom AI agents, chatbots, and automation systems that plug directly into how your business already runs.',
+    icon: BrainCircuit,
+    stat: 'New',
+    statLabel: 'Now Available',
+    features: ['AI Agents & Chatbots', 'Business Process Automation', 'CRM / ERP Integrations', 'Internal Dashboards & Reporting', 'Custom API Integrations'],
+    linkLabel: 'View Plans',
   },
 ]
 
@@ -346,22 +359,22 @@ function Services() {
             <span className="text-ink-2">to Dominate Online.</span>
           </h2>
           <p className="text-[17px] text-ink-1 leading-[1.8]">
-            Two core disciplines, one focused team, zero outsourcing.
+            Three core disciplines, one focused team, zero outsourcing.
           </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-2 gap-6 max-sm:grid-cols-1"
+          className="grid grid-cols-3 gap-6 max-lg:grid-cols-1 max-lg:max-w-[480px] max-lg:mx-auto"
           initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
           variants={staggerContainer(0.14)}
         >
           {SERVICES.map((s, i) => {
             const Icon = s.icon
-            const isGold = i === 0
+            const isGold = i % 2 === 0
             return (
               <motion.a
                 key={s.number}
-                href={`/services/${s.slug}`}
+                href={s.href}
                 variants={fadeUp}
                 transition={{ duration: 0.6, ease }}
                 whileHover={{ y: -6, transition: { duration: 0.22, ease } }}
@@ -455,7 +468,7 @@ function Services() {
                     'inline-flex items-center gap-2 text-[13px] font-semibold transition-all duration-200',
                     isGold ? 'text-gold-400 group-hover:text-gold-300' : 'text-[#60A5FA] group-hover:text-[#93C5FD]'
                   )}>
-                    View Work
+                    {s.linkLabel}
                     <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                   </span>
                 </div>
