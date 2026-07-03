@@ -53,7 +53,7 @@ gtag('config', 'G-B9BM82XHVX');`,
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KRJ5NJQF');`,
+})(window,document,'script','dataLayer','GTM-MHB6L55V');`,
           }}
         />
         {/* End Google Tag Manager */}
@@ -69,7 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-KRJ5NJQF"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MHB6L55V"
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
