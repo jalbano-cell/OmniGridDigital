@@ -10,7 +10,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Restaurant Rebrand & Booking Flow',
     year:      '2024',
-    tags:      ['Launch'],
+    tags:      ['Web Design', 'Booking'],
     stat:      '+40%',
     statLabel: 'online reservations',
     image:     '/restaurant-screenshot.png',
@@ -19,7 +19,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Gym Membership Landing Page',
     year:      '2024',
-    tags:      ['Grow'],
+    tags:      ['Web Design', 'CRO'],
     stat:      '3×',
     statLabel: 'sign-up rate',
     image:     '/gym-screenshot.png',
@@ -28,7 +28,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Real Estate Agency Site',
     year:      '2025',
-    tags:      ['Launch'],
+    tags:      ['Web Design', 'Real Estate'],
     stat:      '+48%',
     statLabel: 'qualified leads',
     image:     '/realestate-screenshot.png',
@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Service & Booking Site',
     year:      '2025',
-    tags:      ['Launch'],
+    tags:      ['Web Design', 'Booking'],
     stat:      '+55%',
     statLabel: 'online bookings',
     image:     '/barbershop-screenshot.png',

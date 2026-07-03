@@ -10,7 +10,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Meta Membership Campaign',
     year:      '2024',
-    tags:      ['Grow'],
+    tags:      ['Meta Ads', 'Fitness'],
     stat:      '3.8×',
     statLabel: 'ROAS in first 60 days',
     image:     '/ads-fitness.jpg',
@@ -18,7 +18,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Google Local Search Campaign',
     year:      '2024',
-    tags:      ['Grow'],
+    tags:      ['Google Ads', 'Local'],
     stat:      '2.4×',
     statLabel: 'local visibility increase',
     image:     '/ads-search.jpg',
@@ -26,7 +26,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Instagram & Facebook Brand Awareness',
     year:      '2024',
-    tags:      ['Grow'],
+    tags:      ['Meta Ads', 'Brand'],
     stat:      '200K+',
     statLabel: 'people reached',
     image:     '/ads-brand.jpg',
@@ -34,7 +34,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Meta Product Launch Campaign',
     year:      '2025',
-    tags:      ['Grow'],
+    tags:      ['Meta Ads', 'E-Commerce'],
     stat:      '45%',
     statLabel: 'lower cost per acquisition',
     image:     '/ads-ecommerce.jpg',
@@ -42,7 +42,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Google Real Estate Lead Ads',
     year:      '2025',
-    tags:      ['Grow'],
+    tags:      ['Google Ads', 'Real Estate'],
     stat:      '58',
     statLabel: 'qualified leads per month',
     image:     '/ads-realestate.jpg',
@@ -50,7 +50,7 @@ const PROJECTS: Project[] = [
   {
     project:   'Local Google Ads Campaign',
     year:      '2025',
-    tags:      ['Grow'],
+    tags:      ['Google Ads', 'Local'],
     stat:      '2.1×',
     statLabel: 'booking rate increase',
     image:     '/ads-local-map.jpg',
