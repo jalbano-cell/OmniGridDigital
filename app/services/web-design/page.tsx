@@ -48,12 +48,14 @@ const PROJECTS: Project[] = [
     year:      '2026',
     tags:      ['Web Design', 'Local Service'],
     image:     '/jlz-plumbing-screenshot.png',
+    link:      'https://jlz-plumbing.vercel.app/',
   },
   {
     project:   'Pizza Shop Ordering Site',
     year:      '2026',
     tags:      ['Web Design', 'Restaurant'],
     image:     '/appetite-pizza-screenshot.png',
+    link:      'https://vantamarketing.ca/',
   },
 ]
 
