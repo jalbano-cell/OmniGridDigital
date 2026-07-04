@@ -38,8 +38,8 @@ export default function Home() {
       <PageBackground />
       <Nav />
       <main>
-        <Hero onContact={openContact} />
-        <FollowUpQuoteSpotlight />
+        <Hero />
+        <OmniFollowUpSpotlight />
         <Services />
         <WhyUs />
         <Pricing onContact={openContact} />
@@ -60,19 +60,19 @@ function PageBackground() {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 const FLOAT_CARDS = [
-  { label: '+42 Leads',   sub: 'This Week',       icon: TrendingUp,   color: 'text-gold-300',  bg: 'bg-gold-400/[0.12] border-gold-400/[0.18]'  },
-  { label: 'ROAS 5.8×',  sub: 'Google Ads',      icon: BarChart3,    color: 'text-gold-400',  bg: 'bg-gold-400/[0.12] border-gold-400/[0.18]'  },
-  { label: 'Speed 98',   sub: 'PageSpeed Score', icon: Zap,          color: 'text-[#60A5FA]', bg: 'bg-[#3B82F6]/[0.12] border-[#3B82F6]/[0.20]' },
-  { label: '+36% Conv.', sub: 'Landing Page',    icon: CheckCircle2, color: 'text-[#86EFAC]', bg: 'bg-[#22c55e]/[0.10] border-[#22c55e]/[0.18]' },
+  { label: '+18 Jobs',    sub: 'Won This Month',  icon: TrendingUp,   color: 'text-gold-300',  bg: 'bg-gold-400/[0.12] border-gold-400/[0.18]'  },
+  { label: '82%',         sub: 'Follow-Up Rate',  icon: BarChart3,    color: 'text-gold-400',  bg: 'bg-gold-400/[0.12] border-gold-400/[0.18]'  },
+  { label: 'Auto',        sub: 'AI-Drafted',      icon: Zap,          color: 'text-[#60A5FA]', bg: 'bg-[#3B82F6]/[0.12] border-[#3B82F6]/[0.20]' },
+  { label: '+40%',        sub: 'Close Rate',      icon: CheckCircle2, color: 'text-[#86EFAC]', bg: 'bg-[#22c55e]/[0.10] border-[#22c55e]/[0.18]' },
 ]
 
 const DASHBOARD_STATS = [
-  { label: 'ROI',         value: '85.5%', pct: 85, colorFrom: 'from-gold-400',   colorTo: 'to-gold-300',    icon: TrendingUp,   iconColor: 'text-gold-300'  },
-  { label: 'Engagement',  value: '22.4K', pct: 92, colorFrom: 'from-[#60A5FA]',  colorTo: 'to-[#3B82F6]',  icon: BarChart3,    iconColor: 'text-[#60A5FA]' },
-  { label: 'Conversions', value: '3.2K',  pct: 78, colorFrom: 'from-[#C084FC]',  colorTo: 'to-[#7C3AED]',  icon: CheckCircle2, iconColor: 'text-[#C084FC]' },
+  { label: 'Follow-Up Rate', value: '82%',   pct: 82, colorFrom: 'from-gold-400',   colorTo: 'to-gold-300',    icon: TrendingUp,   iconColor: 'text-gold-300'  },
+  { label: 'Jobs Won',       value: '18',    pct: 92, colorFrom: 'from-[#60A5FA]',  colorTo: 'to-[#3B82F6]',  icon: BarChart3,    iconColor: 'text-[#60A5FA]' },
+  { label: 'Estimates Open', value: '6',     pct: 40, colorFrom: 'from-[#C084FC]',  colorTo: 'to-[#7C3AED]',  icon: CheckCircle2, iconColor: 'text-[#C084FC]' },
 ]
 
-function Hero({ onContact }: { onContact: () => void }) {
+function Hero() {
   return (
     <section className="relative min-h-svh flex items-center pt-[68px] overflow-hidden">
       {/* Subtle dot-grid background — 21st.dev inspired */}
@@ -105,27 +105,27 @@ function Hero({ onContact }: { onContact: () => void }) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-300 opacity-60" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-gold-300" />
               </span>
-              <span className="text-[11.5px] font-medium tracking-[0.02em] text-gold-300">Based in Ontario, Canada&nbsp;&nbsp;•&nbsp;&nbsp;Available for new projects</span>
+              <span className="text-[11.5px] font-medium tracking-[0.02em] text-gold-300">AI Automation Agency&nbsp;&nbsp;•&nbsp;&nbsp;Creators of OmniFollowUp</span>
             </motion.div>
 
             <motion.h1
-              className={cn('text-[clamp(54px,7vw,88px)] font-bold leading-[1.04] tracking-[-0.03em] text-ink-0 mb-6', heading)}
+              className={cn('text-[clamp(46px,6.5vw,80px)] font-bold leading-[1.06] tracking-[-0.03em] text-ink-0 mb-6', heading)}
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, ease, delay: 0.15 }}
             >
-              Turn More Clicks<br />
+              Never Lose Another Job<br />
               <span className="bg-gradient-to-r from-gold-400 to-gold-300 bg-clip-text text-transparent">
-                Into Customers.
+                After Sending an Estimate.
               </span>
             </motion.h1>
 
             <motion.p
-              className="text-[18px] text-ink-1 leading-[1.75] max-w-[500px] mb-10"
+              className="text-[18px] text-ink-1 leading-[1.75] max-w-[520px] mb-10"
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease, delay: 0.3 }}
             >
-              We help Toronto businesses grow through high-converting websites, Google Ads, Meta Ads,
-              and digital marketing systems designed to generate real revenue.
+              OmniFollowUp helps service businesses automatically follow up on every estimate and turn
+              more quotes into booked jobs — without changing how they already work.
             </motion.p>
 
             <motion.div
@@ -133,24 +133,26 @@ function Hero({ onContact }: { onContact: () => void }) {
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease, delay: 0.42 }}
             >
-              <motion.button
-                onClick={onContact}
+              <motion.a
+                href="/omnifollowup#demo"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.18, ease }}
                 className="inline-flex items-center gap-2.5 h-12 px-7 rounded-xl bg-gold-400 text-white text-[14px] font-semibold shadow-[0_0_40px_rgba(37,99,235,0.45),0_0_80px_rgba(14,165,233,0.18)] hover:bg-gold-500 transition-all"
               >
-                Book a Free Strategy Call
+                Book a Demo
                 <ArrowRight className="w-4 h-4" />
-              </motion.button>
+              </motion.a>
               <motion.a
-                href="/services/web-design"
+                href={APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.02, y: -1 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.18, ease }}
                 className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-white/[0.05] border border-white/[0.14] text-ink-1 text-[14px] font-medium hover:bg-white/[0.09] hover:text-ink-0 hover:border-white/[0.22] transition-all"
               >
-                View Our Work
+                Client Login
                 <ArrowRight className="w-3.5 h-3.5 opacity-50" />
               </motion.a>
             </motion.div>
@@ -162,9 +164,9 @@ function Hero({ onContact }: { onContact: () => void }) {
               transition={{ duration: 0.5, delay: 0.6 }}
             >
               {[
-                'No long-term contracts',
-                '100% client ownership',
-                '~1 week to launch',
+                'Works with your existing tools',
+                'No workflow replacement',
+                'Setup in days',
               ].map((t, i) => (
                 <span key={t} className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-gold-300/70 shrink-0" />
@@ -196,8 +198,8 @@ function Hero({ onContact }: { onContact: () => void }) {
               {/* Header */}
               <div className="relative z-10 px-6 py-4 border-b border-white/[0.06] flex items-center justify-between">
                 <div>
-                  <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-ink-3">Campaign Dashboard</p>
-                  <p className="text-[10px] text-ink-3/40 mt-0.5">OmniGrid Digital · Q2 2025</p>
+                  <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-ink-3">OmniFollowUp Dashboard</p>
+                  <p className="text-[10px] text-ink-3/40 mt-0.5">Estimate Pipeline · This Month</p>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#22c55e]/[0.12] border border-[#22c55e]/[0.22]">
                   <span className="relative flex h-1.5 w-1.5">
@@ -241,8 +243,8 @@ function Hero({ onContact }: { onContact: () => void }) {
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {[
-                    { label: 'Cost Per Lead', value: '$12',  delta: '-22%' },
-                    { label: 'ROAS',          value: '5.8×', delta: '+0.4' },
+                    { label: 'Avg. Response Time', value: '2.4h', delta: '-38%' },
+                    { label: 'Win Rate',           value: '61%',  delta: '+14%' },
                   ].map((m) => (
                     <div key={m.label} className="bg-white/[0.03] rounded-lg p-3 border border-white/[0.04]">
                       <p className="text-[9.5px] text-ink-3 mb-1">{m.label}</p>
@@ -295,16 +297,16 @@ function Hero({ onContact }: { onContact: () => void }) {
   )
 }
 
-// ─── FollowupQuote Spotlight ────────────────────────────────────────────────────
-const FOLLOWUPQUOTE_POINTS = [
+// ─── OmniFollowUp Spotlight ────────────────────────────────────────────────────
+const OMNIFOLLOWUP_POINTS = [
   { title: 'Win More Jobs',                    body: 'Estimates that get a timely follow-up close at a much higher rate than ones left to go cold.',        icon: TrendingUp   },
   { title: 'Never Forget an Estimate',         body: 'Every quote you send is tracked automatically, so nothing slips through the cracks.',                  icon: CalendarClock },
   { title: 'Automate Follow-Up',               body: 'Follow-up messages are drafted for you and ready to send — no more chasing manually.',                  icon: RefreshCcw   },
-  { title: 'Works With Your Existing Process', body: 'FollowupQuote fits around the estimating tools you already use — nothing to switch, nothing to learn.', icon: PlugZap      },
+  { title: 'Works With Your Existing Process', body: 'OmniFollowUp fits around the estimating tools you already use — nothing to switch, nothing to learn.', icon: PlugZap      },
   { title: 'No Workflow Replacement',          body: "It's an add-on to how your business already runs, not a new system to manage.",                        icon: Workflow     },
 ]
 
-function FollowUpQuoteSpotlight() {
+function OmniFollowUpSpotlight() {
   return (
     <section className="py-[120px] border-t border-white/[0.06] relative overflow-hidden">
       <div
@@ -335,12 +337,12 @@ function FollowUpQuoteSpotlight() {
               Estimate Follow-Up<br />Automation.
             </h2>
             <p className="text-[16.5px] text-ink-2 leading-[1.8] mb-8">
-              FollowupQuote automates your estimate follow-up so you win more jobs — without replacing the tools or process you already use.
+              OmniFollowUp automates your estimate follow-up so you win more jobs — without replacing the tools or process you already use.
             </p>
 
             <div className="flex items-center gap-3 flex-wrap">
               <motion.a
-                href="/followupquote"
+                href="/omnifollowup"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.18, ease }}
@@ -350,7 +352,7 @@ function FollowUpQuoteSpotlight() {
                 <ArrowRight className="w-3.5 h-3.5" />
               </motion.a>
               <motion.a
-                href="/followupquote#demo"
+                href="/omnifollowup#demo"
                 whileHover={{ scale: 1.02, y: -1 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.18, ease }}
@@ -366,14 +368,14 @@ function FollowUpQuoteSpotlight() {
             initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
             variants={staggerContainer(0.1, 0.05)}
           >
-            {FOLLOWUPQUOTE_POINTS.map((item, i) => {
+            {OMNIFOLLOWUP_POINTS.map((item, i) => {
               const Icon = item.icon
               return (
                 <motion.div
                   key={item.title}
                   variants={{ hidden: { opacity: 0, x: 28 }, show: { opacity: 1, x: 0 } }}
                   transition={{ duration: 0.6, ease }}
-                  className={cn('py-7 group relative', i < FOLLOWUPQUOTE_POINTS.length - 1 && 'border-b border-white/[0.06]')}
+                  className={cn('py-7 group relative', i < OMNIFOLLOWUP_POINTS.length - 1 && 'border-b border-white/[0.06]')}
                 >
                   <div className="flex items-start gap-5">
                     <div className={cn(
@@ -427,9 +429,9 @@ const SERVICES = [
   },
   {
     number: '03',
-    title: 'FollowupQuote — Estimate Automation',
-    href: '/followupquote',
-    body: 'We help local service businesses automate estimate follow-up without changing the tools or workflow they already use.',
+    title: 'OmniFollowUp — Estimate Automation',
+    href: '/omnifollowup',
+    body: 'OmniFollowUp helps local service businesses automatically track, follow up, and convert more estimates into booked jobs — without changing their existing workflow.',
     icon: BrainCircuit,
     stat: 'New',
     statLabel: 'Flagship Product',
@@ -1260,7 +1262,7 @@ const FOOTER_LINKS: Record<string, { label: string; href: string; external?: boo
   Services: [
     { label: 'Web Design',     href: '/services/web-design' },
     { label: 'Paid Ads',       href: '/services/paid-ads'   },
-    { label: 'FollowupQuote',  href: '/followupquote'       },
+    { label: 'OmniFollowUp',   href: '/omnifollowup'        },
   ],
   Company: [
     { label: 'Team',    href: '#team'    },
