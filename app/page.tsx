@@ -31,7 +31,11 @@ const heading = 'font-[family-name:var(--font-heading)]'
 
 export default function Home() {
   const [showContact, setShowContact] = useState(false)
-  const openContact = () => setShowContact(true)
+  const [contactService, setContactService] = useState('')
+  const openContact = (service?: string) => {
+    setContactService(service ?? '')
+    setShowContact(true)
+  }
 
   return (
     <>
@@ -47,7 +51,7 @@ export default function Home() {
       </main>
       <Footer />
       <AnimatePresence>
-        {showContact && <ContactModal onClose={() => setShowContact(false)} />}
+        {showContact && <ContactModal onClose={() => setShowContact(false)} defaultService={contactService} />}
       </AnimatePresence>
     </>
   )
@@ -722,6 +726,7 @@ const PLANS = [
     tagline: 'Premium custom website designed to establish credibility and prepare for growth.',
     customNote: 'Every build is scoped and fully customized after a free discovery call.',
     cta: 'Launch My Project',
+    service: 'Launch — Build Your Digital Foundation',
     featured: false,
     badge: '',
     inherit: null,
@@ -744,6 +749,7 @@ const PLANS = [
     tagline: 'Turn your website into a lead generation and automation system with AI-powered marketing and optimization.',
     customNote: 'All solutions are fully customized after a discovery call.',
     cta: 'Start Scaling My Business',
+    service: 'Grow — AI-Powered Growth System',
     featured: true,
     badge: 'Most Popular',
     inherit: 'Everything in Launch, plus:',
@@ -752,7 +758,7 @@ const PLANS = [
       'Funnel & Landing Page Optimization',
       'Multi-Platform Ad Management',
       'AI Lead Qualification',
-      'Automated Follow-Ups (Email/SMS/CRM)',
+      'Automated Email Follow-Ups & Lead Tracking',
       'Conversion Tracking & Analytics',
       'A/B Testing & Optimization',
       'Growth Dashboards',
@@ -767,6 +773,7 @@ const PLANS = [
     tagline: 'Advanced custom software, AI agents, and automation systems built around your business operations.',
     customNote: 'All builds are fully tailored to your business requirements.',
     cta: 'Book a Discovery Call',
+    service: 'Transform — Custom AI & Software Systems',
     featured: false,
     badge: '',
     inherit: 'Everything in Grow, plus:',
@@ -832,7 +839,7 @@ const FAQS = [
   },
 ]
 
-function Pricing({ onContact }: { onContact: () => void }) {
+function Pricing({ onContact }: { onContact: (service?: string) => void }) {
   const [showCompare, setShowCompare] = useState(false)
 
   return (
@@ -970,7 +977,7 @@ function Pricing({ onContact }: { onContact: () => void }) {
                   </ul>
 
                   <motion.button
-                    onClick={onContact}
+                    onClick={() => onContact(plan.service)}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.15 }}
@@ -1058,7 +1065,7 @@ function Pricing({ onContact }: { onContact: () => void }) {
             </p>
             <div className="flex items-center justify-center gap-3 flex-wrap">
               <motion.button
-                onClick={onContact}
+                onClick={() => onContact()}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.18, ease }}
@@ -1068,7 +1075,7 @@ function Pricing({ onContact }: { onContact: () => void }) {
                 Book Free Consultation
               </motion.button>
               <motion.button
-                onClick={onContact}
+                onClick={() => onContact()}
                 whileHover={{ scale: 1.02, y: -1 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.18, ease }}
@@ -1213,7 +1220,7 @@ function ComparePlansModal({ onClose }: { onClose: () => void }) {
 }
 
 // ─── Contact Modal ────────────────────────────────────────────────────────────
-function ContactModal({ onClose }: { onClose: () => void }) {
+function ContactModal({ onClose, defaultService }: { onClose: () => void; defaultService?: string }) {
   return (
     <motion.div
       className="fixed inset-0 z-[60] flex items-center justify-center p-4"
@@ -1250,7 +1257,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
         </div>
 
         <div className="px-8 py-7 overflow-y-auto">
-          <ContactForm />
+          <ContactForm defaultService={defaultService} />
         </div>
       </motion.div>
     </motion.div>
