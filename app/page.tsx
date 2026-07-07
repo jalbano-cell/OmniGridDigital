@@ -107,7 +107,7 @@ function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-300 opacity-60" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-gold-300" />
               </span>
-              <span className="text-[11.5px] font-medium tracking-[0.02em] text-gold-300">AI Automation Agency</span>
+              <span className="text-[11.5px] font-medium tracking-[0.02em] text-gold-300">Digital Marketing Agency&nbsp;&nbsp;•&nbsp;&nbsp;Toronto &amp; GTA</span>
             </motion.div>
 
             <motion.h1
