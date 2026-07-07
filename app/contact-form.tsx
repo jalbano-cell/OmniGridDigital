@@ -126,7 +126,6 @@ export default function ContactForm({ defaultService = '', submitLabel = 'Get a 
             <option>Launch — Build Your Digital Foundation</option>
             <option>Grow — AI-Powered Growth System</option>
             <option>Transform — Custom AI &amp; Software Systems</option>
-            <option>OmniFollowUp — Book a Demo</option>
             <option>Not Sure Yet — Book a Discovery Call</option>
           </select>
           <span

@@ -2,8 +2,6 @@
 
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils'
-import { APP_URL } from '@/lib/config'
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -16,7 +14,6 @@ const LINKS = [
 
 export function Nav() {
   const pathname = usePathname()
-  const isOmniFollowUp = pathname === '/omnifollowup'
   const base = pathname === '/' ? '' : '/'
 
   return (
@@ -53,35 +50,17 @@ export function Nav() {
               {label}
             </a>
           ))}
-          <a
-            href="/omnifollowup"
-            className={cn(
-              'text-[13.5px] font-medium px-3.5 py-1.5 rounded-lg transition-colors hover:text-ink-0 hover:bg-white/[0.06]',
-              isOmniFollowUp ? 'text-ink-0 bg-white/[0.06]' : 'text-ink-2'
-            )}
-          >
-            OmniFollowUp
-          </a>
         </nav>
 
         <div className="shrink-0 flex items-center gap-4">
-          <a
-            href={APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[13px] font-medium text-ink-2 transition-colors hover:text-ink-0 max-sm:hidden"
-          >
-            Client Login
-          </a>
-
           <motion.a
-            href={isOmniFollowUp ? '#demo' : `${base}#contact`}
+            href={`${base}#contact`}
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.18, ease }}
             className="inline-flex items-center justify-center h-9 px-5 rounded-lg bg-gold-400 text-white text-[13px] font-semibold transition-all hover:bg-gold-500 shadow-[0_0_24px_rgba(37,99,235,0.55),0_0_48px_rgba(14,165,233,0.20)]"
           >
-            {isOmniFollowUp ? 'Book a Demo' : 'Book a Free Call'}
+            Book a Free Call
           </motion.a>
         </div>
       </div>

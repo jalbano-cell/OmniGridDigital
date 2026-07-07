@@ -6,9 +6,8 @@ import dynamic from 'next/dynamic'
 import ContactForm from './contact-form'
 import { Nav } from '@/components/nav'
 import { FaqItem } from '@/components/faq-item'
-import { APP_URL } from '@/lib/config'
 import { cn } from '@/lib/utils'
-import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, Phone, FileText, MapPin, ShieldCheck, LayoutGrid, BrainCircuit, CalendarClock, RefreshCcw, PlugZap, Workflow } from 'lucide-react'
+import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, Phone, FileText, MapPin, ShieldCheck, LayoutGrid, BrainCircuit } from 'lucide-react'
 
 const Globe          = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
 import { GalaxyBackground } from './galaxy-background'
@@ -43,7 +42,6 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <OmniFollowUpSpotlight />
         <Services />
         <WhyUs />
         <Pricing onContact={openContact} />
@@ -109,7 +107,7 @@ function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-300 opacity-60" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-gold-300" />
               </span>
-              <span className="text-[11.5px] font-medium tracking-[0.02em] text-gold-300">AI Automation Agency&nbsp;&nbsp;•&nbsp;&nbsp;Creators of OmniFollowUp</span>
+              <span className="text-[11.5px] font-medium tracking-[0.02em] text-gold-300">AI Automation Agency</span>
             </motion.div>
 
             <motion.h1
@@ -117,9 +115,9 @@ function Hero() {
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, ease, delay: 0.15 }}
             >
-              Never Lose Another Job<br />
+              Grow Your Business<br />
               <span className="bg-gradient-to-r from-gold-400 to-gold-300 bg-clip-text text-transparent">
-                After Sending an Estimate.
+                With AI-Powered Systems.
               </span>
             </motion.h1>
 
@@ -128,8 +126,8 @@ function Hero() {
               initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease, delay: 0.3 }}
             >
-              OmniFollowUp helps service businesses automatically follow up on every estimate and turn
-              more quotes into booked jobs — without changing how they already work.
+              We build websites, run ad campaigns, and design custom AI automations that help local
+              businesses win more customers — without adding to their workload.
             </motion.p>
 
             <motion.div
@@ -138,25 +136,23 @@ function Hero() {
               transition={{ duration: 0.5, ease, delay: 0.42 }}
             >
               <motion.a
-                href="/omnifollowup#demo"
+                href="#contact"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.18, ease }}
                 className="inline-flex items-center gap-2.5 h-12 px-7 rounded-xl bg-gold-400 text-white text-[14px] font-semibold shadow-[0_0_40px_rgba(37,99,235,0.45),0_0_80px_rgba(14,165,233,0.18)] hover:bg-gold-500 transition-all"
               >
-                Book a Demo
+                Book a Free Call
                 <ArrowRight className="w-4 h-4" />
               </motion.a>
               <motion.a
-                href={APP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#services"
                 whileHover={{ scale: 1.02, y: -1 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.18, ease }}
                 className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-white/[0.05] border border-white/[0.14] text-ink-1 text-[14px] font-medium hover:bg-white/[0.09] hover:text-ink-0 hover:border-white/[0.22] transition-all"
               >
-                Client Login
+                See Our Services
                 <ArrowRight className="w-3.5 h-3.5 opacity-50" />
               </motion.a>
             </motion.div>
@@ -168,8 +164,8 @@ function Hero() {
               transition={{ duration: 0.5, delay: 0.6 }}
             >
               {[
-                'Works with your existing tools',
-                'No workflow replacement',
+                'Local business focus',
+                'No long-term contracts',
                 'Setup in days',
               ].map((t, i) => (
                 <span key={t} className="flex items-center gap-1.5">
@@ -202,8 +198,8 @@ function Hero() {
               {/* Header */}
               <div className="relative z-10 px-6 py-4 border-b border-white/[0.06] flex items-center justify-between">
                 <div>
-                  <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-ink-3">OmniFollowUp Dashboard</p>
-                  <p className="text-[10px] text-ink-3/40 mt-0.5">Estimate Pipeline · This Month</p>
+                  <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-ink-3">AI Automation Dashboard</p>
+                  <p className="text-[10px] text-ink-3/40 mt-0.5">Growth Pipeline · This Month</p>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#22c55e]/[0.12] border border-[#22c55e]/[0.22]">
                   <span className="relative flex h-1.5 w-1.5">
@@ -301,112 +297,6 @@ function Hero() {
   )
 }
 
-// ─── OmniFollowUp Spotlight ────────────────────────────────────────────────────
-const OMNIFOLLOWUP_POINTS = [
-  { title: 'Win More Jobs',                    body: 'Estimates that get a timely follow-up close at a much higher rate than ones left to go cold.',        icon: TrendingUp   },
-  { title: 'Never Forget an Estimate',         body: 'Every quote you send is tracked automatically, so nothing slips through the cracks.',                  icon: CalendarClock },
-  { title: 'Automate Follow-Up',               body: 'Follow-up messages are drafted for you and ready to send — no more chasing manually.',                  icon: RefreshCcw   },
-  { title: 'Works With Your Existing Process', body: 'OmniFollowUp fits around the estimating tools you already use — nothing to switch, nothing to learn.', icon: PlugZap      },
-  { title: 'No Workflow Replacement',          body: "It's an add-on to how your business already runs, not a new system to manage.",                        icon: Workflow     },
-]
-
-function OmniFollowUpSpotlight() {
-  return (
-    <section className="py-[120px] border-t border-white/[0.06] relative overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.038) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-      />
-      <div className="absolute top-[10%] left-[-10%] w-[650px] h-[650px] rounded-full bg-gold-400/[0.05] blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-[0%] right-[-8%] w-[600px] h-[600px] rounded-full bg-[#2563EB]/[0.06] blur-[130px] pointer-events-none" />
-
-      <div className="max-w-[1200px] mx-auto px-8 relative z-10">
-        <div className="grid grid-cols-[360px_1fr] gap-20 items-start max-lg:grid-cols-1 max-lg:gap-12">
-
-          <motion.div
-            className="sticky top-[calc(68px+32px)] max-lg:static"
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease }}
-          >
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-6 h-px bg-gold-300/50" />
-              <p className="text-[11.5px] font-semibold tracking-[0.15em] uppercase text-gold-300">Flagship Product</p>
-            </div>
-            <h2 className={cn('text-[clamp(32px,4.5vw,50px)] font-bold leading-[1.08] tracking-[-0.03em] text-ink-0 mb-5', heading)}>
-              Estimate Follow-Up<br />Automation.
-            </h2>
-            <p className="text-[16.5px] text-ink-2 leading-[1.8] mb-8">
-              OmniFollowUp automates your estimate follow-up so you win more jobs — without replacing the tools or process you already use.
-            </p>
-
-            <div className="flex items-center gap-3 flex-wrap">
-              <motion.a
-                href="/omnifollowup"
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ duration: 0.18, ease }}
-                className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-gold-400 text-white text-[13.5px] font-semibold hover:bg-gold-500 transition-all shadow-[0_0_28px_rgba(37,99,235,0.40)]"
-              >
-                See How It Works
-                <ArrowRight className="w-3.5 h-3.5" />
-              </motion.a>
-              <motion.a
-                href="/omnifollowup#demo"
-                whileHover={{ scale: 1.02, y: -1 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.18, ease }}
-                className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-white/[0.05] border border-white/[0.14] text-ink-1 text-[13.5px] font-medium hover:bg-white/[0.09] hover:text-ink-0 transition-all"
-              >
-                Book a Demo
-              </motion.a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="flex flex-col"
-            initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
-            variants={staggerContainer(0.1, 0.05)}
-          >
-            {OMNIFOLLOWUP_POINTS.map((item, i) => {
-              const Icon = item.icon
-              return (
-                <motion.div
-                  key={item.title}
-                  variants={{ hidden: { opacity: 0, x: 28 }, show: { opacity: 1, x: 0 } }}
-                  transition={{ duration: 0.6, ease }}
-                  className={cn('py-7 group relative', i < OMNIFOLLOWUP_POINTS.length - 1 && 'border-b border-white/[0.06]')}
-                >
-                  <div className="flex items-start gap-5">
-                    <div className={cn(
-                      'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-300 mt-0.5',
-                      'bg-gold-400/[0.09] border-gold-400/[0.16]',
-                      'group-hover:bg-gold-400/[0.20] group-hover:border-gold-400/[0.36] group-hover:shadow-[0_0_22px_rgba(234,179,8,0.16)]'
-                    )}>
-                      <Icon className="w-[18px] h-[18px] text-gold-400 transition-transform duration-300 group-hover:scale-110" strokeWidth={1.5} />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className={cn('text-[19px] font-semibold tracking-[-0.02em] text-ink-0 mb-2 group-hover:text-white transition-colors duration-200', heading)}>
-                        {item.title}
-                      </h3>
-                      <p className="text-[15px] text-ink-2 leading-[1.8]">{item.body}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </motion.div>
-
-        </div>
-      </div>
-    </section>
-  )
-}
-
 // ─── Services ─────────────────────────────────────────────────────────────────
 const SERVICES = [
   {
@@ -433,14 +323,14 @@ const SERVICES = [
   },
   {
     number: '03',
-    title: 'OmniFollowUp — Estimate Automation',
-    href: '/omnifollowup',
-    body: 'OmniFollowUp helps local service businesses automatically track, follow up, and convert more estimates into booked jobs — without changing their existing workflow.',
+    title: 'AI Business Integration',
+    href: '#contact',
+    body: 'Custom AI automations built around how your business already runs — from lead intake to follow-up to reporting, without replacing your existing tools.',
     icon: BrainCircuit,
     stat: 'New',
-    statLabel: 'Flagship Product',
-    features: ['Win More Jobs', 'Never Forget an Estimate', 'Automated Follow-Up Drafts', 'Works With Your Existing Tools', 'No Workflow Replacement'],
-    linkLabel: 'See How It Works',
+    statLabel: 'AI Automation',
+    features: ['Custom Workflow Automation', 'AI-Drafted Communications', 'Works With Your Existing Tools', 'No Workflow Replacement', 'Ongoing Optimization'],
+    linkLabel: 'Get Started',
   },
 ]
 
@@ -1267,9 +1157,9 @@ function ContactModal({ onClose, defaultService }: { onClose: () => void; defaul
 // ─── Footer ───────────────────────────────────────────────────────────────────
 const FOOTER_LINKS: Record<string, { label: string; href: string; external?: boolean }[]> = {
   Services: [
-    { label: 'Web Design',     href: '/services/web-design' },
-    { label: 'Paid Ads',       href: '/services/paid-ads'   },
-    { label: 'OmniFollowUp',   href: '/omnifollowup'        },
+    { label: 'Web Design',            href: '/services/web-design' },
+    { label: 'Paid Ads',              href: '/services/paid-ads'   },
+    { label: 'AI Business Integration', href: '#contact'           },
   ],
   Company: [
     { label: 'Team',    href: '#team'    },
@@ -1277,8 +1167,7 @@ const FOOTER_LINKS: Record<string, { label: string; href: string; external?: boo
     { label: 'Contact', href: '#contact' },
   ],
   Resources: [
-    { label: 'Free Audit',    href: '#contact' },
-    { label: 'Client Login',  href: APP_URL, external: true },
+    { label: 'Free Audit', href: '#contact' },
   ],
 }
 

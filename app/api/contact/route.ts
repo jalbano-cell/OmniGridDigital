@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
-import { submitToOmniFollowUp, OmniFollowUpApiError } from '@/lib/omnifollowup'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const TO = 'zaink@omnigriddigital.ca'
@@ -66,30 +65,21 @@ export async function POST(req: NextRequest) {
     </div>
   `
 
-  // Gmail notification is now a best-effort backup channel — OmniFollowUp (below) is
-  // the system of record, so a Gmail failure alone should not fail the submission.
-  const emailBackup = transporter
-    .sendMail({
+  try {
+    await transporter.sendMail({
       from: `"OmniGrid Digital Website" <${process.env.SMTP_USER}>`,
       to: TO,
       replyTo: `"${name}" <${email}>`,
       subject: `Audit Request — ${name} @ ${business} (${service})`,
       html,
     })
-    .catch((err) => console.error('[contact] email backup failed:', err))
-
-  try {
-    await submitToOmniFollowUp({ name, email, phone, company: business, service, message })
   } catch (err) {
-    console.error('[contact] OmniFollowUp intake failed:', err)
-    await emailBackup
-    const error =
-      err instanceof OmniFollowUpApiError
-        ? err.message
-        : 'Could not submit your request. Please try again or contact us directly.'
-    return NextResponse.json({ error }, { status: 502 })
+    console.error('[contact] email send failed:', err)
+    return NextResponse.json(
+      { error: 'Could not submit your request. Please try again or contact us directly.' },
+      { status: 502 }
+    )
   }
 
-  await emailBackup
   return NextResponse.json({ ok: true })
 }
