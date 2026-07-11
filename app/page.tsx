@@ -7,7 +7,7 @@ import ContactForm from './contact-form'
 import { Nav } from '@/components/nav'
 import { FaqItem } from '@/components/faq-item'
 import { cn } from '@/lib/utils'
-import { ArrowRight, X, TrendingUp, Globe2, Zap, BarChart3, CheckCircle2, Check, Minus, Phone, FileText, MapPin, ShieldCheck, LayoutGrid, BrainCircuit } from 'lucide-react'
+import { ArrowRight, X, TrendingUp, Globe2, BarChart3, CheckCircle2, Check, Minus, Phone, FileText, MapPin, ShieldCheck, LayoutGrid, BrainCircuit } from 'lucide-react'
 
 const Globe          = dynamic(() => import('./globe').then(m => m.Globe), { ssr: false })
 import { GalaxyBackground } from './galaxy-background'
@@ -61,17 +61,23 @@ function PageBackground() {
 }
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
+// Echoes 2 of the 3 dashboard stats above (same pattern as before) plus two
+// new facts pulled from the PLANS pricing cards: Grow's "Most Popular" badge,
+// and the shared "fully customized / fully tailored" language across all 3 tiers.
 const FLOAT_CARDS = [
-  { label: '+18 Jobs',    sub: 'Won This Month',  icon: TrendingUp,   color: 'text-gold-300',  bg: 'bg-gold-400/[0.12] border-gold-400/[0.18]'  },
-  { label: '82%',         sub: 'Follow-Up Rate',  icon: BarChart3,    color: 'text-gold-400',  bg: 'bg-gold-400/[0.12] border-gold-400/[0.18]'  },
-  { label: 'Auto',        sub: 'AI-Drafted',      icon: Zap,          color: 'text-[#60A5FA]', bg: 'bg-[#3B82F6]/[0.12] border-[#3B82F6]/[0.20]' },
-  { label: '+40%',        sub: 'Close Rate',      icon: CheckCircle2, color: 'text-[#86EFAC]', bg: 'bg-[#22c55e]/[0.10] border-[#22c55e]/[0.18]' },
+  { label: '3',           sub: 'Growth Tiers',    icon: LayoutGrid,   color: 'text-gold-300',  bg: 'bg-gold-400/[0.12] border-gold-400/[0.18]'  },
+  { label: '25',          sub: 'Total Features',  icon: CheckCircle2, color: 'text-gold-400',  bg: 'bg-gold-400/[0.12] border-gold-400/[0.18]'  },
+  { label: 'Grow',        sub: 'Most Popular',    icon: TrendingUp,   color: 'text-[#60A5FA]', bg: 'bg-[#3B82F6]/[0.12] border-[#3B82F6]/[0.20]' },
+  { label: '100%',        sub: 'Custom Scoped',   icon: ShieldCheck,  color: 'text-[#86EFAC]', bg: 'bg-[#22c55e]/[0.10] border-[#22c55e]/[0.18]' },
 ]
 
+// Derived from the PLANS pricing cards below: 3 tiers (Launch/Grow/Transform),
+// 25 total features across all tiers (8 + 9 + 8), 17 features included by
+// Grow — the "Most Popular" tier (8 inherited from Launch + 9 of its own).
 const DASHBOARD_STATS = [
-  { label: 'Follow-Up Rate', value: '82%',   pct: 82, colorFrom: 'from-gold-400',   colorTo: 'to-gold-300',    icon: TrendingUp,   iconColor: 'text-gold-300'  },
-  { label: 'Jobs Won',       value: '18',    pct: 92, colorFrom: 'from-[#60A5FA]',  colorTo: 'to-[#3B82F6]',  icon: BarChart3,    iconColor: 'text-[#60A5FA]' },
-  { label: 'Estimates Open', value: '6',     pct: 40, colorFrom: 'from-[#C084FC]',  colorTo: 'to-[#7C3AED]',  icon: CheckCircle2, iconColor: 'text-[#C084FC]' },
+  { label: 'Growth Tiers',      value: '3',  pct: 100, colorFrom: 'from-gold-400',   colorTo: 'to-gold-300',   icon: LayoutGrid,   iconColor: 'text-gold-300'  },
+  { label: 'Total Features',    value: '25', pct: 92,  colorFrom: 'from-[#60A5FA]',  colorTo: 'to-[#3B82F6]',  icon: CheckCircle2, iconColor: 'text-[#60A5FA]' },
+  { label: 'Grow Tier Includes',value: '17', pct: 68,  colorFrom: 'from-[#C084FC]',  colorTo: 'to-[#7C3AED]',  icon: TrendingUp,   iconColor: 'text-[#C084FC]' },
 ]
 
 function Hero() {
@@ -238,13 +244,13 @@ function Hero() {
               <div className="relative z-10 px-6 pb-5">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex-1 h-px bg-white/[0.05]" />
-                  <span className="text-[9px] text-ink-3/35 uppercase tracking-wider">Updated 2m ago</span>
+                  <span className="text-[9px] text-ink-3/35 uppercase tracking-wider">Plan Breakdown</span>
                   <div className="flex-1 h-px bg-white/[0.05]" />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {[
-                    { label: 'Avg. Response Time', value: '2.4h', delta: '-38%' },
-                    { label: 'Win Rate',           value: '61%',  delta: '+14%' },
+                    { label: 'Launch Tier',    value: '8', delta: 'Core Features' },
+                    { label: 'Transform Tier', value: '8', delta: 'New Features' },
                   ].map((m) => (
                     <div key={m.label} className="bg-white/[0.03] rounded-lg p-3 border border-white/[0.04]">
                       <p className="text-[9.5px] text-ink-3 mb-1">{m.label}</p>
